@@ -1,0 +1,3879 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>สภานักเรียนโรงเรียนบ้านไผ่</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --plum-950: #14081f;
+  --plum-900: #241238;
+  --plum-850: #2f1749;
+  --plum-800: #3a1d5c;
+  --plum-700: #4b2478;
+  --plum-600: #5e2d96;
+  --plum-500: #7a3fb8;
+  --plum-400: #9a63d1;
+  --plum-300: #b98de0;
+  --plum-200: #d7b8ef;
+  --plum-100: #eee0f8;
+  --plum-50: #f8f2fc;
+  --ink: #1a1028;
+  --muted: #6f5f82;
+  --line: rgba(94, 45, 150, 0.14);
+  --white: #ffffff;
+  --paper: #fcfaff;
+  --gold: #c9a24a;
+  --gold-soft: #f0df9a;
+  --success: #0f8a62;
+  --warning: #c97812;
+  --danger: #c23b3b;
+  --info: #2f6fed;
+  --shadow: 0 10px 40px rgba(36, 18, 56, 0.1);
+  --shadow-lg: 0 24px 60px rgba(36, 18, 56, 0.16);
+  --shadow-glow: 0 12px 40px rgba(94, 45, 150, 0.28);
+  --radius: 22px;
+  --radius-sm: 14px;
+  --nav-h: 72px;
+  --sidebar-w: 280px;
+  --font-display: 'Prompt', sans-serif;
+  --font-body: 'Sarabun', sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* aliases for existing JS-generated class names */
+  --purple-950: var(--plum-950);
+  --purple-900: var(--plum-900);
+  --purple-800: var(--plum-800);
+  --purple-700: var(--plum-700);
+  --purple-600: var(--plum-600);
+  --purple-500: var(--plum-500);
+  --purple-400: var(--plum-400);
+  --purple-300: var(--plum-300);
+  --purple-200: var(--plum-200);
+  --purple-100: var(--plum-100);
+  --purple-50: var(--plum-50);
+  --off-white: var(--paper);
+  --text: var(--ink);
+  --text-muted: var(--muted);
+  --border: var(--line);
+  --gold-soft: #f0df9a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: #2a1444; }
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(154, 99, 209, 0.16), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(201, 162, 74, 0.1), transparent 45%),
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 40%, #f3eafb 100%);
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+html:has(body.login-page) { background: #2a1444; height: 100%; overflow: hidden; }
+body.login-page {
+  height: 100dvh;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  background-color: #2a1444;
+  background-attachment: fixed;
+}
+body:not(.login-page) {
+  background:
+    radial-gradient(900px 400px at 100% 0%, rgba(154, 99, 209, 0.08), transparent 50%),
+    linear-gradient(180deg, #f7f1fc 0%, #fbf8fe 45%, #f4ecfa 100%);
+}
+html:has(body:not(.login-page)) { background: #f7f1fc; overflow: auto; }
+
+h1, h2, h3, h4, h5, h6, .brand, .display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+a { color: var(--plum-600); text-decoration: none; transition: color .2s; }
+a:hover { color: var(--plum-800); }
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; border: none; background: none; }
+
+.container { width: min(1120px, 92%); margin-inline: auto; }
+.muted { color: var(--muted); }
+.text-center { text-align: center; }
+.mt-1 { margin-top: .5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 1rem; }
+.gap-2 { gap: 1rem; }
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.35rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.35rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; }
+@media (max-width: 960px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .78rem 1.35rem; border-radius: 999px;
+  font-family: var(--font-display); font-weight: 600; font-size: .93rem;
+  transition: transform .22s var(--ease), box-shadow .22s var(--ease), background .22s, filter .22s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn-primary {
+  background: linear-gradient(135deg, #6b34a8 0%, #4b2478 55%, #3a1d5c 100%);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.btn-primary:hover { color: #fff; filter: brightness(1.06); box-shadow: 0 16px 44px rgba(94, 45, 150, 0.38); }
+.btn-outline {
+  border: 1.5px solid rgba(94, 45, 150, 0.35);
+  color: var(--plum-700);
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(8px);
+}
+.btn-outline:hover { background: var(--plum-50); color: var(--plum-800); border-color: var(--plum-500); }
+.btn-ghost { color: var(--plum-700); background: rgba(238, 224, 248, 0.85); }
+.btn-ghost:hover { background: var(--plum-200); }
+.btn-danger { background: linear-gradient(135deg, #d95555, #b83232); color: #fff; }
+.btn-success { background: linear-gradient(135deg, #1caa78, #0f8a62); color: #fff; }
+.btn-sm { padding: .45rem .95rem; font-size: .84rem; }
+.btn-block { width: 100%; }
+
+/* Forms */
+.form-group { margin-bottom: 1rem; }
+.form-group label {
+  display: block; font-weight: 600; margin-bottom: .4rem;
+  font-size: .9rem; color: var(--plum-900); font-family: var(--font-display);
+}
+.form-control {
+  width: 100%; padding: .78rem 1.05rem;
+  border: 1.5px solid rgba(94, 45, 150, 0.16);
+  border-radius: 14px; background: rgba(255,255,255,.92); color: var(--ink);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.form-control:focus {
+  outline: none; border-color: var(--plum-400);
+  box-shadow: 0 0 0 4px rgba(122, 63, 184, 0.14);
+  background: #fff;
+}
+textarea.form-control { min-height: 108px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+/* Badges */
+.badge {
+  display: inline-flex; align-items: center; padding: .28rem .7rem;
+  border-radius: 999px; font-size: .76rem; font-weight: 600;
+  font-family: var(--font-display); letter-spacing: .01em;
+}
+.badge-purple { background: linear-gradient(135deg, #efe3f9, #e4d0f4); color: var(--plum-800); }
+.badge-success { background: #d9f5ea; color: #0b5f44; }
+.badge-warning { background: #fff1d6; color: #8a5608; }
+.badge-danger { background: #ffe1e1; color: #8f2424; }
+.badge-info { background: #e3edff; color: #1e4db0; }
+.badge-gold { background: linear-gradient(135deg, #fff4c8, #f5e4a0); color: #7a5a10; border: 1px solid rgba(201,162,74,.35); }
+
+/* Panels */
+.panel {
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: var(--radius);
+  padding: 1.45rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.panel::before {
+  content: '';
+  position: absolute; inset: 0 0 auto 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.9), transparent);
+}
+.panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.15rem; flex-wrap: wrap;
+}
+.panel-header h2, .panel-header h3 {
+  font-size: 1.12rem; color: var(--plum-900);
+  position: relative; padding-left: .75rem;
+}
+.panel-header h2::before, .panel-header h3::before {
+  content: '';
+  position: absolute; left: 0; top: .2em; bottom: .2em; width: 3px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, var(--gold), var(--plum-500));
+}
+
+.stat-card {
+  background: linear-gradient(160deg, rgba(255,255,255,.95), rgba(248,242,252,.9));
+  border: 1px solid rgba(94, 45, 150, 0.1);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.3rem 1.25rem;
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .28s var(--ease), box-shadow .28s;
+}
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--plum-600), var(--plum-400), var(--gold));
+}
+.stat-card::after {
+  content: '';
+  position: absolute; width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(154, 99, 209, 0.14), transparent 70%);
+  right: -30px; bottom: -40px; pointer-events: none;
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.stat-card .label { font-size: .84rem; color: var(--muted); font-weight: 600; font-family: var(--font-display); }
+.stat-card .value {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+  color: var(--plum-800); margin-top: .3rem; letter-spacing: -0.03em;
+}
+.stat-card .trend { font-size: .8rem; margin-top: .4rem; font-weight: 600; }
+.trend.up { color: var(--success); }
+.trend.down { color: var(--danger); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border-radius: 14px; }
+table.data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .92rem; }
+table.data-table th, table.data-table td {
+  padding: .85rem .9rem; text-align: left; border-bottom: 1px solid rgba(94, 45, 150, 0.1);
+}
+table.data-table th {
+  font-family: var(--font-display); font-weight: 600; color: var(--plum-800);
+  background: linear-gradient(180deg, #f7eefc, #f3e8fa); white-space: nowrap;
+}
+table.data-table th:first-child { border-radius: 12px 0 0 0; }
+table.data-table th:last-child { border-radius: 0 12px 0 0; }
+table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
+
+/* Tabs */
+.tabs {
+  display: flex; gap: .4rem; flex-wrap: wrap;
+  border-bottom: 2px solid rgba(94, 45, 150, 0.1); margin-bottom: 1.25rem;
+}
+.tab-btn {
+  padding: .7rem 1.15rem; font-family: var(--font-display); font-weight: 600;
+  color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px;
+  border-radius: 12px 12px 0 0; transition: all .2s;
+}
+.tab-btn:hover { color: var(--plum-700); background: rgba(238, 224, 248, 0.5); }
+.tab-btn.active {
+  color: var(--plum-700); border-bottom-color: var(--plum-600);
+  background: linear-gradient(180deg, rgba(238,224,248,.7), transparent);
+}
+.tab-panel { display: none; animation: rise .4s var(--ease); }
+.tab-panel.active { display: block; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-14px) scale(1.03); }
+}
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+@keyframes spinSoft {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes goldShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes beamSweep {
+  0%, 100% { opacity: .35; transform: translateX(-8%) rotate(12deg); }
+  50% { opacity: .7; transform: translateX(8%) rotate(12deg); }
+}
+@keyframes cardSheen {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%) skewX(-18deg); }
+}
+
+/* Toast / Modal */
+.toast-wrap {
+  position: fixed; top: 1.1rem; right: 1.1rem; z-index: 9999;
+  display: flex; flex-direction: column; gap: .55rem;
+}
+.toast {
+  background: linear-gradient(135deg, var(--plum-900), var(--plum-700));
+  color: #fff; padding: .95rem 1.25rem; border-radius: 16px;
+  box-shadow: var(--shadow-lg); animation: rise .3s var(--ease);
+  max-width: 340px; font-size: .92rem; border: 1px solid rgba(255,255,255,.1);
+}
+.toast.success { background: linear-gradient(135deg, #0f8a62, #14a574); }
+.toast.error { background: linear-gradient(135deg, #b83232, #d95555); }
+
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9000; display: none;
+  align-items: center; justify-content: center; padding: 1rem;
+  background: rgba(20, 8, 31, 0.55); backdrop-filter: blur(8px);
+}
+.modal-overlay.open { display: flex; animation: fadeIn .2s; }
+.modal {
+  background: linear-gradient(180deg, #fff, #fbf7ff);
+  border-radius: 24px; width: min(520px, 100%); max-height: 90vh;
+  overflow-y: auto; padding: 1.7rem; box-shadow: var(--shadow-lg);
+  animation: rise .35s var(--ease); border: 1px solid rgba(255,255,255,.8);
+}
+.modal.modal-lg { width: min(880px, 100%); }
+.modal h3 { color: var(--plum-900); margin-bottom: 1rem; font-size: 1.25rem; }
+
+/* App shell */
+.app-shell { display: flex; min-height: 100vh; }
+.sidebar {
+  width: var(--sidebar-w);
+  background:
+    radial-gradient(500px 280px at 0% 0%, rgba(201, 162, 74, 0.18), transparent 55%),
+    linear-gradient(175deg, #2a1342 0%, #3a1d5c 42%, #4b2478 100%);
+  color: #fff; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100;
+  display: flex; flex-direction: column; padding: 1.35rem 1.05rem;
+  overflow-y: auto; border-right: 1px solid rgba(255,255,255,.06);
+}
+.sidebar .brand-block {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .55rem .7rem 1.3rem; border-bottom: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 1.1rem;
+}
+.sidebar .brand-mark {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #fff;
+  display: grid; place-items: center; flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(240, 223, 154, 0.55), 0 8px 20px rgba(0,0,0,.25);
+  overflow: hidden; padding: 3px;
+}
+.sidebar .brand-mark img {
+  width: 100%; height: 100%; object-fit: contain; border-radius: 50%;
+}
+.sidebar .brand-text { font-family: var(--font-display); font-weight: 700; font-size: .98rem; line-height: 1.3; }
+.sidebar .brand-text small { display: block; font-weight: 400; opacity: .72; font-size: .72rem; margin-top: .15rem; }
+
+.nav-list { list-style: none; flex: 1; }
+.nav-list a {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .78rem .9rem; color: rgba(255,255,255,.78); border-radius: 14px;
+  font-family: var(--font-display); font-weight: 500; font-size: .9rem;
+  margin-bottom: .28rem; transition: all .22s var(--ease);
+}
+.nav-list a:hover { background: rgba(255,255,255,.1); color: #fff; transform: translateX(3px); }
+.nav-list a.active {
+  background: linear-gradient(90deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+  color: #fff; box-shadow: inset 3px 0 0 var(--gold);
+}
+.nav-icon { width: 1.3rem; text-align: center; opacity: .95; font-size: 1.05rem; }
+
+/* Featured student menus — catch the eye on login */
+.nav-list a.nav-featured {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: .45rem 0;
+  padding: .9rem .95rem;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(201, 162, 74, 0.28), rgba(122, 63, 184, 0.35) 55%, rgba(255,255,255,0.08));
+  border: 1px solid rgba(240, 223, 154, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(201, 162, 74, 0.15),
+    0 8px 22px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255,255,255,.12);
+  animation: navFeaturePulse 2.4s ease-in-out infinite;
+}
+.nav-list a.nav-featured:hover {
+  transform: translateX(4px) scale(1.02);
+  border-color: rgba(240, 223, 154, 0.9);
+  background:
+    linear-gradient(135deg, rgba(201, 162, 74, 0.4), rgba(122, 63, 184, 0.45) 55%, rgba(255,255,255,0.12));
+  box-shadow: 0 10px 28px rgba(201, 162, 74, 0.28);
+}
+.nav-list a.nav-featured.active {
+  box-shadow:
+    inset 3px 0 0 #f0df9a,
+    0 0 0 1px rgba(240, 223, 154, 0.45),
+    0 10px 26px rgba(201, 162, 74, 0.3);
+  background:
+    linear-gradient(135deg, rgba(201, 162, 74, 0.45), rgba(94, 45, 150, 0.55));
+}
+.nav-list a.nav-featured .nav-icon {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 6px rgba(240, 223, 154, 0.65));
+}
+.nav-list a.nav-featured .nav-label {
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff7d1, #f0df9a 45%, #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #f0df9a;
+}
+.nav-hot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  width: 1.55rem;
+  height: 1.55rem;
+  padding: 0;
+  border-radius: 999px;
+  font-size: .85rem;
+  line-height: 1;
+  color: #5c3d0a;
+  background: linear-gradient(145deg, #fff7d6, #c9a24a);
+  box-shadow: 0 2px 10px rgba(201, 162, 74, 0.5), inset 0 1px 0 rgba(255,255,255,.55);
+  flex-shrink: 0;
+  animation: navHotTwinkle 1.8s ease-in-out infinite;
+}
+@keyframes navHotTwinkle {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.12); filter: brightness(1.15); }
+}
+@keyframes navFeaturePulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(201, 162, 74, 0.2), 0 8px 22px rgba(0,0,0,.22); }
+  50% { box-shadow: 0 0 0 2px rgba(240, 223, 154, 0.55), 0 10px 28px rgba(201, 162, 74, 0.35); }
+}
+@keyframes navFeaturePop {
+  0% { transform: scale(0.92) translateX(-6px); opacity: .4; }
+  60% { transform: scale(1.05) translateX(2px); opacity: 1; }
+  100% { transform: scale(1) translateX(0); opacity: 1; }
+}
+
+.sidebar-footer { border-top: 1px solid rgba(255,255,255,.1); padding-top: 1rem; margin-top: 1rem; }
+.user-chip { display: flex; align-items: center; gap: .7rem; padding: .55rem; margin-bottom: .8rem; }
+.user-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(145deg, var(--plum-400), var(--plum-600));
+  display: grid; place-items: center; font-family: var(--font-display);
+  font-weight: 700; font-size: .9rem; border: 2px solid rgba(255,255,255,.25);
+}
+.user-meta { font-size: .82rem; line-height: 1.3; opacity: .9; }
+.user-meta strong { display: block; font-size: .92rem; }
+
+.main-area { margin-left: var(--sidebar-w); flex: 1; min-width: 0; }
+.topbar {
+  height: var(--nav-h);
+  background: rgba(255,255,255,.72); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(94, 45, 150, 0.1);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.6rem; position: sticky; top: 0; z-index: 50;
+}
+.topbar h1 {
+  font-size: 1.28rem; color: var(--plum-900);
+  background: linear-gradient(135deg, var(--plum-900), var(--plum-600));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.page-content { padding: 1.65rem; animation: rise .45s var(--ease); }
+.menu-toggle {
+  display: none; width: 44px; height: 44px; border-radius: 14px;
+  background: var(--plum-100); color: var(--plum-800); font-size: 1.2rem;
+}
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-105%); transition: transform .32s var(--ease); }
+  .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+  .main-area { margin-left: 0; }
+  .menu-toggle { display: grid; place-items: center; }
+  .sidebar-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(20, 8, 31, .45); z-index: 90; backdrop-filter: blur(2px);
+  }
+  .sidebar-backdrop.open { display: block; }
+}
+
+/* ========== LOGIN ========== */
+.login-page {
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(240, 223, 154, 0.28), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 0% 25%, rgba(154, 99, 209, 0.4), transparent 60%),
+    radial-gradient(ellipse 45% 35% at 100% 40%, rgba(94, 45, 150, 0.45), transparent 55%),
+    radial-gradient(ellipse 35% 28% at 80% 12%, rgba(201, 162, 74, 0.22), transparent 50%),
+    linear-gradient(180deg, #4b2478 0%, #3a1d5c 45%, #2a1444 100%);
+  position: relative;
+  overflow: hidden;
+}
+.login-page::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none; opacity: .35;
+  background-image:
+    radial-gradient(rgba(255, 248, 220, 0.12) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, #000 15%, transparent 78%);
+}
+.login-page::after {
+  content: '';
+  position: absolute; width: 520px; height: 520px; border-radius: 50%;
+  border: 1.5px solid rgba(240, 223, 154, 0.22);
+  box-shadow: inset 0 0 0 18px rgba(201, 162, 74, 0.06);
+  top: -180px; right: -160px; pointer-events: none;
+  animation: spinSoft 48s linear infinite;
+}
+#login-root.active {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+.login-stage {
+  position: relative; z-index: 2;
+  height: 100dvh;
+  max-height: 100dvh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.login-beam {
+  position: absolute; inset: -8% 18% auto; height: 42%;
+  background: linear-gradient(105deg, transparent, rgba(240, 223, 154, 0.18), rgba(201, 162, 74, 0.14), transparent);
+  pointer-events: none; filter: blur(22px);
+  animation: beamSweep 9s ease-in-out infinite;
+  z-index: 1;
+}
+.login-ring {
+  position: absolute; border-radius: 50%; pointer-events: none; z-index: 1;
+  border: 1px solid rgba(240, 223, 154, 0.18);
+}
+.login-ring.r1 {
+  width: 320px; height: 320px; left: -140px; top: 55%;
+  border-color: rgba(201, 162, 74, 0.22);
+  animation: spinSoft 55s linear infinite reverse;
+}
+.login-ring.r2 {
+  width: 200px; height: 200px; right: 6%; top: 58%;
+  border-style: dashed; opacity: .4;
+  animation: spinSoft 30s linear infinite;
+}
+.login-orb {
+  position: absolute; border-radius: 50%; filter: blur(70px);
+  opacity: .45; pointer-events: none; animation: floaty 9s ease-in-out infinite; z-index: 1;
+}
+.login-orb.o1 { width: 360px; height: 360px; background: #7a3fb8; top: -120px; right: -90px; }
+.login-orb.o2 { width: 280px; height: 280px; background: #4b2478; top: 35%; left: -120px; animation-delay: 1.5s; }
+.login-orb.o3 {
+  width: 200px; height: 200px; background: rgba(201, 162, 74, 0.55);
+  top: 28%; right: 8%; animation-delay: 3s; opacity: .35;
+}
+
+.login-header {
+  position: relative; z-index: 2;
+  padding: clamp(1.2rem, 3.5vh, 2.2rem) 0 0.4rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+.school-crest {
+  width: clamp(104px, 14vw, 132px); height: clamp(104px, 14vw, 132px);
+  margin: 0 auto 0.85rem;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  position: relative;
+  animation: rise .7s var(--ease), logoFloat 4.5s ease-in-out 0.7s infinite;
+  background:
+    radial-gradient(circle at 32% 28%, #fff8e8 0%, #f0e4f8 48%, #d7b8ef 100%);
+  box-shadow:
+    0 0 0 4px rgba(240, 223, 154, 0.85),
+    0 0 0 8px rgba(201, 162, 74, 0.35),
+    0 0 0 14px rgba(255, 255, 255, 0.08),
+    0 22px 50px rgba(20, 8, 40, 0.45),
+    0 0 60px rgba(201, 162, 74, 0.35);
+}
+.school-crest::before {
+  content: '';
+  position: absolute; inset: -14px; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(240,223,154,.95) 18%, rgba(154,99,209,.55) 42%, transparent 58%, rgba(201,162,74,.85) 78%, transparent 100%);
+  z-index: -1;
+  animation: spinSoft 7s linear infinite;
+  opacity: .95;
+}
+.school-crest::after {
+  content: '';
+  position: absolute; inset: -28px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 223, 154, 0.35), rgba(154, 99, 209, 0.2) 42%, transparent 70%);
+  z-index: -2;
+  animation: logoPulse 3.2s ease-in-out infinite;
+}
+.school-crest img {
+  width: 92%; height: 92%;
+  object-fit: contain;
+  border-radius: 50%;
+  position: relative; z-index: 1;
+  filter: drop-shadow(0 4px 10px rgba(20, 8, 40, 0.3));
+  transition: transform .35s var(--ease), filter .35s;
+}
+.school-crest:hover img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 8px 18px rgba(20, 8, 40, 0.4));
+}
+.school-crest .crest-fallback {
+  display: none;
+  position: absolute; inset: 0; z-index: 0;
+  place-items: center;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 2.4rem; color: var(--plum-800);
+  letter-spacing: .04em;
+}
+.school-crest.no-img .crest-fallback { display: grid; }
+.school-crest.no-img img { display: none; }
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes logoPulse {
+  0%, 100% { opacity: .55; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+.login-header .brand {
+  font-size: clamp(1.75rem, 4.2vw, 2.6rem);
+  background: linear-gradient(110deg, #fff4c8 0%, #f0df9a 28%, #c9a24a 48%, #ffe9a8 72%, #e8d48b 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rise .7s .08s both var(--ease), goldShimmer 5.5s ease-in-out infinite;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.35));
+  letter-spacing: -0.015em;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.login-header .brand-line {
+  width: min(220px, 48%);
+  height: 3px;
+  margin: 1rem auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #f0df9a, #c9a24a, #f0df9a, transparent);
+  animation: rise .7s .14s both var(--ease);
+  opacity: .9;
+}
+.login-header .tagline {
+  color: #f0e4f8; font-size: 1.08rem; margin-top: .85rem;
+  animation: rise .7s .16s both var(--ease); max-width: 34ch; margin-inline: auto;
+  font-family: var(--font-display); font-weight: 500;
+}
+.login-kicker {
+  display: inline-flex; align-items: center; gap: .45rem;
+  margin-top: .9rem; padding: .35rem .85rem; border-radius: 999px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(240,223,154,.45);
+  color: #f0df9a; font-family: var(--font-display); font-weight: 600; font-size: .8rem;
+  animation: rise .7s .22s both var(--ease);
+}
+
+.role-section {
+  position: relative; z-index: 2;
+  padding: 0.6rem 0 0.4rem;
+  flex: 1;
+  min-height: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  overflow: auto;
+}
+.role-section > .section-label {
+  text-align: center; font-family: var(--font-display); font-weight: 600;
+  color: #f3e8fa; margin-bottom: 1.2rem;
+  animation: rise .65s .25s both var(--ease); letter-spacing: .03em;
+  font-size: 1.05rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.role-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+  max-width: 1080px; margin-inline: auto;
+}
+@media (max-width: 1000px) { .role-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .role-grid { grid-template-columns: 1fr; max-width: 360px; } }
+
+.role-card {
+  background:
+    linear-gradient(165deg, rgba(88, 42, 140, 0.72) 0%, rgba(58, 29, 92, 0.78) 100%);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(240, 223, 154, 0.28);
+  border-radius: 28px; padding: 2rem 1.25rem 1.7rem; text-align: center; cursor: pointer;
+  transition: transform .35s var(--ease), box-shadow .35s, border-color .35s, background .35s;
+  animation: rise .6s both var(--ease); position: relative; overflow: hidden;
+  box-shadow:
+    0 16px 44px rgba(12, 4, 28, 0.35),
+    inset 0 1px 0 rgba(255,255,255,.12);
+}
+.role-card:nth-child(1) { animation-delay: .28s; }
+.role-card:nth-child(2) { animation-delay: .36s; }
+.role-card:nth-child(3) { animation-delay: .44s; }
+.role-card:nth-child(4) { animation-delay: .52s; }
+.role-card::before {
+  content: '';
+  position: absolute; inset: 0 0 auto 0; height: 4px;
+  background: var(--role-accent, linear-gradient(90deg, #9a63d1, #c9a24a));
+  opacity: 1;
+}
+.role-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 45%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+}
+.role-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 28px 60px rgba(12, 4, 28, 0.45);
+  border-color: rgba(240, 223, 154, 0.55);
+  background: linear-gradient(165deg, rgba(110, 55, 168, 0.85) 0%, rgba(74, 36, 120, 0.9) 100%);
+}
+.role-card:hover::after { animation: cardSheen .85s var(--ease); }
+.role-card.selected {
+  border-color: #f0df9a;
+  box-shadow: 0 0 0 3px rgba(240, 223, 154, 0.28), 0 24px 50px rgba(12, 4, 28, 0.4);
+  background: linear-gradient(165deg, rgba(122, 63, 184, 0.92) 0%, rgba(74, 36, 120, 0.95) 100%);
+  transform: translateY(-6px);
+}
+.role-card[data-role="admin"] { --role-accent: linear-gradient(90deg, #d7b8ef, #9a63d1); }
+.role-card[data-role="teacher"] { --role-accent: linear-gradient(90deg, #9ec0ff, #5b8ef0); }
+.role-card[data-role="council"] { --role-accent: linear-gradient(90deg, #f0df9a, #c9a24a); }
+.role-card[data-role="student"] { --role-accent: linear-gradient(90deg, #7de0bc, #2fad82); }
+.role-icon {
+  width: 84px; height: 84px; margin: 0 auto 1.15rem; border-radius: 26px;
+  display: grid; place-items: center; font-size: 2.15rem;
+  background: linear-gradient(160deg, rgba(255,255,255,.22) 0%, rgba(240,223,154,.18) 100%);
+  color: #fff; transition: transform .35s var(--ease), box-shadow .35s;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 10px 22px rgba(12, 4, 28, 0.28);
+  border: 1px solid rgba(240, 223, 154, 0.28);
+}
+.role-card[data-role="admin"] .role-icon { background: linear-gradient(160deg, #8b5cb8, #5e2d96); }
+.role-card[data-role="teacher"] .role-icon { background: linear-gradient(160deg, #5b8ef0, #2f6fed); }
+.role-card[data-role="council"] .role-icon { background: linear-gradient(160deg, #e8d48b, #c9a24a); }
+.role-card[data-role="student"] .role-icon { background: linear-gradient(160deg, #4ec9a0, #0f8a62); }
+.role-card:hover .role-icon { transform: scale(1.1) rotate(-5deg); box-shadow: 0 14px 28px rgba(12, 4, 28, 0.35); }
+.role-card h3 {
+  font-size: 1.12rem; color: #fffdf8; margin-bottom: 0;
+  letter-spacing: -0.01em; min-height: 2.6em;
+  display: grid; place-items: center;
+  text-shadow: 0 2px 10px rgba(0,0,0,.25);
+}
+.role-card p { font-size: .9rem; color: rgba(255,255,255,.75); line-height: 1.5; }
+
+.login-box {
+  max-width: 440px; margin: 2.1rem auto 0;
+  background: linear-gradient(180deg, rgba(74, 36, 120, 0.92), rgba(46, 22, 78, 0.94));
+  backdrop-filter: blur(18px);
+  border-radius: 26px; padding: 1.9rem 1.75rem;
+  border: 1px solid rgba(240, 223, 154, 0.35);
+  box-shadow: 0 24px 60px rgba(12, 4, 28, 0.4); display: none; animation: rise .4s var(--ease);
+  position: relative;
+}
+.login-box::before {
+  content: '';
+  position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, #9a63d1, #f0df9a, #9a63d1);
+  border-radius: 26px 26px 0 0;
+}
+.login-box.show { display: block; }
+.login-box h3 { text-align: center; color: #f0df9a; margin-bottom: .3rem; font-size: 1.25rem; }
+.login-hint { text-align: center; font-size: .88rem; color: rgba(243, 232, 250, 0.78); margin-bottom: 1.3rem; }
+.login-box .form-group label { color: #f3e8fa; }
+.login-box .form-control {
+  background: rgba(255,255,255,.12);
+  border-color: rgba(240, 223, 154, 0.28);
+  color: #fff;
+}
+.login-box .form-control::placeholder { color: rgba(255,255,255,.45); }
+.login-box .form-control:focus {
+  background: rgba(255,255,255,.16);
+  border-color: #f0df9a;
+  box-shadow: 0 0 0 4px rgba(240, 223, 154, 0.18);
+}
+.login-footer {
+  text-align: center; padding: 0.45rem 1.5rem 0.9rem; color: rgba(240, 223, 154, 0.75);
+  font-size: .86rem; position: relative; z-index: 2;
+  font-family: var(--font-display); font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* Calendar */
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.cal-head {
+  text-align: center; font-family: var(--font-display); font-weight: 600;
+  font-size: .8rem; color: var(--plum-700); padding: .45rem;
+}
+.cal-day {
+  min-height: 76px; border: 1px solid rgba(94, 45, 150, 0.1); border-radius: 12px;
+  padding: .4rem; background: rgba(255,255,255,.85); font-size: .78rem; position: relative;
+  transition: border-color .2s, transform .2s;
+}
+.cal-day:hover:not(.empty) { border-color: var(--plum-300); transform: translateY(-1px); }
+.cal-day.empty { background: transparent; border-color: transparent; }
+.cal-day .day-num { font-weight: 700; color: var(--plum-800); }
+.cal-day.today {
+  border-color: var(--plum-500);
+  background: linear-gradient(160deg, #f7eefc, #fff);
+  box-shadow: inset 0 0 0 1px rgba(122, 63, 184, 0.15);
+}
+.cal-event {
+  display: block; margin-top: 3px; padding: 2px 5px; border-radius: 6px;
+  background: var(--plum-200); color: var(--plum-900); font-size: .68rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
+}
+.cal-event.duty { background: #fde68a; }
+.cal-event.council { background: #ddd6fe; }
+.cal-event.activity { background: #bbf7d0; }
+
+/* Org */
+.org-chart { display: flex; flex-direction: column; align-items: center; padding: 1rem 0; overflow-x: auto; }
+.org-level {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;
+  width: 100%; position: relative; padding: 1.3rem 0;
+}
+.org-level::before {
+  content: ''; position: absolute; top: 0; left: 50%; width: 2px; height: 1.3rem;
+  background: linear-gradient(180deg, var(--plum-300), var(--gold));
+}
+.org-level:first-child::before { display: none; }
+.org-node {
+  background: rgba(255,255,255,.92); border: 2px solid var(--plum-200);
+  border-radius: 16px; padding: .95rem 1.15rem; text-align: center; min-width: 148px;
+  box-shadow: var(--shadow); transition: transform .22s, border-color .22s;
+}
+.org-node:hover { transform: translateY(-4px); border-color: var(--plum-500); }
+.org-node.top {
+  background: linear-gradient(145deg, var(--plum-700), var(--plum-900));
+  color: #fff; border-color: var(--gold);
+}
+.org-node.top .role { color: var(--gold-soft); }
+.org-node.group-node {
+  background: linear-gradient(145deg, #5e2d96, #7a3fb8);
+  color: #fff; border-color: rgba(240, 223, 154, 0.55); min-width: 170px;
+}
+.org-node.group-node .role { color: var(--gold-soft); }
+.org-node .name { font-family: var(--font-display); font-weight: 700; font-size: .95rem; }
+.org-node .role { font-size: .78rem; color: var(--muted); margin-top: .15rem; }
+
+/* Videos */
+.video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.15rem; }
+.video-card {
+  background: rgba(255,255,255,.9); border: 1px solid rgba(94, 45, 150, 0.1);
+  border-radius: var(--radius); overflow: hidden;
+  transition: transform .28s var(--ease), box-shadow .28s; cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.video-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.video-thumb {
+  aspect-ratio: 16/9;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(201,162,74,.25), transparent 40%),
+    linear-gradient(135deg, #4b2478, #7a3fb8 55%, #9a63d1);
+  display: grid; place-items: center; color: #fff; position: relative;
+}
+.video-thumb .play {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: rgba(255,255,255,.22); backdrop-filter: blur(6px);
+  display: grid; place-items: center; border: 2px solid rgba(255,255,255,.85);
+  transition: transform .22s; font-size: 1.1rem;
+}
+.video-card:hover .play { transform: scale(1.12); }
+.video-body { padding: 1.05rem 1.1rem 1.15rem; }
+.video-body h4 { font-size: 1rem; color: var(--plum-900); margin-bottom: .3rem; }
+.video-body .meta { font-size: .8rem; color: var(--muted); }
+
+.subject-pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem; }
+.subject-pill {
+  padding: .45rem .95rem; border-radius: 999px;
+  border: 1.5px solid rgba(94, 45, 150, 0.14);
+  font-family: var(--font-display); font-weight: 600; font-size: .82rem;
+  color: var(--muted); background: rgba(255,255,255,.85); transition: all .2s;
+}
+.subject-pill:hover, .subject-pill.active {
+  background: linear-gradient(135deg, var(--plum-600), var(--plum-800));
+  border-color: transparent; color: #fff; box-shadow: 0 8px 18px rgba(94, 45, 150, 0.25);
+}
+
+/* Activities */
+.activity-card {
+  border: 1px solid rgba(94, 45, 150, 0.12); border-radius: var(--radius);
+  padding: 1.3rem; background: rgba(255,255,255,.88);
+  display: flex; flex-direction: column; gap: .7rem;
+  transition: border-color .22s, box-shadow .22s, transform .22s;
+  box-shadow: var(--shadow);
+}
+.activity-card:hover {
+  border-color: rgba(154, 99, 209, 0.45); box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+.activity-card h4 { color: var(--plum-900); font-size: 1.05rem; }
+.team-slot {
+  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+  padding: .75rem; background: linear-gradient(135deg, #f7eefc, #fbf7ff);
+  border-radius: 14px; border: 1px solid rgba(94, 45, 150, 0.08);
+}
+.member-chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  background: #fff; border: 1px solid rgba(94, 45, 150, 0.12);
+  padding: .28rem .65rem; border-radius: 999px; font-size: .8rem; font-weight: 600;
+}
+
+/* Feed */
+.feed-item {
+  display: grid; grid-template-columns: auto 1fr; gap: .9rem;
+  padding: 1.05rem 0; border-bottom: 1px solid rgba(94, 45, 150, 0.08);
+}
+.feed-item:last-child { border-bottom: none; }
+.feed-dot {
+  width: 44px; height: 44px; border-radius: 14px;
+  background: linear-gradient(145deg, #f3e8fa, #e4d0f4);
+  color: var(--plum-700); display: grid; place-items: center; font-size: 1.15rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+}
+.feed-body h4 { font-size: .98rem; color: var(--plum-900); }
+.feed-body .time { font-size: .78rem; color: var(--muted); }
+
+.empty-state { text-align: center; padding: 2.6rem 1rem; color: var(--muted); }
+.alert {
+  padding: .95rem 1.1rem; border-radius: 14px; font-size: .9rem; margin-bottom: 1rem;
+  border: 1px solid transparent;
+}
+.alert-info { background: #eef4ff; color: #1e4db0; border-color: #c9dbff; }
+.alert-warning { background: #fff8e8; color: #8a5608; border-color: #f5e0a8; }
+.alert-success { background: #e9faf3; color: #0b5f44; border-color: #b6ebda; }
+
+.chart-box { position: relative; height: 270px; width: 100%; }
+.chart-box.tall { height: 320px; }
+.chart-box.dept { height: 360px; }
+.dash-hero {
+  margin-bottom: 1.35rem;
+  padding: 1.35rem 1.45rem 1.2rem;
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(74, 36, 120, 0.06), rgba(201, 162, 74, 0.08)),
+    rgba(255,255,255,.9);
+  border: 1px solid rgba(94, 45, 150, 0.12);
+  box-shadow: var(--shadow);
+}
+.dash-hero h3 {
+  font-size: 1.28rem;
+  color: var(--plum-900);
+  margin-bottom: .35rem;
+}
+.dash-hero .dash-sub {
+  color: var(--muted);
+  font-size: .92rem;
+  margin-bottom: 1rem;
+  max-width: 62ch;
+}
+.dash-chips {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  margin-top: .85rem;
+}
+.dash-chip {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  font-weight: 600;
+  background: var(--plum-50);
+  color: var(--plum-800);
+  border: 1px solid rgba(94, 45, 150, 0.12);
+}
+.dash-chip em {
+  font-style: normal;
+  color: var(--plum-600);
+  font-weight: 700;
+}
+.dash-chip.soft {
+  background: rgba(201, 162, 74, 0.12);
+  color: #7a5a10;
+  border-color: rgba(201, 162, 74, 0.28);
+}
+.dash-section-label {
+  font-family: var(--font-display);
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin: 1.35rem 0 .75rem;
+  text-transform: uppercase;
+}
+.progress-bar {
+  height: 9px; background: var(--plum-100); border-radius: 999px; overflow: hidden;
+}
+.progress-bar > span {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--plum-500), var(--plum-700), var(--gold));
+  border-radius: 999px; transition: width .55s var(--ease);
+}
+
+.section-intro { margin-bottom: 1.25rem; }
+.section-intro p { color: var(--muted); font-size: .95rem; max-width: 60ch; }
+
+.insight-card {
+  background: linear-gradient(145deg, #3a1d5c, #5e2d96 60%, #7a3fb8);
+  color: #fff; border-radius: var(--radius); padding: 1.45rem;
+  position: relative; overflow: hidden; box-shadow: var(--shadow-glow);
+  min-height: 160px;
+}
+.insight-card::after {
+  content: ''; position: absolute; width: 140px; height: 140px; border-radius: 50%;
+  background: rgba(255,255,255,.08); right: -36px; top: -36px;
+}
+.insight-card::before {
+  content: ''; position: absolute; width: 80px; height: 80px; border-radius: 50%;
+  border: 1px solid rgba(240, 223, 154, 0.35); left: -20px; bottom: -20px;
+}
+.insight-card h4 { font-size: 1.05rem; margin-bottom: .55rem; position: relative; }
+.insight-card p { font-size: .9rem; opacity: .92; position: relative; }
+.insight-card .action {
+  margin-top: 1rem; display: inline-flex; font-family: var(--font-display);
+  font-weight: 600; font-size: .85rem; color: var(--gold-soft);
+}
+
+.portal-banner {
+  background:
+    radial-gradient(600px 200px at 90% 20%, rgba(240, 223, 154, 0.18), transparent 50%),
+    linear-gradient(125deg, #241238 0%, #4b2478 48%, #7a3fb8 100%);
+  color: #fff; border-radius: 28px; padding: 1.9rem 1.85rem;
+  margin-bottom: 1.6rem; position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.portal-banner::before {
+  content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%;
+  background: rgba(255,255,255,.07); right: -50px; bottom: -70px;
+}
+.portal-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,.06) 50%, transparent 60%);
+  pointer-events: none;
+}
+.portal-banner h2 { font-size: clamp(1.4rem, 2.5vw, 1.7rem); margin-bottom: .4rem; position: relative; }
+.portal-banner p { opacity: .92; max-width: 52ch; position: relative; }
+.quick-links {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: .75rem; margin-top: 1.35rem; position: relative;
+}
+.quick-link {
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+  border-radius: 16px; padding: .95rem .7rem; color: #fff; text-align: center;
+  font-family: var(--font-display); font-weight: 600; font-size: .84rem;
+  transition: background .22s, transform .22s, border-color .22s;
+  backdrop-filter: blur(6px);
+}
+.quick-link:hover {
+  background: rgba(255,255,255,.22); color: #fff; transform: translateY(-3px);
+  border-color: rgba(240, 223, 154, 0.5);
+}
+.quick-link span { display: block; font-size: 1.45rem; margin-bottom: .35rem; }
+
+.score-ring {
+  width: 128px; height: 128px; border-radius: 50%;
+  background: conic-gradient(var(--plum-500) calc(var(--score) * 1%), var(--plum-100) 0);
+  display: grid; place-items: center; margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(94, 45, 150, 0.18);
+}
+.score-ring-inner {
+  width: 102px; height: 102px; border-radius: 50%; background: #fff;
+  display: grid; place-items: center; font-family: var(--font-display);
+  font-weight: 800; font-size: 1.65rem; color: var(--plum-800);
+}
+
+.duty-map { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .9rem; }
+.duty-spot {
+  border: 1.5px dashed var(--plum-300); border-radius: 16px; padding: 1.05rem;
+  text-align: center; background: linear-gradient(160deg, #f8f2fc, #fff);
+  transition: transform .2s, border-color .2s;
+}
+.duty-spot:hover { transform: translateY(-2px); }
+.duty-spot.assigned {
+  border-style: solid; border-color: var(--plum-500);
+  background: #fff; box-shadow: var(--shadow);
+}
+.duty-spot h5 { color: var(--plum-800); font-size: .92rem; }
+.duty-spot p { font-size: .8rem; color: var(--muted); margin-top: .3rem; }
+
+.filter-bar { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; margin-bottom: 1rem; }
+.filter-bar .form-control { width: auto; min-width: 160px; }
+
+.video-player-wrap {
+  position: relative; width: 100%; aspect-ratio: 16/9;
+  background: #14081f; border-radius: 18px; overflow: hidden; margin: 1rem 0;
+  box-shadow: var(--shadow-lg);
+}
+.video-player-wrap iframe, .video-player-wrap video { width: 100%; height: 100%; border: 0; display: block; }
+.toolbar-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: 1rem; }
+.chip-file { font-size: .8rem; color: var(--muted); }
+#login-root:not(.active) { display: none !important; }
+#app-stage:empty { display: none; }
+.danger-link {
+  color: var(--danger); font-size: .82rem; cursor: pointer;
+  background: none; border: none; font-family: inherit; padding: 0;
+}
+.danger-link:hover { text-decoration: underline; }
+
+/* Decorative page wash behind main content */
+.main-area .page-content > .portal-banner,
+.main-area .page-content > .grid-4,
+.main-area .page-content > .grid-3,
+.main-area .page-content > .grid-2,
+.main-area .page-content > .panel,
+.main-area .page-content > .alert,
+.main-area .page-content > .section-intro {
+  animation: rise .45s var(--ease) both;
+}
+
+@media print {
+  .sidebar, .topbar, .btn, .menu-toggle { display: none !important; }
+  .main-area { margin: 0; }
+}
+
+</style>
+</head>
+<body class="login-page">
+<div id="login-root" class="active">
+  <div class="login-stage">
+    <div class="login-beam" aria-hidden="true"></div>
+    <div class="login-orb o1"></div>
+    <div class="login-orb o2"></div>
+    <div class="login-orb o3"></div>
+    <div class="login-ring r1" aria-hidden="true"></div>
+    <div class="login-ring r2" aria-hidden="true"></div>
+    <header class="login-header container">
+      <div class="school-crest" id="schoolCrest">
+        <img src="assets/logo-banphai.png" alt="โลโก้โรงเรียนบ้านไผ่" width="140" height="140"
+          onerror="this.closest('.school-crest').classList.add('no-img')" />
+        <span class="crest-fallback" aria-hidden="true">บผ</span>
+      </div>
+      <h1 class="brand">สภานักเรียนโรงเรียนบ้านไผ่</h1>
+      <div class="brand-line" aria-hidden="true"></div>
+    </header>
+    <main class="role-section container">
+      <p class="section-label">เลือกบทบาทเพื่อเข้าสู่ระบบ</p>
+      <div class="role-grid" id="roleGrid">
+        <article class="role-card" data-role="admin" tabindex="0"><div class="role-icon" aria-hidden="true">🏛️</div><h3>ผู้บริหาร</h3></article>
+        <article class="role-card" data-role="teacher" tabindex="0"><div class="role-icon" aria-hidden="true">👩‍🏫</div><h3>ครูฝ่ายงานกิจการนักเรียน</h3></article>
+        <article class="role-card" data-role="council" tabindex="0"><div class="role-icon" aria-hidden="true">🎖️</div><h3>สภานักเรียน</h3></article>
+        <article class="role-card" data-role="student" tabindex="0"><div class="role-icon" aria-hidden="true">🎒</div><h3>นักเรียน</h3></article>
+      </div>
+      <div class="login-box" id="loginBox">
+        <h3 id="loginRoleLabel">เข้าสู่ระบบ</h3>
+        <p class="login-hint">กรอกชื่อผู้ใช้และรหัสผ่านเพื่อเข้าสู่ระบบ</p>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginUsername">ชื่อผู้ใช้</label>
+            <input class="form-control" id="loginUsername" name="username" required placeholder="เช่น admin" autocomplete="username" />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">รหัสผ่าน</label>
+            <input class="form-control" id="loginPassword" name="password" type="password" required placeholder="••••••••" autocomplete="current-password" />
+          </div>
+          <div class="form-group" id="studentExtra" style="display:none">
+            <label for="studentId">รหัสประจำตัวนักเรียน (ถ้ามี)</label>
+            <input class="form-control" id="studentId" placeholder="เช่น 16701" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">เข้าสู่ระบบ</button>
+          <p class="login-hint mt-2" id="loginDemoHint" style="margin-bottom:0;font-size:.8rem"></p>
+        </form>
+      </div>
+    </main>
+    <footer class="login-footer">© โรงเรียนบ้านไผ่ · สภานักเรียน</footer>
+  </div>
+</div>
+
+<div id="app-stage"></div>
+
+<template id="tpl-shell">
+  <div class="sidebar-backdrop"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-block"><div class="brand-mark"><img src="assets/logo-banphai.png" alt="โลโก้โรงเรียนบ้านไผ่" /></div><div class="brand-text">สภานักเรียนบ้านไผ่<small data-shell-sub></small></div></div>
+      <ul class="nav-list" data-nav></ul>
+      <div class="sidebar-footer">
+        <div class="user-chip"><div class="user-avatar" data-user-avatar>?</div><div class="user-meta"><strong data-user-name>-</strong><span data-user-role></span></div></div>
+        <a href="#" class="btn btn-ghost btn-sm btn-block" style="color:#fff;background:rgba(255,255,255,.12)" data-logout>ออกจากระบบ</a>
+      </div>
+    </aside>
+    <div class="main-area">
+      <header class="topbar">
+        <button class="menu-toggle" type="button" aria-label="เมนู">☰</button>
+        <h1 data-page-title>หน้าหลัก</h1>
+        <div data-top-actions></div>
+      </header>
+      <main class="page-content" data-page-content></main>
+    </div>
+  </div>
+  <div class="modal-overlay" id="globalModal"><div class="modal modal-lg" id="globalModalBody"></div></div>
+</template>
+
+<script>
+/* สภานักเรียนโรงเรียนบ้านไผ่ — ระบบใช้งานได้จริง (localStorage + IndexedDB) */
+(function () {
+  'use strict';
+
+  const DATA_KEY = 'banphai_council_v2';
+  const SESSION_KEY = 'banphai_session_v2';
+  const IDB_NAME = 'banphai_videos';
+  const IDB_STORE = 'blobs';
+
+  const ROLES = {
+    admin: { id: 'admin', label: 'ผู้บริหาร', short: 'ผบ' },
+    teacher: { id: 'teacher', label: 'ครูฝ่ายงานกิจการนักเรียน', short: 'ครู' },
+    council: { id: 'council', label: 'สภานักเรียน', short: 'สภา' },
+    student: { id: 'student', label: 'นักเรียน', short: 'นร' },
+  };
+
+  const ORG_VERSION = 4;
+  const DEPTS = [
+    'ฝ่ายสำนักงาน',
+    'ฝ่ายวัดและประเมินผล',
+    'ฝ่ายเหรัญญิก',
+    'ฝ่ายประชาสัมพันธ์',
+    'ฝ่ายบูรณาการประชาธิปไตย',
+    'ฝ่ายโสตทัศนศึกษา',
+    'ฝ่ายกิจกรรม',
+    'ฝ่ายกิจการ',
+    'ฝ่ายปฏิคม',
+    'ฝ่ายอาคารและสถานที่',
+    'ฝ่ายอนามัย',
+  ];
+  const DEPT_COLORS = [
+    '#5e2d96',
+    '#2563eb',
+    '#0f8a62',
+    '#ea580c',
+    '#db2777',
+    '#0891b2',
+    '#c9a24a',
+    '#dc2626',
+    '#4f46e5',
+    '#65a30d',
+    '#9333ea',
+  ];
+  const SUBJECTS = ['ไทย', 'คณิต', 'เคมี', 'ชีวะ', 'ฟิสิกส์', 'อังกฤษ', 'Netsat', 'T-gat', 'T-pat', 'A-level'];
+  const LF_CATEGORIES = ['กระเป๋า', 'อุปกรณ์การเรียน', 'เสื้อผ้า', 'อิเล็กทรอนิกส์', 'เอกสาร', 'กุญแจ', 'อื่น ๆ'];
+  const DEFAULT_ORG_GROUPS = [
+    {
+      name: 'กลุ่มบริหารอำนวยการ',
+      depts: ['ฝ่ายสำนักงาน', 'ฝ่ายวัดและประเมินผล', 'ฝ่ายเหรัญญิก'],
+    },
+    {
+      name: 'กลุ่มบริหารทั่วไป',
+      depts: ['ฝ่ายโสตทัศนศึกษา', 'ฝ่ายปฏิคม', 'ฝ่ายอาคารและสถานที่', 'ฝ่ายอนามัย'],
+    },
+    {
+      name: 'กลุ่มบริหารกิจการ',
+      depts: ['ฝ่ายประชาสัมพันธ์', 'ฝ่ายบูรณาการประชาธิปไตย', 'ฝ่ายกิจกรรม', 'ฝ่ายกิจการ'],
+    },
+  ];
+  const DEFAULT_DEPARTMENTS = [
+    { name: 'ประธานนักเรียน', person: 'นายสมชาย ใจดี', level: 0, kind: 'leader' },
+    { name: 'รองประธานนักเรียน คนที่ 1', person: 'นางสาวพิมพ์ใจ เรียนดี', level: 1, kind: 'leader' },
+    { name: 'รองประธานนักเรียน คนที่ 2', person: 'นายพีรพัฒน์ มานะ', level: 1, kind: 'leader' },
+    { name: 'เลขานุการ', person: 'นางสาวมินตรา ใฝ่รู้', level: 1, kind: 'leader' },
+    { name: 'กลุ่มบริหารอำนวยการ', person: 'กลุ่มบริหารอำนวยการ', level: 2, kind: 'group' },
+    { name: 'กลุ่มบริหารทั่วไป', person: 'กลุ่มบริหารทั่วไป', level: 2, kind: 'group' },
+    { name: 'กลุ่มบริหารกิจการ', person: 'กลุ่มบริหารกิจการ', level: 2, kind: 'group' },
+    { name: 'ฝ่ายสำนักงาน', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารอำนวยการ' },
+    { name: 'ฝ่ายวัดและประเมินผล', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารอำนวยการ' },
+    { name: 'ฝ่ายเหรัญญิก', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารอำนวยการ' },
+    { name: 'ฝ่ายโสตทัศนศึกษา', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารทั่วไป' },
+    { name: 'ฝ่ายปฏิคม', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารทั่วไป' },
+    { name: 'ฝ่ายอาคารและสถานที่', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารทั่วไป' },
+    { name: 'ฝ่ายอนามัย', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารทั่วไป' },
+    { name: 'ฝ่ายประชาสัมพันธ์', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารกิจการ' },
+    { name: 'ฝ่ายบูรณาการประชาธิปไตย', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารกิจการ' },
+    { name: 'ฝ่ายกิจกรรม', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารกิจการ' },
+    { name: 'ฝ่ายกิจการ', person: 'คณะกรรมการฝ่าย', level: 3, kind: 'dept', group: 'กลุ่มบริหารกิจการ' },
+  ];
+
+  function lfList(data) {
+    return Array.isArray(data.lostFound) ? data.lostFound : [];
+  }
+
+  function uid(p) {
+    return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+  function todayISO() {
+    const t = new Date();
+    return t.toISOString().slice(0, 10);
+  }
+  function formatDate(iso) {
+    if (!iso) return '-';
+    const [y, m, d] = String(iso).split('-');
+    return `${d}/${m}/${y}`;
+  }
+  function esc(s) {
+    return String(s ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+  function deepClone(o) {
+    return JSON.parse(JSON.stringify(o));
+  }
+
+  function defaults() {
+    const t = todayISO();
+    return {
+      version: 2,
+      tasks: [
+        { id: 't1', title: 'ตรวจหมวกกันน็อคประตูหน้า', dept: 'ฝ่ายกิจการ', assignee: 'คณะกรรมการฝ่ายกิจการ', due: t, status: 'in_progress', priority: 'high', note: 'จดรหัสและทะเบียนรถ', createdBy: 'ระบบ', createdAt: t },
+        { id: 't2', title: 'จัดเวรจุดจอดรถ / อาคารสถานที่', dept: 'ฝ่ายอาคารและสถานที่', assignee: 'คณะกรรมการฝ่ายอาคารและสถานที่', due: t, status: 'todo', priority: 'medium', note: 'ส่งตารางเวร', createdBy: 'ระบบ', createdAt: t },
+        { id: 't3', title: 'ประชาสัมพันธ์ค่ายนวัตกรรม', dept: 'ฝ่ายประชาสัมพันธ์', assignee: 'คณะกรรมการฝ่ายประชาสัมพันธ์', due: t, status: 'done', priority: 'medium', note: 'เปิดรับสมัครทีม', createdBy: 'ระบบ', createdAt: t },
+      ],
+      events: [
+        { id: 'e1', date: t, title: 'เวรจุดหน้าโรงเรียน', type: 'duty', spot: 'ประตูหน้า' },
+        { id: 'e2', date: t, title: 'ประชุมสภา', type: 'council', spot: 'ห้องประชุม' },
+        { id: 'e3', date: t, title: 'แข่งตอบปัญหาวิชาการ', type: 'activity', spot: 'หอประชุม' },
+      ],
+      helmetReports: [],
+      lateReports: [],
+      incidents: [],
+      behaviorScores: [
+        { studentId: '16701', name: 'นายธีรพงศ์ สุขใจ', className: 'ม.4/2', score: 95, notes: '-' },
+        { studentId: '16822', name: 'นางสาวอรทัย งามดี', className: 'ม.5/1', score: 98, notes: '-' },
+        { studentId: '16510', name: 'นายกิตติพงษ์ ตั้งใจ', className: 'ม.3/3', score: 92, notes: '-' },
+        { studentId: '16903', name: 'นางสาวนิภาพร ขยัน', className: 'ม.2/1', score: 100, notes: '-' },
+        { studentId: '16444', name: 'นายพีรพัฒน์ มานะ', className: 'ม.6/2', score: 97, notes: '-' },
+        { studentId: '17001', name: 'นางสาวมินตรา ใฝ่รู้', className: 'ม.1/1', score: 100, notes: '-' },
+      ],
+      videos: [
+        { id: 'v1', subject: 'คณิต', title: 'สมการเชิงเส้น (ตัวอย่าง)', teacher: 'ครูสมศรี', duration: '10:00', views: 0, desc: 'คลิปตัวอย่างจาก YouTube สำหรับทบทวน', url: 'https://www.youtube.com/watch?v=NybHckSEQBI', createdAt: t, createdBy: 'ระบบ' },
+        { id: 'v2', subject: 'อังกฤษ', title: 'Present Simple ทบทวน', teacher: 'ครู John', duration: '8:00', views: 0, desc: 'พื้นฐาน Present Simple', url: 'https://www.youtube.com/watch?v=zx1kddE7q8o', createdAt: t, createdBy: 'ระบบ' },
+        { id: 'v3', subject: 'ฟิสิกส์', title: 'แรงและการเคลื่อนที่', teacher: 'ครูวิชัย', duration: '12:00', views: 0, desc: 'แนวคิดเบื้องต้น', url: 'https://www.youtube.com/watch?v=kKKM8Y-u7ds', createdAt: t, createdBy: 'ระบบ' },
+      ],
+      activities: [
+        { id: 'a1', title: 'แข่งตอบปัญหาวิชาการ', category: 'แข่งขันวิชาการ', date: t, place: 'หอประชุม', teamSize: 3, members: [], open: true, desc: 'วิชาวิทย์–คณิต ทีมละ 3 คน' },
+        { id: 'a2', title: 'ค่ายอบรมผู้นำนวัตกรรม', category: 'อบรม/ค่าย', date: t, place: 'ห้องมัลติมีเดีย', teamSize: 5, members: [], open: true, desc: 'Design Thinking' },
+      ],
+      announcements: [
+        { id: 'n1', title: 'ยินดีต้อนรับสู่ระบบสภานักเรียน', date: t, body: 'ใช้งานได้จริง — ข้อมูลบันทึกในเครื่องของคุณ', audience: 'all' },
+      ],
+      orgVersion: ORG_VERSION,
+      departments: deepClone(DEFAULT_DEPARTMENTS),
+      orgGroups: deepClone(DEFAULT_ORG_GROUPS),
+      dutySpots: [
+        { spot: 'ประตูหน้า', person: '-', time: '07:00–08:00' },
+        { spot: 'ประตูหลัง', person: '-', time: '07:00–08:00' },
+        { spot: 'ลานธง', person: '-', time: '07:30–08:00' },
+        { spot: 'โรงอาหาร', person: '-', time: '11:30–12:30' },
+        { spot: 'จุดจอดรถ', person: '-', time: '15:30–16:30' },
+        { spot: 'อาคาร 2', person: '-', time: '12:00–12:40' },
+      ],
+      decisions: [],
+      studentMessages: [],
+      watchHistory: {},
+      lostFound: [
+        {
+          id: 'lf1',
+          type: 'found',
+          title: 'กระเป๋าผ้าสีม่วง',
+          category: 'กระเป๋า',
+          description: 'พบที่หน้าห้องสมุด มีสายสะพายขาดเล็กน้อย',
+          location: 'ห้องสมุด',
+          date: t,
+          reporter: 'ฝ่ายกิจการ',
+          reporterId: '',
+          contact: 'ห้องกิจการนักเรียน',
+          status: 'open',
+        },
+        {
+          id: 'lf2',
+          type: 'lost',
+          title: 'ปากกา iPad สีขาว',
+          category: 'อิเล็กทรอนิกส์',
+          description: 'หายช่วงพักกลางวัน ใกล้โรงอาหาร',
+          location: 'โรงอาหาร',
+          date: t,
+          reporter: 'นางสาวมินตรา ใฝ่รู้',
+          reporterId: '17001',
+          contact: 'ม.1/1',
+          status: 'open',
+        },
+      ],
+    };
+  }
+
+  /* ---------- Store ---------- */
+  const Store = {
+    load() {
+      try {
+        const raw = localStorage.getItem(DATA_KEY);
+        if (!raw) {
+          const d = defaults();
+          localStorage.setItem(DATA_KEY, JSON.stringify(d));
+          return deepClone(d);
+        }
+        const parsed = JSON.parse(raw);
+        const base = defaults();
+        const merged = { ...base, ...parsed };
+        for (const k of Object.keys(base)) {
+          if (merged[k] == null) merged[k] = deepClone(base[k]);
+        }
+        // บังคับอัปเดตผังองค์กร — ตรวจจากข้อมูลที่บันทึกจริง ไม่ใช้ค่าหลัง merge
+        const deptNames = (merged.departments || []).map((d) => d.name).join('|');
+        const isOldOrg =
+          parsed.orgVersion !== ORG_VERSION ||
+          /ฝ่ายวิชาการ|ฝ่ายระเบียบวินัย|ฝ่ายจราจร|ฝ่ายสวัสดิการ|ประธานสภานักเรียน/.test(deptNames) ||
+          !/ประธานนักเรียน|กลุ่มบริหารอำนวยการ|ฝ่ายเหรัญญิก|ฝ่ายปฏิคม/.test(deptNames);
+        if (isOldOrg) {
+          merged.departments = deepClone(DEFAULT_DEPARTMENTS);
+          merged.orgGroups = deepClone(DEFAULT_ORG_GROUPS);
+          merged.orgVersion = ORG_VERSION;
+          const mapOldDept = {
+            'ฝ่ายระเบียบวินัย': 'ฝ่ายกิจการ',
+            'ฝ่ายจราจร': 'ฝ่ายอาคารและสถานที่',
+            'ฝ่ายวิชาการ': 'ฝ่ายประชาสัมพันธ์',
+            'ฝ่ายสวัสดิการ': 'ฝ่ายอนามัย',
+          };
+          (merged.tasks || []).forEach((t) => {
+            if (mapOldDept[t.dept]) t.dept = mapOldDept[t.dept];
+          });
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        return merged;
+      } catch {
+        return defaults();
+      }
+    },
+    save(data) {
+      localStorage.setItem(DATA_KEY, JSON.stringify(data));
+      window.dispatchEvent(new CustomEvent('banphai-data', { detail: data }));
+    },
+    update(fn) {
+      const data = this.load();
+      const result = fn(data);
+      this.save(data);
+      return result;
+    },
+    reset() {
+      const d = defaults();
+      localStorage.setItem(DATA_KEY, JSON.stringify(d));
+      return deepClone(d);
+    },
+    export() {
+      return localStorage.getItem(DATA_KEY) || '{}';
+    },
+    import(json) {
+      const obj = JSON.parse(json);
+      if (!obj || typeof obj !== 'object') throw new Error('ไฟล์ไม่ถูกต้อง');
+      localStorage.setItem(DATA_KEY, JSON.stringify({ ...defaults(), ...obj, version: 2 }));
+    },
+  };
+
+  /* ---------- IndexedDB for video files ---------- */
+  const VideoDB = {
+    open() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(IDB_NAME, 1);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    },
+    async put(id, blob) {
+      const db = await this.open();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(IDB_STORE, 'readwrite');
+        tx.objectStore(IDB_STORE).put(blob, id);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+    },
+    async get(id) {
+      const db = await this.open();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(IDB_STORE, 'readonly');
+        const req = tx.objectStore(IDB_STORE).get(id);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
+      });
+    },
+    async del(id) {
+      const db = await this.open();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(IDB_STORE, 'readwrite');
+        tx.objectStore(IDB_STORE).delete(id);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+    },
+  };
+
+  function youtubeId(url) {
+    if (!url) return null;
+    const m = String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+    return m ? m[1] : null;
+  }
+
+  async function videoPlayerHtml(video) {
+    const yid = youtubeId(video.url);
+    if (yid) {
+      return `<div class="video-player-wrap"><iframe src="https://www.youtube.com/embed/${yid}?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${esc(video.title)}"></iframe></div>`;
+    }
+    if (video.fileId) {
+      const blob = await VideoDB.get(video.fileId);
+      if (blob) {
+        const src = URL.createObjectURL(blob);
+        return `<div class="video-player-wrap"><video controls src="${src}" playsinline></video></div>`;
+      }
+    }
+    if (video.url && (/\.mp4($|\?)/i.test(video.url) || video.url.startsWith('blob:') || video.url.startsWith('data:video'))) {
+      return `<div class="video-player-wrap"><video controls src="${esc(video.url)}" playsinline></video></div>`;
+    }
+    if (video.url) {
+      return `<div class="alert alert-info">เปิดลิงก์วิดีโอ: <a href="${esc(video.url)}" target="_blank" rel="noopener">${esc(video.url)}</a></div>`;
+    }
+    return `<div class="alert alert-warning">ยังไม่มีไฟล์หรือลิงก์วิดีโอ</div>`;
+  }
+
+  /* ---------- Auth ---------- */
+  const Auth = {
+    get() {
+      try {
+        return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+      } catch {
+        return null;
+      }
+    },
+    set(s) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(s));
+    },
+    clear() {
+      localStorage.removeItem(SESSION_KEY);
+    },
+  };
+
+  /* ---------- UI helpers ---------- */
+  function toast(msg, type) {
+    let wrap = document.querySelector('.toast-wrap');
+    if (!wrap) {
+      wrap = document.createElement('div');
+      wrap.className = 'toast-wrap';
+      document.body.appendChild(wrap);
+    }
+    const el = document.createElement('div');
+    el.className = 'toast ' + (type || '');
+    el.textContent = msg;
+    wrap.appendChild(el);
+    setTimeout(() => el.remove(), 2800);
+  }
+
+  function badge(status) {
+    const map = {
+      todo: ['รอดำเนินการ', 'badge-warning'],
+      in_progress: ['กำลังทำ', 'badge-info'],
+      done: ['เสร็จแล้ว', 'badge-success'],
+      pending: ['รอตรวจ', 'badge-warning'],
+      reviewed: ['ตรวจแล้ว', 'badge-success'],
+      open: ['เปิด', 'badge-info'],
+      closed: ['ปิดแล้ว', 'badge-purple'],
+      high: ['สูง', 'badge-danger'],
+      medium: ['กลาง', 'badge-warning'],
+      low: ['ต่ำ', 'badge-purple'],
+      lost: ['แจ้งหาย', 'badge-danger'],
+      found: ['ของพบ', 'badge-success'],
+      claimed: ['รอส่งคืน', 'badge-warning'],
+      returned: ['คืนแล้ว', 'badge-success'],
+      matched: ['จับคู่แล้ว', 'badge-info'],
+    };
+    const [l, c] = map[status] || [status, 'badge-purple'];
+    return `<span class="badge ${c}">${l}</span>`;
+  }
+
+  function openModal(html) {
+    const overlay = document.getElementById('globalModal');
+    const body = document.getElementById('globalModalBody');
+    body.innerHTML = html;
+    overlay.classList.add('open');
+    body.querySelectorAll('[data-close-modal]').forEach((b) =>
+      b.addEventListener('click', () => overlay.classList.remove('open'))
+    );
+    overlay.onclick = (e) => {
+      if (e.target === overlay) overlay.classList.remove('open');
+    };
+  }
+  function closeModal() {
+    document.getElementById('globalModal')?.classList.remove('open');
+  }
+
+  function ensureBehavior(data, studentId, name) {
+    let b = data.behaviorScores.find((x) => x.studentId === studentId);
+    if (!b) {
+      b = { studentId, name: name || 'นักเรียนรหัส ' + studentId, className: '-', score: 100, notes: '-' };
+      data.behaviorScores.push(b);
+    }
+    return b;
+  }
+
+  function adjustScore(data, studentId, delta, note) {
+    const b = ensureBehavior(data, studentId);
+    b.score = Math.max(0, Math.min(100, b.score + delta));
+    if (note) b.notes = note;
+  }
+
+  function analyticsFromData(data) {
+    const labels = ['จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส', 'อา'];
+    // build last 7 days buckets from real reports
+    const days = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      days.push(d.toISOString().slice(0, 10));
+    }
+    const helmetWeekly = days.map((day) => data.helmetReports.filter((r) => r.date === day).length);
+    const lateWeekly = days.map((day) => data.lateReports.filter((r) => r.date === day).length);
+    const misconductWeekly = days.map((_, i) => helmetWeekly[i] + lateWeekly[i]);
+    const dayLabels = days.map((day) => {
+      const d = new Date(day + 'T12:00:00');
+      return labels[d.getDay()];
+    });
+    const totalTasks = data.tasks.length || 1;
+    const done = data.tasks.filter((t) => t.status === 'done').length;
+    const completion = Math.round((done / totalTasks) * 100);
+    const taskCompletion = days.map(() => completion);
+    const avg = data.behaviorScores.length
+      ? Math.round(data.behaviorScores.reduce((s, b) => s + b.score, 0) / data.behaviorScores.length)
+      : 0;
+    const behaviorAvg = days.map(() => avg);
+    const helmetTotal = helmetWeekly.reduce((s, n) => s + n, 0);
+    const lateTotal = lateWeekly.reduce((s, n) => s + n, 0);
+    const misconductTotal = helmetTotal + lateTotal;
+    const deptWorkload = {
+      labels: DEPTS.map((d) => d.replace('ฝ่าย', '')),
+      values: DEPTS.map((d) => data.tasks.filter((t) => t.dept === d).length),
+    };
+    return {
+      labels: dayLabels,
+      helmetWeekly,
+      lateWeekly,
+      misconductWeekly,
+      helmetTotal,
+      lateTotal,
+      misconductTotal,
+      taskCompletion,
+      behaviorAvg,
+      deptWorkload,
+      days,
+    };
+  }
+
+  function chartFont() {
+    return { family: "'Prompt', 'Sarabun', sans-serif" };
+  }
+  function makeAreaGradient(ctx, colorTop, colorBottom) {
+    const g = ctx.createLinearGradient(0, 0, 0, 280);
+    g.addColorStop(0, colorTop);
+    g.addColorStop(1, colorBottom);
+    return g;
+  }
+  function niceMax(values) {
+    const m = Math.max(0, ...values);
+    if (m <= 2) return 4;
+    if (m <= 5) return 6;
+    return Math.ceil((m + 1) / 2) * 2;
+  }
+
+  function councilCalendarEvents(events) {
+    return (events || []).filter((e) => e.type === 'duty' || e.type === 'council');
+  }
+  function studentCalendarEvents(events) {
+    return (events || []).filter((e) => e.type === 'activity');
+  }
+  function eventTypeLabel(type) {
+    if (type === 'duty') return 'เวรสภา';
+    if (type === 'council') return 'งานสภา';
+    if (type === 'activity') return 'กิจกรรมนักเรียน';
+    return type || '-';
+  }
+
+  function renderCalendar(container, events, year, month) {
+    const first = new Date(year, month, 1);
+    const startDay = first.getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = todayISO();
+    const heads = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
+    let html = heads.map((h) => `<div class="cal-head">${h}</div>`).join('');
+    for (let i = 0; i < startDay; i++) html += `<div class="cal-day empty"></div>`;
+    for (let d = 1; d <= daysInMonth; d++) {
+      const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const dayEvents = events.filter((e) => e.date === iso);
+      html += `<div class="cal-day ${iso === today ? 'today' : ''}"><div class="day-num">${d}</div>${dayEvents
+        .map((e) => `<span class="cal-event ${e.type}" title="${esc(e.title)}">${esc(e.title)}</span>`)
+        .join('')}</div>`;
+    }
+    container.innerHTML = `<div class="cal-grid">${html}</div>`;
+  }
+
+  function orgHtml(departments) {
+    const by = {};
+    (departments || [])
+      .filter((d) => d.level <= 2)
+      .forEach((d) => {
+        if (!by[d.level]) by[d.level] = [];
+        by[d.level].push(d);
+      });
+    return [0, 1, 2]
+      .map((lv) => {
+        const nodes = by[lv] || [];
+        if (!nodes.length) return '';
+        return `<div class="org-level">${nodes
+          .map((d) => {
+            const isTop = lv === 0;
+            const isGroup = d.kind === 'group';
+            const title = isGroup ? d.name : d.person;
+            const sub = isGroup ? 'กลุ่มงาน' : d.name;
+            return `<div class="org-node ${isTop ? 'top' : ''} ${isGroup ? 'group-node' : ''}"><div class="name">${esc(title)}</div><div class="role">${esc(sub)}</div></div>`;
+          })
+          .join('')}</div>`;
+      })
+      .join('');
+  }
+
+  function orgGroupsHtml(groups) {
+    return (groups || DEFAULT_ORG_GROUPS)
+      .map(
+        (g) => `<div class="panel mb-2">
+          <div class="panel-header"><h3>${esc(g.name)}</h3><span class="badge badge-purple">${g.depts.length} ฝ่าย</span></div>
+          <div class="duty-map">${g.depts
+            .map((d) => `<div class="duty-spot assigned"><h5>${esc(d)}</h5><p>สภานักเรียน</p></div>`)
+            .join('')}</div>
+        </div>`
+      )
+      .join('');
+  }
+
+  function monthLabel(y, m) {
+    const th = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+    return `${th[m]} ${y + 543}`;
+  }
+
+  /* ---------- Shell ---------- */
+  let charts = {};
+
+  function destroyCharts() {
+    Object.values(charts).forEach((c) => {
+      try {
+        c.destroy();
+      } catch {}
+    });
+    charts = {};
+  }
+
+  function mountShell(session, navItems, subtitle) {
+    destroyCharts();
+    const stage = document.getElementById('app-stage');
+    const tpl = document.getElementById('tpl-shell');
+    stage.innerHTML = '';
+    stage.appendChild(tpl.content.cloneNode(true));
+    document.getElementById('login-root').classList.remove('active');
+    document.body.className = '';
+
+    const root = stage;
+    root.querySelector('[data-shell-sub]').textContent = subtitle;
+    root.querySelector('[data-user-name]').textContent = session.name;
+    root.querySelector('[data-user-role]').textContent = ROLES[session.role].label;
+    root.querySelector('[data-user-avatar]').textContent = (session.name || '?').charAt(0);
+
+    const nav = root.querySelector('[data-nav]');
+    nav.innerHTML = navItems
+      .map((n, i) => {
+        const cls = [i === 0 ? 'active' : '', n.featured ? 'nav-featured' : ''].filter(Boolean).join(' ');
+        const hot = n.featured ? `<span class="nav-hot" title="เมนูแนะนำ">✨</span>` : '';
+        return `<li><a href="#${n.id}" data-nav-id="${n.id}" class="${cls}"><span class="nav-icon">${n.icon}</span><span class="nav-label">${n.label}</span>${hot}</a></li>`;
+      })
+      .join('');
+
+    const sidebar = root.querySelector('.sidebar');
+    const backdrop = root.querySelector('.sidebar-backdrop');
+    root.querySelector('.menu-toggle').onclick = () => {
+      sidebar.classList.toggle('open');
+      backdrop.classList.toggle('open');
+    };
+    backdrop.onclick = () => {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+    };
+    root.querySelector('[data-logout]').onclick = (e) => {
+      e.preventDefault();
+      Auth.clear();
+      showLogin();
+      toast('ออกจากระบบแล้ว');
+    };
+
+    return {
+      content: root.querySelector('[data-page-content]'),
+      titleEl: root.querySelector('[data-page-title]'),
+      topActions: root.querySelector('[data-top-actions]'),
+      setNav(id) {
+        nav.querySelectorAll('a').forEach((a) => a.classList.toggle('active', a.dataset.navId === id));
+        const item = navItems.find((n) => n.id === id);
+        if (item) root.querySelector('[data-page-title]').textContent = item.label;
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('open');
+      },
+      onNav(fn) {
+        nav.querySelectorAll('a').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            fn(a.dataset.navId);
+          });
+        });
+      },
+    };
+  }
+
+  function showLogin() {
+    destroyCharts();
+    document.getElementById('app-stage').innerHTML = '';
+    document.getElementById('login-root').classList.add('active');
+    document.body.className = 'login-page';
+  }
+
+  /* ==================== ADMIN ==================== */
+  function startAdmin(session) {
+    const nav = [
+      { id: 'dashboard', label: 'แดชบอร์ด & แนวโน้ม', icon: '📊' },
+      { id: 'reports', label: 'รายงานความประพฤติ', icon: '📁' },
+      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
+      { id: 'council', label: 'ผลงานสภา', icon: '🎖️' },
+      { id: 'system', label: 'ระบบข้อมูล', icon: '💾' },
+    ];
+    const shell = mountShell(session, nav, 'พอร์ทัลผู้บริหาร');
+    let section = 'dashboard';
+
+    function render() {
+      const data = Store.load();
+      const a = analyticsFromData(data);
+      shell.setNav(section);
+      shell.topActions.innerHTML = `<span class="badge badge-gold">วันนี้ ${formatDate(todayISO())}</span>`;
+
+      if (section === 'dashboard') {
+        shell.content.innerHTML = `
+          <div class="dash-hero">
+            <h3>พฤติกรรมไม่ถูกต้องตามกฎระเบียบ</h3>
+            <div class="chart-box tall"><canvas id="cMisconduct"></canvas></div>
+            <div class="dash-chips">
+              <span class="dash-chip">รวม 7 วัน <em>${a.misconductTotal}</em> รายการ</span>
+              <span class="dash-chip soft">ย่อย: ไม่สวมหมวก <em>${a.helmetTotal}</em></span>
+              <span class="dash-chip soft">ย่อย: กักแถวสาย <em>${a.lateTotal}</em></span>
+            </div>
+          </div>
+          <div class="grid-2 mt-3">
+            <div class="panel">
+              <div class="panel-header"><h3>สัดส่วนประเภทย่อย</h3></div>
+              <div class="chart-box"><canvas id="cSubtype"></canvas></div>
+            </div>
+            <div class="panel">
+              <div class="panel-header"><h3>% งานสภาที่เสร็จ</h3></div>
+              <div class="chart-box"><canvas id="cDone"></canvas></div>
+            </div>
+          </div>
+          <div class="panel mt-3">
+            <div class="panel-header"><h3>ภาระงานแต่ละฝ่าย</h3></div>
+            <div class="chart-box dept"><canvas id="cDept"></canvas></div>
+          </div>`;
+        destroyCharts();
+        const misCtx = document.getElementById('cMisconduct').getContext('2d');
+        charts.o = new Chart(misCtx, {
+          type: 'line',
+          data: {
+            labels: a.labels,
+            datasets: [
+              {
+                label: 'พฤติกรรมไม่ถูกต้องตามกฎระเบียบ',
+                data: a.misconductWeekly,
+                borderColor: '#5e2d96',
+                backgroundColor: makeAreaGradient(misCtx, 'rgba(94, 45, 150, 0.35)', 'rgba(94, 45, 150, 0.02)'),
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#5e2d96',
+                pointBorderWidth: 2,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { font: chartFont(), usePointStyle: true, padding: 16 },
+              },
+              tooltip: {
+                callbacks: {
+                  afterBody(items) {
+                    const i = items[0]?.dataIndex ?? 0;
+                    return [`ย่อย · ไม่สวมหมวก ${a.helmetWeekly[i]}`, `ย่อย · กักแถวสาย ${a.lateWeekly[i]}`];
+                  },
+                },
+              },
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { font: chartFont(), color: '#6f5f82' },
+              },
+              y: {
+                beginAtZero: true,
+                suggestedMax: niceMax(a.misconductWeekly),
+                ticks: { stepSize: 1, font: chartFont(), color: '#6f5f82', precision: 0 },
+                grid: { color: 'rgba(94, 45, 150, 0.08)' },
+              },
+            },
+          },
+        });
+        charts.c = new Chart(document.getElementById('cSubtype'), {
+          type: 'doughnut',
+          data: {
+            labels: ['ไม่สวมหมวก', 'กักแถวสาย'],
+            datasets: [
+              {
+                data: [a.helmetTotal || 0, a.lateTotal || 0],
+                backgroundColor: ['#9a63d1', '#c9a24a'],
+                borderWidth: 0,
+                hoverOffset: 6,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '62%',
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { font: chartFont(), usePointStyle: true, padding: 14 },
+              },
+            },
+          },
+        });
+        charts.d = new Chart(document.getElementById('cDept'), {
+          type: 'bar',
+          data: {
+            labels: a.deptWorkload.labels,
+            datasets: [
+              {
+                label: 'จำนวนงาน',
+                data: a.deptWorkload.values,
+                backgroundColor: DEPT_COLORS,
+                borderColor: DEPT_COLORS,
+                borderWidth: 0,
+                borderRadius: 8,
+                borderSkipped: false,
+                maxBarThickness: 22,
+              },
+            ],
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label(ctx) {
+                    return ` ${ctx.parsed.x} งาน`;
+                  },
+                },
+              },
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                suggestedMax: niceMax(a.deptWorkload.values),
+                ticks: { stepSize: 1, font: chartFont(), color: '#6f5f82', precision: 0 },
+                grid: { color: 'rgba(94, 45, 150, 0.08)' },
+              },
+              y: {
+                grid: { display: false },
+                ticks: { font: { ...chartFont(), size: 11 }, color: '#3a1d5c' },
+              },
+            },
+          },
+        });
+        charts.x = new Chart(document.getElementById('cDone'), {
+          type: 'bar',
+          data: {
+            labels: a.labels,
+            datasets: [
+              {
+                label: '% เสร็จ',
+                data: a.taskCompletion,
+                backgroundColor: 'rgba(94, 45, 150, 0.85)',
+                borderRadius: 10,
+                borderSkipped: false,
+                maxBarThickness: 36,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { font: chartFont(), color: '#6f5f82' } },
+              y: {
+                min: 0,
+                max: 100,
+                ticks: { font: chartFont(), color: '#6f5f82' },
+                grid: { color: 'rgba(94, 45, 150, 0.08)' },
+              },
+            },
+          },
+        });
+      }
+
+      if (section === 'reports') {
+        shell.content.innerHTML = `
+          <div class="tab-group">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="rh">หมวกกันน็อค</button>
+              <button class="tab-btn" data-tab="rl">กักแถวสาย</button>
+            </div>
+            <div class="tab-panel active" data-panel="rh"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>สถานะ</th></tr></thead><tbody>
+              ${data.helmetReports.map((r) => `<tr><td>${esc(r.studentId)}</td><td>${esc(r.plate)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${badge(r.status)}</td></tr>`).join('') || '<tr><td colspan="5">ยังไม่มีรายงาน</td></tr>'}
+            </tbody></table></div></div>
+            <div class="tab-panel" data-panel="rl"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>วันที่</th><th>ผู้บันทึก</th><th>หมายเหตุ</th><th>สถานะ</th></tr></thead><tbody>
+              ${data.lateReports.map((r) => `<tr><td>${esc(r.studentId)}</td><td>${formatDate(r.date)}</td><td>${esc(r.recorder)}</td><td>${esc(r.note)}</td><td>${badge(r.status)}</td></tr>`).join('') || '<tr><td colspan="5">ยังไม่มีรายงาน</td></tr>'}
+            </tbody></table></div></div>
+          </div>`;
+        bindTabs(shell.content);
+      }
+
+      if (section === 'council') {
+        shell.content.innerHTML = `
+          <div class="panel"><div class="panel-header"><h3>แผนงานที่ครูมอบหมาย</h3></div>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>งาน</th><th>ฝ่าย</th><th>กำหนด</th><th>สถานะ</th></tr></thead><tbody>
+            ${data.tasks.map((t) => `<tr><td>${esc(t.title)}</td><td>${esc(t.dept)}</td><td>${formatDate(t.due)}</td><td>${badge(t.status)}</td></tr>`).join('')}
+            </tbody></table></div></div>
+          <div class="panel mt-3"><div class="panel-header"><h3>โครงสร้างสภานักเรียน</h3></div>
+            <p class="muted mb-2">ประธานนักเรียน · รองประธาน 2 คน · เลขานุการ · 3 กลุ่มบริหาร · 11 ฝ่าย</p>
+            <div class="org-chart">${orgHtml(data.departments)}</div>
+            <div class="mt-3">${orgGroupsHtml(data.orgGroups)}</div>
+          </div>`;
+      }
+
+      if (section === 'lostfound') {
+        const items = lfList(data);
+        const openN = items.filter((x) => x.status === 'open').length;
+        const claimedN = items.filter((x) => x.status === 'claimed').length;
+        const returnedN = items.filter((x) => x.status === 'returned').length;
+        shell.content.innerHTML = `
+          <div class="grid-3">
+            <div class="stat-card"><div class="label">รายการเปิดอยู่</div><div class="value">${openN}</div></div>
+            <div class="stat-card"><div class="label">รอส่งคืน</div><div class="value">${claimedN}</div></div>
+            <div class="stat-card"><div class="label">คืนสำเร็จ</div><div class="value">${returnedN}</div></div>
+          </div>
+          <div class="panel mt-3">
+            <div class="panel-header"><h3>รายการของหายได้คืนทั้งหมด</h3></div>
+            <div class="table-wrap"><table class="data-table"><thead><tr>
+              <th>ประเภท</th><th>รายการ</th><th>หมวด</th><th>สถานที่</th><th>วันที่</th><th>ผู้แจ้ง</th><th>สถานะ</th><th>ผู้ขอรับ</th>
+            </tr></thead><tbody>
+            ${items
+              .map(
+                (x) => `<tr>
+                  <td>${badge(x.type)}</td>
+                  <td><strong>${esc(x.title)}</strong><br><small class="muted">${esc(x.description || '')}</small></td>
+                  <td>${esc(x.category)}</td><td>${esc(x.location)}</td><td>${formatDate(x.date)}</td>
+                  <td>${esc(x.reporter)}</td><td>${badge(x.status)}</td>
+                  <td>${esc(x.claimBy || '-')}</td>
+                </tr>`
+              )
+              .join('') || '<tr><td colspan="8">ยังไม่มีรายการ</td></tr>'}
+            </tbody></table></div>
+          </div>`;
+      }
+
+      if (section === 'system') {
+        shell.content.innerHTML = `
+          <div class="panel">
+            <div class="panel-header"><h3>สำรอง / นำเข้า / รีเซ็ตข้อมูล</h3></div>
+            <p class="muted mb-2">ข้อมูลทั้งหมดเก็บบนเบราว์เซอร์เครื่องนี้ — สำรองเป็นไฟล์ JSON ได้</p>
+            <div class="toolbar-row">
+              <button class="btn btn-primary" id="btnExport">ดาวน์โหลดข้อมูล</button>
+              <label class="btn btn-outline" style="cursor:pointer">นำเข้าไฟล์ JSON<input type="file" id="importFile" accept="application/json,.json" hidden /></label>
+              <button class="btn btn-danger" id="btnReset">รีเซ็ตข้อมูลตัวอย่าง</button>
+            </div>
+            <div class="alert alert-info mt-2">ไฟล์วิดีโอที่อัปโหลดเก็บใน IndexedDB ของเบราว์เซอร์แยกจาก JSON</div>
+          </div>`;
+        document.getElementById('btnExport').onclick = () => {
+          const blob = new Blob([Store.export()], { type: 'application/json' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'banphai-council-backup-' + todayISO() + '.json';
+          a.click();
+          toast('ดาวน์โหลดแล้ว', 'success');
+        };
+        document.getElementById('importFile').onchange = async (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          try {
+            Store.import(await file.text());
+            toast('นำเข้าข้อมูลสำเร็จ', 'success');
+            render();
+          } catch {
+            toast('นำเข้าไม่สำเร็จ', 'error');
+          }
+        };
+        document.getElementById('btnReset').onclick = () => {
+          if (confirm('รีเซ็ตข้อมูลทั้งหมดเป็นค่าเริ่มต้น?')) {
+            Store.reset();
+            toast('รีเซ็ตแล้ว', 'success');
+            render();
+          }
+        };
+      }
+    }
+
+    shell.onNav((id) => {
+      section = id;
+      render();
+    });
+    render();
+  }
+
+  function bindTabs(root) {
+    root.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        root.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b === btn));
+        root.querySelectorAll('.tab-panel').forEach((p) => p.classList.toggle('active', p.dataset.panel === tab));
+      });
+    });
+  }
+
+  /* ==================== TEACHER ==================== */
+  function startTeacher(session) {
+    const nav = [
+      { id: 'home', label: 'ภาพรวมงาน', icon: '🏠' },
+      { id: 'assign', label: 'มอบหมายงานสภา', icon: '📋' },
+      { id: 'calendar', label: 'ปฏิทินสภา / กิจกรรม', icon: '📅' },
+      { id: 'review', label: 'ตรวจงานสภา', icon: '✅' },
+      { id: 'reports', label: 'รายงานความประพฤติ', icon: '🛡️' },
+      { id: 'messages', label: 'ข้อความจากนักเรียน', icon: '💬' },
+      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
+    ];
+    const shell = mountShell(session, nav, 'ครูกิจการนักเรียน');
+    let section = 'home';
+
+    function render() {
+      const data = Store.load();
+      shell.setNav(section);
+      shell.topActions.innerHTML = `<button class="btn btn-primary btn-sm" id="quickAssign">+ มอบหมายงาน</button>`;
+      document.getElementById('quickAssign').onclick = () => {
+        section = 'assign';
+        render();
+      };
+
+      if (section === 'home') {
+        const todo = data.tasks.filter((t) => t.status !== 'done').length;
+        const pending =
+          data.helmetReports.filter((r) => r.status === 'pending').length +
+          data.lateReports.filter((r) => r.status === 'pending').length;
+        const msgs = data.studentMessages.filter((m) => m.status !== 'closed').length;
+        shell.content.innerHTML = `
+          <div class="alert alert-info">คุณกำกับงานสภา — มอบหมายงาน ลงปฏิทินเวร และตรวจรายงานความประพฤติ</div>
+          <div class="grid-4">
+            <div class="stat-card"><div class="label">งานสภาค้าง</div><div class="value">${todo}</div></div>
+            <div class="stat-card"><div class="label">รายงานรอตรวจ</div><div class="value">${pending}</div></div>
+            <div class="stat-card"><div class="label">จุดเวรว่าง</div><div class="value">${data.dutySpots.filter((d) => d.person === '-').length}</div></div>
+            <div class="stat-card"><div class="label">ข้อความรอดำเนิน</div><div class="value">${msgs}</div></div>
+          </div>
+          <div class="grid-2 mt-3">
+            <div class="panel"><div class="panel-header"><h3>งานรอดำเนินการ</h3></div>
+              ${data.tasks
+                .filter((t) => t.status !== 'done')
+                .map(
+                  (t) =>
+                    `<div class="feed-item"><div class="feed-dot">📌</div><div class="feed-body"><h4>${esc(t.title)} ${badge(t.status)}</h4><p class="time">${esc(t.dept)} · ${formatDate(t.due)}</p></div></div>`
+                )
+                .join('') || '<div class="empty-state">ไม่มีงานค้าง</div>'}
+            </div>
+            <div class="panel"><div class="panel-header"><h3>จุดเวร</h3></div>
+              <div class="duty-map">${data.dutySpots
+                .map(
+                  (d) =>
+                    `<div class="duty-spot ${d.person !== '-' ? 'assigned' : ''}"><h5>${esc(d.spot)}</h5><p>${esc(d.person)}<br>${esc(d.time)}</p></div>`
+                )
+                .join('')}</div>
+            </div>
+          </div>`;
+      }
+
+      if (section === 'assign') {
+        shell.content.innerHTML = `
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>มอบหมายงาน</h3></div>
+              <form id="fAssign">
+                <div class="form-group"><label>ชื่องาน</label><input class="form-control" name="title" required /></div>
+                <div class="form-row">
+                  <div class="form-group"><label>ฝ่าย</label><select class="form-control" name="dept">${DEPTS.map((d) => `<option>${d}</option>`).join('')}</select></div>
+                  <div class="form-group"><label>ผู้รับมอบหมาย</label><input class="form-control" name="assignee" required /></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group"><label>กำหนดส่ง</label><input class="form-control" type="date" name="due" value="${todayISO()}" required /></div>
+                  <div class="form-group"><label>ความสำคัญ</label><select class="form-control" name="priority"><option value="high">สูง</option><option value="medium" selected>กลาง</option><option value="low">ต่ำ</option></select></div>
+                </div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="note"></textarea></div>
+                <button class="btn btn-primary">มอบหมายงาน</button>
+              </form>
+            </div>
+            <div class="panel"><div class="panel-header"><h3>รายการงาน</h3></div>
+              <div class="table-wrap"><table class="data-table"><thead><tr><th>งาน</th><th>ฝ่าย</th><th>กำหนด</th><th>สถานะ</th><th></th></tr></thead><tbody>
+              ${data.tasks
+                .map(
+                  (t) =>
+                    `<tr><td>${esc(t.title)}<br><small class="muted">${esc(t.note || '')}</small></td><td>${esc(t.dept)}</td><td>${formatDate(t.due)}</td><td>${badge(t.status)}</td>
+                    <td><button class="danger-link" data-del-task="${t.id}">ลบ</button></td></tr>`
+                )
+                .join('')}
+              </tbody></table></div>
+            </div>
+          </div>`;
+        document.getElementById('fAssign').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.tasks.unshift({
+              id: uid('t'),
+              title: fd.get('title'),
+              dept: fd.get('dept'),
+              assignee: fd.get('assignee'),
+              due: fd.get('due'),
+              status: 'todo',
+              priority: fd.get('priority'),
+              note: fd.get('note'),
+              createdBy: session.name,
+              createdAt: todayISO(),
+            });
+            d.announcements.unshift({
+              id: uid('n'),
+              title: 'งานใหม่จากครูกิจการ: ' + fd.get('title'),
+              body: `มอบหมายให้ ${fd.get('dept')} — กำหนดส่ง ${formatDate(fd.get('due'))}`,
+              date: todayISO(),
+              audience: 'council',
+            });
+          });
+          toast('มอบหมายงานแล้ว', 'success');
+          render();
+        };
+        shell.content.querySelectorAll('[data-del-task]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              d.tasks = d.tasks.filter((t) => t.id !== btn.dataset.delTask);
+            });
+            toast('ลบงานแล้ว');
+            render();
+          };
+        });
+      }
+
+      if (section === 'calendar') {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = now.getMonth();
+        const councilEv = councilCalendarEvents(data.events);
+        const activityEv = studentCalendarEvents(data.events);
+        shell.content.innerHTML = `
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-header"><h3>ปฏิทินสภานักเรียน</h3><span class="badge badge-purple">${monthLabel(y, m)}</span></div>
+              <p class="muted mb-2">เวรและงานภายในสภา — นักเรียนทั่วไปไม่เห็นปฏิทินนี้</p>
+              <div id="calCouncil"></div>
+              <div class="panel-header mt-3"><h3>เพิ่มรายการสภา</h3></div>
+              <form id="fCouncilEvent">
+                <div class="form-group"><label>ชื่อรายการ</label><input class="form-control" name="title" required /></div>
+                <div class="form-row">
+                  <div class="form-group"><label>วันที่</label><input class="form-control" type="date" name="date" value="${todayISO()}" required /></div>
+                  <div class="form-group"><label>ประเภท</label><select class="form-control" name="type"><option value="duty">เวรสภา</option><option value="council">งาน / ประชุมสภา</option></select></div>
+                </div>
+                <div class="form-group"><label>จุด / สถานที่</label><input class="form-control" name="spot" /></div>
+                <button class="btn btn-primary">บันทึกลงปฏิทินสภา</button>
+              </form>
+              <div class="mt-2">
+                ${councilEv
+                  .map(
+                    (e) =>
+                      `<div class="feed-item"><div class="feed-dot">📅</div><div class="feed-body"><h4>${esc(e.title)}</h4><p class="time">${formatDate(e.date)} · ${eventTypeLabel(e.type)} · ${esc(e.spot || '')}</p>
+                      <button class="danger-link" data-del-ev="${e.id}">ลบ</button></div></div>`
+                  )
+                  .join('') || '<div class="empty-state">ยังไม่มีรายการในปฏิทินสภา</div>'}
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-header"><h3>ปฏิทินกิจกรรมนักเรียน</h3><span class="badge badge-gold">${monthLabel(y, m)}</span></div>
+              <p class="muted mb-2">กิจกรรมที่เปิดให้นักเรียนเห็นในพอร์ทัลนักเรียน</p>
+              <div id="calActivity"></div>
+              <div class="panel-header mt-3"><h3>เพิ่มกิจกรรมนักเรียน</h3></div>
+              <form id="fActivityEvent">
+                <div class="form-group"><label>ชื่อกิจกรรม</label><input class="form-control" name="title" required /></div>
+                <div class="form-row">
+                  <div class="form-group"><label>วันที่</label><input class="form-control" type="date" name="date" value="${todayISO()}" required /></div>
+                  <div class="form-group"><label>สถานที่</label><input class="form-control" name="spot" /></div>
+                </div>
+                <button class="btn btn-primary">บันทึกลงปฏิทินกิจกรรม</button>
+              </form>
+              <div class="mt-2">
+                ${activityEv
+                  .map(
+                    (e) =>
+                      `<div class="feed-item"><div class="feed-dot">🏆</div><div class="feed-body"><h4>${esc(e.title)}</h4><p class="time">${formatDate(e.date)} · ${esc(e.spot || '')}</p>
+                      <button class="danger-link" data-del-ev="${e.id}">ลบ</button></div></div>`
+                  )
+                  .join('') || '<div class="empty-state">ยังไม่มีกิจกรรมในปฏิทิน</div>'}
+              </div>
+            </div>
+          </div>
+          <div class="panel mt-3">
+            <div class="panel-header"><h3>จัดเวรตามจุด (สภานักเรียน)</h3></div>
+            <form id="fDuty" class="form-row">
+              <div class="form-group"><label>จุดเวร</label><select class="form-control" name="spot">${data.dutySpots.map((d) => `<option>${esc(d.spot)}</option>`).join('')}</select></div>
+              <div class="form-group"><label>ผู้รับเวร</label><input class="form-control" name="person" required /></div>
+              <div class="form-group"><label>ช่วงเวลา</label><input class="form-control" name="time" value="07:00–08:00" required /></div>
+              <div class="form-group" style="display:flex;align-items:flex-end"><button class="btn btn-outline">อัปเดตเวร</button></div>
+            </form>
+            <div class="duty-map mt-2">${data.dutySpots
+              .map(
+                (d) =>
+                  `<div class="duty-spot ${d.person !== '-' ? 'assigned' : ''}"><h5>${esc(d.spot)}</h5><p>${esc(d.person)}<br>${esc(d.time)}</p></div>`
+              )
+              .join('')}</div>
+          </div>`;
+        renderCalendar(document.getElementById('calCouncil'), councilEv, y, m);
+        renderCalendar(document.getElementById('calActivity'), activityEv, y, m);
+        document.getElementById('fCouncilEvent').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.events.push({ id: uid('e'), title: fd.get('title'), date: fd.get('date'), type: fd.get('type'), spot: fd.get('spot') });
+          });
+          toast('เพิ่มลงปฏิทินสภาแล้ว', 'success');
+          render();
+        };
+        document.getElementById('fActivityEvent').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.events.push({ id: uid('e'), title: fd.get('title'), date: fd.get('date'), type: 'activity', spot: fd.get('spot') });
+          });
+          toast('เพิ่มลงปฏิทินกิจกรรมนักเรียนแล้ว', 'success');
+          render();
+        };
+        document.getElementById('fDuty').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            const item = d.dutySpots.find((x) => x.spot === fd.get('spot'));
+            if (item) {
+              item.person = fd.get('person');
+              item.time = fd.get('time');
+            }
+          });
+          toast('อัปเดตเวรแล้ว', 'success');
+          render();
+        };
+        shell.content.querySelectorAll('[data-del-ev]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              d.events = d.events.filter((x) => x.id !== btn.dataset.delEv);
+            });
+            toast('ลบรายการแล้ว');
+            render();
+          };
+        });
+      }
+
+      if (section === 'review') {
+        shell.content.innerHTML = `
+          <div class="panel"><div class="panel-header"><h3>อัปเดตสถานะงานสภา</h3></div>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>งาน</th><th>ฝ่าย</th><th>สถานะ</th></tr></thead><tbody>
+            ${data.tasks
+              .map(
+                (t) => `<tr><td>${esc(t.title)}</td><td>${esc(t.dept)}</td><td>
+                <select class="form-control" data-st="${t.id}" style="min-width:140px">
+                  <option value="todo" ${t.status === 'todo' ? 'selected' : ''}>รอดำเนินการ</option>
+                  <option value="in_progress" ${t.status === 'in_progress' ? 'selected' : ''}>กำลังทำ</option>
+                  <option value="done" ${t.status === 'done' ? 'selected' : ''}>เสร็จแล้ว</option>
+                </select></td></tr>`
+              )
+              .join('')}
+            </tbody></table></div></div>
+          <div class="panel mt-3"><div class="panel-header"><h3>บันทึกจากสภา</h3></div>
+            ${data.incidents
+              .map(
+                (i) =>
+                  `<div class="feed-item"><div class="feed-dot">📝</div><div class="feed-body"><h4>${esc(i.title)} ${badge(i.status)}</h4>
+                  <p class="time">${esc(i.type)} · ${formatDate(i.date)} · ${esc(i.by)}</p><p>${esc(i.detail)}</p>
+                  ${i.status === 'open' ? `<button class="btn btn-sm btn-success" data-close-i="${i.id}">ปิดเคส</button>` : ''}
+                  </div></div>`
+              )
+              .join('') || '<div class="empty-state">ยังไม่มีบันทึก</div>'}
+          </div>`;
+        shell.content.querySelectorAll('[data-st]').forEach((sel) => {
+          sel.onchange = () => {
+            Store.update((d) => {
+              const t = d.tasks.find((x) => x.id === sel.dataset.st);
+              if (t) t.status = sel.value;
+            });
+            toast('อัปเดตสถานะแล้ว', 'success');
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-close-i]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const i = d.incidents.find((x) => x.id === btn.dataset.closeI);
+              if (i) i.status = 'closed';
+            });
+            toast('ปิดเคสแล้ว', 'success');
+            render();
+          };
+        });
+      }
+
+      if (section === 'reports') {
+        shell.content.innerHTML = `
+          <div class="tab-group">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="th">หมวกกันน็อค</button>
+              <button class="tab-btn" data-tab="tl">กักแถวสาย</button>
+            </div>
+            <div class="tab-panel active" data-panel="th"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>หมายเหตุ</th><th></th></tr></thead><tbody>
+              ${data.helmetReports
+                .map(
+                  (r) => `<tr><td>${esc(r.studentId)}</td><td>${esc(r.plate)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${esc(r.note)}</td><td>
+                  ${r.status === 'pending' ? `<button class="btn btn-sm btn-success" data-ok-h="${r.id}">รับรอง (−5)</button>` : badge(r.status)}
+                  </td></tr>`
+                )
+                .join('') || '<tr><td colspan="6">ยังไม่มีรายงาน</td></tr>'}
+            </tbody></table></div></div>
+            <div class="tab-panel" data-panel="tl"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>วันที่</th><th>ผู้บันทึก</th><th>หมายเหตุ</th><th></th></tr></thead><tbody>
+              ${data.lateReports
+                .map(
+                  (r) => `<tr><td>${esc(r.studentId)}</td><td>${formatDate(r.date)}</td><td>${esc(r.recorder)}</td><td>${esc(r.note)}</td><td>
+                  ${r.status === 'pending' ? `<button class="btn btn-sm btn-success" data-ok-l="${r.id}">รับรอง (−3)</button>` : badge(r.status)}
+                  </td></tr>`
+                )
+                .join('') || '<tr><td colspan="5">ยังไม่มีรายงาน</td></tr>'}
+            </tbody></table></div></div>
+          </div>`;
+        bindTabs(shell.content);
+        shell.content.querySelectorAll('[data-ok-h]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const r = d.helmetReports.find((x) => x.id === btn.dataset.okH);
+              if (!r || r.status !== 'pending') return;
+              r.status = 'reviewed';
+              r.reviewedBy = session.name;
+              r.reviewedAt = todayISO();
+              adjustScore(d, r.studentId, -5, 'หักคะแนนไม่สวมหมวกกันน็อค');
+            });
+            toast('รับรองและหักคะแนนแล้ว', 'success');
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-ok-l]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const r = d.lateReports.find((x) => x.id === btn.dataset.okL);
+              if (!r || r.status !== 'pending') return;
+              r.status = 'reviewed';
+              r.reviewedBy = session.name;
+              r.reviewedAt = todayISO();
+              adjustScore(d, r.studentId, -3, 'หักคะแนนกักแถวสาย');
+            });
+            toast('รับรองและหักคะแนนแล้ว', 'success');
+            render();
+          };
+        });
+      }
+
+      if (section === 'messages') {
+        shell.content.innerHTML = `
+          <div class="panel"><div class="panel-header"><h3>ข้อความจากนักเรียน</h3></div>
+            ${data.studentMessages
+              .map(
+                (m) =>
+                  `<div class="feed-item"><div class="feed-dot">💬</div><div class="feed-body">
+                  <h4>${esc(m.topic)} ${badge(m.status || 'open')}</h4>
+                  <p class="time">${formatDate(m.date)} · ${esc(m.from)} (${esc(m.fromId)})</p>
+                  <p>${esc(m.detail)}</p>
+                  ${m.reply ? `<div class="alert alert-success mt-1">ตอบกลับ: ${esc(m.reply)}</div>` : ''}
+                  ${
+                    m.status !== 'closed'
+                      ? `<form data-reply="${m.id}" class="mt-1"><div class="form-group"><input class="form-control" name="reply" placeholder="ตอบกลับ..." required /></div>
+                      <button class="btn btn-sm btn-primary">ส่งคำตอบและปิด</button></form>`
+                      : ''
+                  }
+                  </div></div>`
+              )
+              .join('') || '<div class="empty-state">ยังไม่มีข้อความ</div>'}
+          </div>`;
+        shell.content.querySelectorAll('form[data-reply]').forEach((form) => {
+          form.onsubmit = (e) => {
+            e.preventDefault();
+            const fd = new FormData(form);
+            Store.update((d) => {
+              const m = d.studentMessages.find((x) => x.id === form.dataset.reply);
+              if (m) {
+                m.reply = fd.get('reply');
+                m.status = 'closed';
+                m.repliedBy = session.name;
+              }
+            });
+            toast('ตอบกลับแล้ว', 'success');
+            render();
+          };
+        });
+      }
+
+      if (section === 'lostfound') {
+        const items = lfList(data);
+        shell.content.innerHTML = `
+          <div class="alert alert-info">กำกับระบบของหายได้คืน — ยืนยันการส่งคืนและปิดรายการได้ที่นี่</div>
+          <div class="grid-3 mb-2">
+            <div class="stat-card"><div class="label">เปิดอยู่</div><div class="value">${items.filter((x) => x.status === 'open').length}</div></div>
+            <div class="stat-card"><div class="label">รอส่งคืน</div><div class="value">${items.filter((x) => x.status === 'claimed').length}</div></div>
+            <div class="stat-card"><div class="label">คืนแล้ว</div><div class="value">${items.filter((x) => x.status === 'returned').length}</div></div>
+          </div>
+          <div class="panel"><div class="panel-header"><h3>รายการทั้งหมด</h3></div>
+            <div class="table-wrap"><table class="data-table"><thead><tr>
+              <th>ประเภท</th><th>รายการ</th><th>ผู้แจ้ง</th><th>สถานะ</th><th>ผู้ขอรับ</th><th>จัดการ</th>
+            </tr></thead><tbody>
+            ${items
+              .map(
+                (x) => `<tr>
+                  <td>${badge(x.type)}</td>
+                  <td><strong>${esc(x.title)}</strong><br><small class="muted">${esc(x.category)} · ${esc(x.location)} · ${formatDate(x.date)}</small><br><small>${esc(x.description || '')}</small></td>
+                  <td>${esc(x.reporter)}</td><td>${badge(x.status)}</td><td>${esc(x.claimBy || '-')}${x.claimNote ? `<br><small class="muted">${esc(x.claimNote)}</small>` : ''}</td>
+                  <td>
+                    ${x.status === 'claimed' || x.status === 'open' ? `<button class="btn btn-sm btn-success" data-lf-return="${x.id}">ยืนยันคืนแล้ว</button> ` : ''}
+                    ${x.status !== 'closed' && x.status !== 'returned' ? `<button class="btn btn-sm btn-outline" data-lf-close="${x.id}">ปิดรายการ</button>` : ''}
+                    ${x.status === 'returned' || x.status === 'closed' ? '<span class="muted">-</span>' : ''}
+                  </td>
+                </tr>`
+              )
+              .join('') || '<tr><td colspan="6">ยังไม่มีรายการ</td></tr>'}
+            </tbody></table></div>
+          </div>`;
+        shell.content.querySelectorAll('[data-lf-return]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const x = lfList(d).find((i) => i.id === btn.dataset.lfReturn);
+              if (!x) return;
+              x.status = 'returned';
+              x.returnedBy = session.name;
+              x.returnedAt = todayISO();
+            });
+            toast('ยืนยันส่งคืนแล้ว', 'success');
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-lf-close]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const x = lfList(d).find((i) => i.id === btn.dataset.lfClose);
+              if (x) x.status = 'closed';
+            });
+            toast('ปิดรายการแล้ว');
+            render();
+          };
+        });
+      }
+    }
+
+    shell.onNav((id) => {
+      section = id;
+      render();
+    });
+    render();
+  }
+
+  /* ==================== COUNCIL ==================== */
+  function startCouncil(session) {
+    const nav = [
+      { id: 'home', label: 'หน้าหลัก', icon: '🏠' },
+      { id: 'tasks', label: 'แผนงานที่ได้รับมอบ', icon: '📋' },
+      { id: 'log', label: 'บันทึกงาน / เหตุการณ์', icon: '📝' },
+      { id: 'helmet', label: 'รายงานไม่สวมหมวก', icon: '🪖' },
+      { id: 'late', label: 'รายงานกักแถวสาย', icon: '⏰' },
+      { id: 'videos', label: 'วิดีโอสรุปบทเรียน', icon: '🎬' },
+      { id: 'activities', label: 'ประกาศ & จับคู่ทีม', icon: '🏆' },
+      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
+      { id: 'org', label: 'แผนงาน & ผังฝ่าย', icon: '🗂️' },
+      { id: 'calendar', label: 'ปฏิทินสภา / กิจกรรม', icon: '📅' },
+    ];
+    const shell = mountShell(session, nav, 'พอร์ทัลคณะกรรมการ');
+    let section = 'home';
+    let videoFilter = 'ทั้งหมด';
+
+    async function playVideo(v) {
+      Store.update((d) => {
+        const x = d.videos.find((i) => i.id === v.id);
+        if (x) x.views = (x.views || 0) + 1;
+        d.watchHistory = d.watchHistory || {};
+        d.watchHistory[session.name] = d.watchHistory[session.name] || [];
+        d.watchHistory[session.name].unshift({ videoId: v.id, at: new Date().toISOString() });
+      });
+      const player = await videoPlayerHtml(v);
+      openModal(`<h3>${esc(v.title)}</h3><p class="muted">${esc(v.subject)} · ${esc(v.teacher)} · ${esc(v.duration || '')}</p>
+        ${player}<p>${esc(v.desc || '')}</p>
+        <button class="btn btn-primary mt-2" data-close-modal>ปิด</button>`);
+    }
+
+    function render() {
+      const data = Store.load();
+      shell.setNav(section);
+      shell.topActions.innerHTML = `<span class="badge badge-purple">คณะกรรมการสภา</span>`;
+
+      if (section === 'home') {
+        shell.content.innerHTML = `
+          <div class="portal-banner">
+            <h2>สวัสดี, ${esc(session.name)}</h2>
+            <p>บันทึกงาน รายงานความประพฤติ อัปโหลดวิดีโอสรุปบทเรียน และเปิดรับสมัครทีม — ข้อมูลบันทึกจริงในระบบ</p>
+            <div class="quick-links">
+              <a class="quick-link" href="#" data-go="helmet"><span>🪖</span>รายงานหมวก</a>
+              <a class="quick-link" href="#" data-go="late"><span>⏰</span>กักแถวสาย</a>
+              <a class="quick-link" href="#" data-go="lostfound"><span>🎒</span>ของหายได้คืน</a>
+              <a class="quick-link" href="#" data-go="videos"><span>🎬</span>วิดีโอ</a>
+            </div>
+          </div>
+          <div class="grid-4">
+            <div class="stat-card"><div class="label">งานค้าง</div><div class="value">${data.tasks.filter((t) => t.status !== 'done').length}</div></div>
+            <div class="stat-card"><div class="label">รายงานหมวก</div><div class="value">${data.helmetReports.length}</div></div>
+            <div class="stat-card"><div class="label">ของรอคืน</div><div class="value">${(data.lostFound || []).filter((x) => x.status === 'open' || x.status === 'claimed').length}</div></div>
+            <div class="stat-card"><div class="label">วิดีโอบทเรียน</div><div class="value">${data.videos.length}</div></div>
+          </div>
+          <div class="grid-2 mt-3">
+            <div class="panel"><div class="panel-header"><h3>งานที่ต้องทำ</h3></div>
+              ${data.tasks
+                .filter((t) => t.status !== 'done')
+                .slice(0, 5)
+                .map(
+                  (t) =>
+                    `<div class="feed-item"><div class="feed-dot">📌</div><div class="feed-body"><h4>${esc(t.title)}</h4><p class="time">${esc(t.dept)} · ${formatDate(t.due)} ${badge(t.status)}</p></div></div>`
+                )
+                .join('') || '<div class="empty-state">ไม่มีงานค้าง</div>'}
+            </div>
+            <div class="panel"><div class="panel-header"><h3>ประกาศ</h3></div>
+              ${data.announcements
+                .slice(0, 5)
+                .map(
+                  (n) =>
+                    `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4><p class="time">${formatDate(n.date)}</p><p class="muted">${esc(n.body)}</p></div></div>`
+                )
+                .join('')}
+            </div>
+          </div>`;
+        shell.content.querySelectorAll('[data-go]').forEach((a) => {
+          a.onclick = (e) => {
+            e.preventDefault();
+            section = a.dataset.go;
+            render();
+          };
+        });
+      }
+
+      if (section === 'tasks') {
+        shell.content.innerHTML = `
+          <div class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>งาน</th><th>ฝ่าย</th><th>ผู้รับ</th><th>กำหนด</th><th>สำคัญ</th><th>อัปเดตสถานะ</th></tr></thead><tbody>
+          ${data.tasks
+            .map(
+              (t) => `<tr><td>${esc(t.title)}<br><small class="muted">${esc(t.note || '')}</small></td><td>${esc(t.dept)}</td><td>${esc(t.assignee)}</td><td>${formatDate(t.due)}</td><td>${badge(t.priority)}</td><td>
+              <select class="form-control" data-my="${t.id}">
+                <option value="todo" ${t.status === 'todo' ? 'selected' : ''}>รอดำเนินการ</option>
+                <option value="in_progress" ${t.status === 'in_progress' ? 'selected' : ''}>กำลังทำ</option>
+                <option value="done" ${t.status === 'done' ? 'selected' : ''}>เสร็จแล้ว</option>
+              </select></td></tr>`
+            )
+            .join('')}
+          </tbody></table></div></div>`;
+        shell.content.querySelectorAll('[data-my]').forEach((sel) => {
+          sel.onchange = () => {
+            Store.update((d) => {
+              const t = d.tasks.find((x) => x.id === sel.dataset.my);
+              if (t) t.status = sel.value;
+            });
+            toast('อัปเดตแล้ว', 'success');
+            render();
+          };
+        });
+      }
+
+      if (section === 'log') {
+        shell.content.innerHTML = `
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>ลงบันทึก</h3></div>
+              <form id="fInc">
+                <div class="form-group"><label>ประเภท</label><select class="form-control" name="type"><option>บันทึกงาน</option><option>สถานการณ์</option><option>เหตุการณ์</option></select></div>
+                <div class="form-group"><label>หัวข้อ</label><input class="form-control" name="title" required /></div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="detail" required></textarea></div>
+                <button class="btn btn-primary">บันทึก</button>
+              </form>
+            </div>
+            <div class="panel"><div class="panel-header"><h3>รายการล่าสุด</h3></div>
+              ${data.incidents
+                .map(
+                  (i) =>
+                    `<div class="feed-item"><div class="feed-dot">📝</div><div class="feed-body"><h4>${esc(i.title)} ${badge(i.status)}</h4>
+                    <p class="time">${esc(i.type)} · ${formatDate(i.date)} · ${esc(i.by)}</p><p>${esc(i.detail)}</p>
+                    <button class="danger-link" data-del-i="${i.id}">ลบ</button></div></div>`
+                )
+                .join('') || '<div class="empty-state">ยังไม่มีบันทึก</div>'}
+            </div>
+          </div>`;
+        document.getElementById('fInc').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.incidents.unshift({
+              id: uid('i'),
+              type: fd.get('type'),
+              title: fd.get('title'),
+              detail: fd.get('detail'),
+              date: todayISO(),
+              by: session.name,
+              status: 'open',
+            });
+          });
+          toast('บันทึกแล้ว', 'success');
+          render();
+        };
+        shell.content.querySelectorAll('[data-del-i]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              d.incidents = d.incidents.filter((x) => x.id !== btn.dataset.delI);
+            });
+            render();
+          };
+        });
+      }
+
+      if (section === 'helmet') {
+        shell.content.innerHTML = `
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>รายงานไม่สวมหมวกกันน็อค</h3></div>
+              <form id="fHel">
+                <div class="form-row">
+                  <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required pattern="[0-9A-Za-z]+" /></div>
+                  <div class="form-group"><label>ทะเบียนรถ</label><input class="form-control" name="plate" required /></div>
+                </div>
+                <div class="form-group"><label>หมายเหตุ</label><input class="form-control" name="note" /></div>
+                <button class="btn btn-primary">ส่งรายงาน</button>
+              </form>
+            </div>
+            <div class="panel"><div class="panel-header"><h3>ประวัติ</h3></div>
+              <div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>สถานะ</th></tr></thead><tbody>
+              ${data.helmetReports
+                .map(
+                  (r) =>
+                    `<tr><td>${esc(r.studentId)}</td><td>${esc(r.plate)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${badge(r.status)}</td></tr>`
+                )
+                .join('') || '<tr><td colspan="5">ยังไม่มี</td></tr>'}
+              </tbody></table></div>
+            </div>
+          </div>`;
+        document.getElementById('fHel').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.helmetReports.unshift({
+              id: uid('h'),
+              studentId: String(fd.get('studentId')).trim(),
+              plate: String(fd.get('plate')).trim(),
+              note: fd.get('note'),
+              date: todayISO(),
+              by: session.name,
+              status: 'pending',
+            });
+            ensureBehavior(d, String(fd.get('studentId')).trim());
+          });
+          toast('ส่งรายงานแล้ว — รอครูกิจการรับรอง', 'success');
+          e.target.reset();
+          render();
+        };
+      }
+
+      if (section === 'late') {
+        shell.content.innerHTML = `
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>รายงานกักแถวสาย</h3></div>
+              <form id="fLate">
+                <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required /></div>
+                <div class="form-group"><label>ชื่อผู้บันทึกงาน</label><input class="form-control" name="recorder" value="${esc(session.name)}" required /></div>
+                <div class="form-group"><label>หมายเหตุ</label><input class="form-control" name="note" placeholder="เช่น สาย 5 นาที" /></div>
+                <button class="btn btn-primary">ส่งรายงาน</button>
+              </form>
+            </div>
+            <div class="panel"><div class="panel-header"><h3>ประวัติ</h3></div>
+              <div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>วันที่</th><th>ผู้บันทึก</th><th>หมายเหตุ</th><th>สถานะ</th></tr></thead><tbody>
+              ${data.lateReports
+                .map(
+                  (r) =>
+                    `<tr><td>${esc(r.studentId)}</td><td>${formatDate(r.date)}</td><td>${esc(r.recorder)}</td><td>${esc(r.note)}</td><td>${badge(r.status)}</td></tr>`
+                )
+                .join('') || '<tr><td colspan="5">ยังไม่มี</td></tr>'}
+              </tbody></table></div>
+            </div>
+          </div>`;
+        document.getElementById('fLate').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.lateReports.unshift({
+              id: uid('l'),
+              studentId: String(fd.get('studentId')).trim(),
+              recorder: fd.get('recorder'),
+              note: fd.get('note'),
+              date: todayISO(),
+              status: 'pending',
+            });
+            ensureBehavior(d, String(fd.get('studentId')).trim());
+          });
+          toast('ส่งรายงานแล้ว — รอครูกิจการรับรอง', 'success');
+          render();
+        };
+      }
+
+      if (section === 'videos') {
+        const list = videoFilter === 'ทั้งหมด' ? data.videos : data.videos.filter((v) => v.subject === videoFilter);
+        shell.content.innerHTML = `
+          <div class="section-intro"><p>อัปโหลดไฟล์วิดีโอหรือวางลิงก์ YouTube — นักเรียนรับชมได้จริงในระบบ</p></div>
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>เพิ่มวิดีโอสรุป</h3></div>
+              <form id="fVid">
+                <div class="form-row">
+                  <div class="form-group"><label>รายวิชา</label><select class="form-control" name="subject">${SUBJECTS.map((s) => `<option>${s}</option>`).join('')}</select></div>
+                  <div class="form-group"><label>ความยาว</label><input class="form-control" name="duration" placeholder="12:30" required /></div>
+                </div>
+                <div class="form-group"><label>ชื่อคลิป</label><input class="form-control" name="title" required /></div>
+                <div class="form-group"><label>ครู / ผู้สอน</label><input class="form-control" name="teacher" required /></div>
+                <div class="form-group"><label>คำอธิบาย</label><textarea class="form-control" name="desc"></textarea></div>
+                <div class="form-group"><label>ลิงก์ YouTube หรือไฟล์ .mp4</label><input class="form-control" name="url" placeholder="https://www.youtube.com/watch?v=..." /></div>
+                <div class="form-group"><label>หรืออัปโหลดไฟล์วิดีโอ (สูงสุด ~80MB)</label><input class="form-control" type="file" name="file" accept="video/*" /><p class="chip-file">ไฟล์เก็บใน IndexedDB ของเบราว์เซอร์</p></div>
+                <button class="btn btn-primary">เผยแพร่วิดีโอ</button>
+              </form>
+            </div>
+            <div class="panel"><div class="panel-header"><h3>คลังวิดีโอ</h3></div>
+              <div class="subject-pills">${['ทั้งหมด', ...SUBJECTS]
+                .map((s) => `<button type="button" class="subject-pill ${videoFilter === s ? 'active' : ''}" data-sub="${s}">${s}</button>`)
+                .join('')}</div>
+              <div class="video-grid">${list
+                .map(
+                  (v) => `<article class="video-card" data-play="${v.id}">
+                  <div class="video-thumb"><div class="play">▶</div></div>
+                  <div class="video-body"><span class="badge badge-purple">${esc(v.subject)}</span>
+                  <h4 class="mt-1">${esc(v.title)}</h4>
+                  <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ชม.</div>
+                  <button type="button" class="danger-link mt-1" data-del-v="${v.id}">ลบ</button>
+                  </div></article>`
+                )
+                .join('') || '<div class="empty-state">ยังไม่มีวิดีโอ</div>'}</div>
+            </div>
+          </div>`;
+        shell.content.querySelectorAll('[data-sub]').forEach((btn) => {
+          btn.onclick = () => {
+            videoFilter = btn.dataset.sub;
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-play]').forEach((card) => {
+          card.onclick = (e) => {
+            if (e.target.closest('[data-del-v]')) return;
+            const v = Store.load().videos.find((x) => x.id === card.dataset.play);
+            if (v) playVideo(v);
+          };
+        });
+        shell.content.querySelectorAll('[data-del-v]').forEach((btn) => {
+          btn.onclick = async (e) => {
+            e.stopPropagation();
+            const id = btn.dataset.delV;
+            const v = Store.load().videos.find((x) => x.id === id);
+            if (v?.fileId) await VideoDB.del(v.fileId);
+            Store.update((d) => {
+              d.videos = d.videos.filter((x) => x.id !== id);
+            });
+            toast('ลบวิดีโอแล้ว');
+            render();
+          };
+        });
+        document.getElementById('fVid').onsubmit = async (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          const file = e.target.file.files?.[0];
+          const id = uid('v');
+          let fileId = null;
+          let url = String(fd.get('url') || '').trim();
+          if (file) {
+            if (file.size > 80 * 1024 * 1024) {
+              toast('ไฟล์ใหญ่เกิน 80MB', 'error');
+              return;
+            }
+            fileId = 'file_' + id;
+            await VideoDB.put(fileId, file);
+          }
+          if (!url && !fileId) {
+            toast('ใส่ลิงก์หรืออัปโหลดไฟล์อย่างน้อยอย่างหนึ่ง', 'error');
+            return;
+          }
+          Store.update((d) => {
+            d.videos.unshift({
+              id,
+              subject: fd.get('subject'),
+              title: fd.get('title'),
+              teacher: fd.get('teacher'),
+              duration: fd.get('duration'),
+              desc: fd.get('desc'),
+              url,
+              fileId,
+              views: 0,
+              createdAt: todayISO(),
+              createdBy: session.name,
+            });
+            d.announcements.unshift({
+              id: uid('n'),
+              title: 'วิดีโอใหม่: ' + fd.get('title'),
+              body: `วิชา${fd.get('subject')} — โดย ${fd.get('teacher')}`,
+              date: todayISO(),
+              audience: 'all',
+            });
+          });
+          toast('เผยแพร่วิดีโอแล้ว', 'success');
+          render();
+        };
+      }
+
+      if (section === 'activities') {
+        shell.content.innerHTML = `
+          <div class="grid-2 mb-2">
+            <div class="panel"><div class="panel-header"><h3>ประกาศเชิญชวนกิจกรรม</h3></div>
+              <form id="fAct">
+                <div class="form-group"><label>ชื่อกิจกรรม</label><input class="form-control" name="title" required /></div>
+                <div class="form-row">
+                  <div class="form-group"><label>ประเภท</label><select class="form-control" name="category"><option>แข่งขันวิชาการ</option><option>แข่งโครงงาน</option><option>แข่งนวัตกรรม</option><option>อบรม/ค่าย</option><option>อื่น ๆ</option></select></div>
+                  <div class="form-group"><label>วันที่</label><input class="form-control" type="date" name="date" value="${todayISO()}" required /></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group"><label>สถานที่</label><input class="form-control" name="place" required /></div>
+                  <div class="form-group"><label>จำนวนสมาชิกทีม</label><input class="form-control" type="number" name="teamSize" min="1" max="20" value="3" required /></div>
+                </div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="desc"></textarea></div>
+                <button class="btn btn-primary">เผยแพร่ประกาศ</button>
+              </form>
+            </div>
+            <div class="panel"><div class="panel-header"><h3>ข่าวประกาศ</h3></div>
+              <form id="fAnn" class="mb-2">
+                <div class="form-group"><label>หัวข้อ</label><input class="form-control" name="title" required /></div>
+                <div class="form-group"><label>เนื้อหา</label><textarea class="form-control" name="body" required></textarea></div>
+                <button class="btn btn-outline">โพสต์ประกาศ</button>
+              </form>
+              ${data.announcements
+                .map(
+                  (n) =>
+                    `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4><p class="time">${formatDate(n.date)}</p><p>${esc(n.body)}</p>
+                    <button class="danger-link" data-del-n="${n.id}">ลบ</button></div></div>`
+                )
+                .join('')}
+            </div>
+          </div>
+          <div class="panel"><div class="panel-header"><h3>ระบบจับคู่ / หาทีม</h3></div>
+            <div class="grid-2">${data.activities
+              .map((a) => {
+                const slots = Math.max(0, a.teamSize - a.members.length);
+                return `<div class="activity-card">
+                  <div class="flex justify-between flex-wrap gap-2"><span class="badge badge-gold">${esc(a.category)}</span>
+                  ${a.open && slots ? '<span class="badge badge-success">เปิดรับทีม</span>' : '<span class="badge badge-danger">เต็ม/ปิด</span>'}</div>
+                  <h4>${esc(a.title)}</h4><p class="muted">${esc(a.desc || '')}</p>
+                  <p class="muted">${formatDate(a.date)} · ${esc(a.place)} · ทีม ${a.teamSize} คน</p>
+                  <div class="team-slot">${a.members.map((m) => `<span class="member-chip">👤 ${esc(m)}</span>`).join('')}
+                  ${slots ? `<span class="muted">ว่าง ${slots}</span>` : ''}</div>
+                  <div class="toolbar-row">
+                  ${a.open && slots ? `<button class="btn btn-primary btn-sm" data-join="${a.id}">เข้าร่วมทีม</button>` : ''}
+                  <button class="btn btn-outline btn-sm" data-toggle-a="${a.id}">${a.open ? 'ปิดรับสมัคร' : 'เปิดรับสมัคร'}</button>
+                  <button class="danger-link" data-del-a="${a.id}">ลบ</button>
+                  </div></div>`;
+              })
+              .join('')}</div>
+          </div>`;
+        document.getElementById('fAct').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.activities.unshift({
+              id: uid('a'),
+              title: fd.get('title'),
+              category: fd.get('category'),
+              date: fd.get('date'),
+              place: fd.get('place'),
+              teamSize: Number(fd.get('teamSize')),
+              members: [],
+              open: true,
+              desc: fd.get('desc'),
+            });
+            d.announcements.unshift({
+              id: uid('n'),
+              title: 'เชิญชวน: ' + fd.get('title'),
+              body: fd.get('desc') || 'เปิดรับสมัครทีมแล้ว',
+              date: todayISO(),
+              audience: 'all',
+            });
+          });
+          toast('เผยแพร่กิจกรรมแล้ว', 'success');
+          render();
+        };
+        document.getElementById('fAnn').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.announcements.unshift({ id: uid('n'), title: fd.get('title'), body: fd.get('body'), date: todayISO(), audience: 'all' });
+          });
+          toast('โพสต์แล้ว', 'success');
+          render();
+        };
+        shell.content.querySelectorAll('[data-join]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const a = d.activities.find((x) => x.id === btn.dataset.join);
+              if (!a || a.members.includes(session.name) || a.members.length >= a.teamSize) return;
+              a.members.push(session.name);
+              if (a.members.length >= a.teamSize) a.open = false;
+            });
+            toast('เข้าร่วมทีมแล้ว', 'success');
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-toggle-a]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const a = d.activities.find((x) => x.id === btn.dataset.toggleA);
+              if (a) a.open = !a.open;
+            });
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-del-a]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              d.activities = d.activities.filter((x) => x.id !== btn.dataset.delA);
+            });
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-del-n]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              d.announcements = d.announcements.filter((x) => x.id !== btn.dataset.delN);
+            });
+            render();
+          };
+        });
+      }
+
+      if (section === 'org') {
+        const depts = [...new Set(data.tasks.map((t) => t.dept))];
+        shell.content.innerHTML = `
+          <div class="panel">
+            <div class="panel-header"><h3>โครงสร้างสภานักเรียนโรงเรียนบ้านไผ่</h3></div>
+            <p class="muted mb-2">ประธานนักเรียน · รองประธานนักเรียน 2 คน · เลขานุการ · กลุ่มบริหารอำนวยการ · กลุ่มบริหารทั่วไป · กลุ่มบริหารกิจการ และฝ่ายต่าง ๆ</p>
+            <div class="org-chart">${orgHtml(data.departments)}</div>
+          </div>
+          <div class="mt-3">${orgGroupsHtml(data.orgGroups)}</div>
+          <div class="panel mt-3"><div class="panel-header"><h3>แผนงานตามฝ่าย</h3></div>
+            ${depts
+              .map((dept) => {
+                const list = data.tasks.filter((t) => t.dept === dept);
+                const done = list.filter((t) => t.status === 'done').length;
+                const pct = list.length ? Math.round((done / list.length) * 100) : 0;
+                return `<div class="mb-2"><div class="flex justify-between"><strong>${esc(dept)}</strong><span class="muted">${done}/${list.length} · ${pct}%</span></div>
+                <div class="progress-bar mt-1"><span style="width:${pct}%"></span></div></div>`;
+              })
+              .join('') || '<div class="empty-state">ยังไม่มีแผนงาน</div>'}
+          </div>`;
+      }
+
+      if (section === 'lostfound') {
+        const items = lfList(data);
+        const catOpts = LF_CATEGORIES.map((c) => `<option>${c}</option>`).join('');
+        shell.content.innerHTML = `
+          <div class="section-intro"><p>บันทึกของพบ / ของหาย รับเรื่องขอรับคืน และยืนยันส่งคืนให้นักเรียน</p></div>
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-header"><h3>ลงทะเบียนรายการใหม่</h3></div>
+              <form id="fLfCouncil">
+                <div class="form-row">
+                  <div class="form-group"><label>ประเภท</label>
+                    <select class="form-control" name="type"><option value="found">ของพบ</option><option value="lost">แจ้งหาย</option></select>
+                  </div>
+                  <div class="form-group"><label>หมวดหมู่</label>
+                    <select class="form-control" name="category">${catOpts}</select>
+                  </div>
+                </div>
+                <div class="form-group"><label>ชื่อรายการ</label><input class="form-control" name="title" required placeholder="เช่น กระเป๋าผ้าสีม่วง" /></div>
+                <div class="form-row">
+                  <div class="form-group"><label>สถานที่</label><input class="form-control" name="location" required placeholder="เช่น โรงอาหาร" /></div>
+                  <div class="form-group"><label>วันที่</label><input class="form-control" type="date" name="date" value="${todayISO()}" required /></div>
+                </div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="description" placeholder="ลักษณะเด่น สี ยี่ห้อ ฯลฯ"></textarea></div>
+                <div class="form-group"><label>ช่องทางติดต่อ / จุดรับของ</label><input class="form-control" name="contact" value="ห้องกิจการนักเรียน" /></div>
+                <button class="btn btn-primary" type="submit">บันทึกรายการ</button>
+              </form>
+            </div>
+            <div class="panel">
+              <div class="panel-header"><h3>สรุปสถานะ</h3></div>
+              <div class="stat-card mb-2"><div class="label">ของพบรอเจ้าของ</div><div class="value">${items.filter((x) => x.type === 'found' && x.status === 'open').length}</div></div>
+              <div class="stat-card mb-2"><div class="label">แจ้งหายที่ยังเปิด</div><div class="value">${items.filter((x) => x.type === 'lost' && x.status === 'open').length}</div></div>
+              <div class="stat-card"><div class="label">รอส่งคืน (มีคนขอรับ)</div><div class="value">${items.filter((x) => x.status === 'claimed').length}</div></div>
+            </div>
+          </div>
+          <div class="panel mt-3">
+            <div class="panel-header"><h3>รายการและการจัดการ</h3></div>
+            <div class="grid-2" id="lfCouncilBoard"></div>
+          </div>`;
+
+        const board = document.getElementById('lfCouncilBoard');
+        board.innerHTML = items.length
+          ? items
+              .map(
+                (x) => `<div class="activity-card">
+                  <div class="flex justify-between flex-wrap gap-2">
+                    ${badge(x.type)} ${badge(x.status)}
+                    <span class="badge badge-purple">${esc(x.category)}</span>
+                  </div>
+                  <h4>${esc(x.title)}</h4>
+                  <p class="muted">${esc(x.description || '-')}</p>
+                  <p class="muted">${formatDate(x.date)} · ${esc(x.location)} · โดย ${esc(x.reporter)}</p>
+                  ${x.claimBy ? `<div class="alert alert-warning">ผู้ขอรับ: ${esc(x.claimBy)} ${x.claimId ? '(' + esc(x.claimId) + ')' : ''}${x.claimNote ? ' — ' + esc(x.claimNote) : ''}</div>` : ''}
+                  <div class="toolbar-row">
+                    ${x.status === 'claimed' || (x.type === 'found' && x.status === 'open') ? `<button class="btn btn-sm btn-success" data-lf-return="${x.id}">ยืนยันคืนแล้ว</button>` : ''}
+                    ${x.status === 'open' || x.status === 'claimed' ? `<button class="btn btn-sm btn-outline" data-lf-close="${x.id}">ปิดรายการ</button>` : ''}
+                    <button class="danger-link" data-lf-del="${x.id}">ลบ</button>
+                  </div>
+                </div>`
+              )
+              .join('')
+          : '<div class="empty-state">ยังไม่มีรายการ</div>';
+
+        document.getElementById('fLfCouncil').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            if (!d.lostFound) d.lostFound = [];
+            d.lostFound.unshift({
+              id: uid('lf'),
+              type: fd.get('type'),
+              title: fd.get('title'),
+              category: fd.get('category'),
+              description: fd.get('description'),
+              location: fd.get('location'),
+              date: fd.get('date'),
+              reporter: session.name,
+              reporterId: '',
+              contact: fd.get('contact'),
+              status: 'open',
+            });
+            if (fd.get('type') === 'found') {
+              d.announcements.unshift({
+                id: uid('n'),
+                title: 'พบของหาย: ' + fd.get('title'),
+                body: `พบที่ ${fd.get('location')} — ติดต่อรับได้ที่ ${fd.get('contact') || 'ห้องกิจการ'}`,
+                date: todayISO(),
+                audience: 'all',
+              });
+            }
+          });
+          toast('บันทึกรายการแล้ว', 'success');
+          render();
+        };
+        board.querySelectorAll('[data-lf-return]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const x = lfList(d).find((i) => i.id === btn.dataset.lfReturn);
+              if (!x) return;
+              x.status = 'returned';
+              x.returnedBy = session.name;
+              x.returnedAt = todayISO();
+            });
+            toast('ยืนยันส่งคืนแล้ว', 'success');
+            render();
+          };
+        });
+        board.querySelectorAll('[data-lf-close]').forEach((btn) => {
+          btn.onclick = () => {
+            Store.update((d) => {
+              const x = lfList(d).find((i) => i.id === btn.dataset.lfClose);
+              if (x) x.status = 'closed';
+            });
+            render();
+          };
+        });
+        board.querySelectorAll('[data-lf-del]').forEach((btn) => {
+          btn.onclick = () => {
+            if (!confirm('ลบรายการนี้?')) return;
+            Store.update((d) => {
+              d.lostFound = lfList(d).filter((i) => i.id !== btn.dataset.lfDel);
+            });
+            toast('ลบแล้ว');
+            render();
+          };
+        });
+      }
+
+      if (section === 'calendar') {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = now.getMonth();
+        const councilEv = councilCalendarEvents(data.events);
+        const activityEv = studentCalendarEvents(data.events);
+        shell.content.innerHTML = `
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-header"><h3>ปฏิทินสภานักเรียน</h3><span class="badge badge-purple">${monthLabel(y, m)}</span></div>
+              <p class="muted mb-2">เวรและงานภายในสภา</p>
+              <div id="cCalCouncil"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-header"><h3>ปฏิทินกิจกรรมนักเรียน</h3><span class="badge badge-gold">${monthLabel(y, m)}</span></div>
+              <p class="muted mb-2">กิจกรรมที่เปิดให้นักเรียนทั่วไป</p>
+              <div id="cCalActivity"></div>
+            </div>
+          </div>
+          <div class="panel mt-3"><div class="panel-header"><h3>จุดเวรสภา</h3></div>
+            <div class="duty-map">${data.dutySpots
+              .map(
+                (d) =>
+                  `<div class="duty-spot ${d.person !== '-' ? 'assigned' : ''}"><h5>${esc(d.spot)}</h5><p>${esc(d.person)}<br>${esc(d.time)}</p></div>`
+              )
+              .join('')}</div></div>`;
+        renderCalendar(document.getElementById('cCalCouncil'), councilEv, y, m);
+        renderCalendar(document.getElementById('cCalActivity'), activityEv, y, m);
+      }
+    }
+
+    shell.onNav((id) => {
+      section = id;
+      render();
+    });
+    render();
+  }
+
+  /* ==================== STUDENT ==================== */
+  function startStudent(session) {
+    const studentId = session.studentId || '17001';
+    const nav = [
+      { id: 'home', label: 'หน้าหลักของฉัน', icon: '🏠' },
+      { id: 'videos', label: 'เรียนจากวิดีโอสรุป', icon: '🎬', featured: true },
+      { id: 'activities', label: 'กิจกรรม & หาทีม', icon: '🏆', featured: true },
+      { id: 'news', label: 'ประกาศข่าวสาร', icon: '📢' },
+      { id: 'calendar', label: 'ปฏิทินกิจกรรม', icon: '📅' },
+      { id: 'records', label: 'ประวัติความประพฤติของฉัน', icon: '🛡️' },
+      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
+      { id: 'help', label: 'แจ้งเรื่อง / ข้อเสนอ', icon: '💬' },
+    ];
+    const shell = mountShell(session, nav, 'พอร์ทัลนักเรียน');
+    let section = 'home';
+    let videoFilter = 'ทั้งหมด';
+
+    // กระพริบสั้น ๆ ที่เมนูเด่นตอนเข้าสู่ระบบ เพื่อดึงสายตา
+    setTimeout(() => {
+      document.querySelectorAll('.nav-featured').forEach((el, i) => {
+        el.style.animation = 'none';
+        // force reflow
+        void el.offsetWidth;
+        el.style.animation = `navFeaturePulse 2.4s ease-in-out infinite, navFeaturePop .7s ${i * 0.12}s both`;
+      });
+    }, 80);
+
+    /** ประกาศที่นักเรียนเห็นได้ — ไม่รวมงาน/ระบบภายในสภา */
+    function studentAnnouncements(data) {
+      return (data.announcements || []).filter((n) => {
+        const aud = n.audience || 'all';
+        if (aud === 'council' || aud === 'teacher' || aud === 'admin') return false;
+        const title = String(n.title || '');
+        // ซ่อนประกาศงานที่ครูมอบให้สภา
+        if (/^งานใหม่จากครูกิจการ/.test(title)) return false;
+        if (/มอบหมายให้/.test(String(n.body || '')) && /ฝ่าย/.test(String(n.body || ''))) return false;
+        return aud === 'all' || aud === 'student';
+      });
+    }
+
+    /** ปฏิทินที่นักเรียนเห็น — เฉพาะกิจกรรมนักเรียน */
+    function studentEvents(data) {
+      return studentCalendarEvents(data.events);
+    }
+
+    async function playVideo(v) {
+      Store.update((d) => {
+        const x = d.videos.find((i) => i.id === v.id);
+        if (x) x.views = (x.views || 0) + 1;
+      });
+      const player = await videoPlayerHtml(v);
+      openModal(`<h3>${esc(v.title)}</h3><p class="muted">${esc(v.subject)} · ${esc(v.teacher)}</p>${player}
+        <p>${esc(v.desc || '')}</p><button class="btn btn-primary mt-2" data-close-modal>ปิด</button>`);
+    }
+
+    function render() {
+      const data = Store.load();
+      shell.setNav(section);
+      shell.topActions.innerHTML = `<span class="badge badge-purple">รหัส ${esc(studentId)}</span>`;
+
+      if (section === 'home') {
+        const news = studentAnnouncements(data);
+        shell.content.innerHTML = `
+          <div class="portal-banner">
+            <h2>สวัสดี, ${esc(session.name)}</h2>
+            <p>พอร์ทัลสำหรับนักเรียน — เรียนจากคลิปสรุป สมัครกิจกรรม/หาทีม และติดตามประกาศที่เปิดให้นักเรียน</p>
+            <div class="quick-links">
+              <a class="quick-link" href="#" data-go="videos"><span>🎬</span>วิดีโอ</a>
+              <a class="quick-link" href="#" data-go="activities"><span>🤝</span>หาทีม</a>
+              <a class="quick-link" href="#" data-go="lostfound"><span>🎒</span>ของหายได้คืน</a>
+              <a class="quick-link" href="#" data-go="records"><span>🛡️</span>ประวัติความประพฤติ</a>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>กิจกรรมแนะนำ</h3></div>
+              ${data.activities
+                .filter((a) => a.open)
+                .slice(0, 3)
+                .map(
+                  (a) =>
+                    `<div class="feed-item"><div class="feed-dot">🏆</div><div class="feed-body"><h4>${esc(a.title)}</h4><p class="time">${esc(a.category)} · ${formatDate(a.date)}</p></div></div>`
+                )
+                .join('') || '<div class="empty-state">ยังไม่มี</div>'}
+            </div>
+            <div class="panel"><div class="panel-header"><h3>วิดีโอยอดนิยม</h3></div>
+              ${[...data.videos]
+                .sort((a, b) => (b.views || 0) - (a.views || 0))
+                .slice(0, 3)
+                .map(
+                  (v) =>
+                    `<div class="feed-item"><div class="feed-dot">🎬</div><div class="feed-body"><h4>${esc(v.title)}</h4><p class="time">${esc(v.subject)} · ${v.views || 0} ครั้ง</p></div></div>`
+                )
+                .join('')}
+            </div>
+          </div>
+          <div class="panel mt-3"><div class="panel-header"><h3>ประกาศสำหรับนักเรียน</h3></div>
+            ${news.length
+              ? news
+                  .slice(0, 8)
+                  .map(
+                    (n) =>
+                      `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4><p class="time">${formatDate(n.date)}</p><p class="muted">${esc(n.body)}</p></div></div>`
+                  )
+                  .join('')
+              : '<div class="empty-state">ยังไม่มีประกาศ</div>'}
+          </div>`;
+        shell.content.querySelectorAll('[data-go]').forEach((el) => {
+          el.onclick = (e) => {
+            e.preventDefault();
+            section = el.dataset.go;
+            render();
+          };
+        });
+      }
+
+      if (section === 'videos') {
+        const list = videoFilter === 'ทั้งหมด' ? data.videos : data.videos.filter((v) => v.subject === videoFilter);
+        shell.content.innerHTML = `
+          <div class="subject-pills">${['ทั้งหมด', ...SUBJECTS]
+            .map((s) => `<button type="button" class="subject-pill ${videoFilter === s ? 'active' : ''}" data-sub="${s}">${s}</button>`)
+            .join('')}</div>
+          <div class="video-grid">${list
+            .map(
+              (v) => `<article class="video-card" data-play="${v.id}">
+              <div class="video-thumb"><div class="play">▶</div></div>
+              <div class="video-body"><span class="badge badge-purple">${esc(v.subject)}</span>
+              <h4 class="mt-1">${esc(v.title)}</h4>
+              <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ชม.</div></div></article>`
+            )
+            .join('') || '<div class="empty-state">ยังไม่มีวิดีโอ</div>'}</div>`;
+        shell.content.querySelectorAll('[data-sub]').forEach((btn) => {
+          btn.onclick = () => {
+            videoFilter = btn.dataset.sub;
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-play]').forEach((card) => {
+          card.onclick = () => {
+            const v = Store.load().videos.find((x) => x.id === card.dataset.play);
+            if (v) playVideo(v);
+          };
+        });
+      }
+
+      if (section === 'activities') {
+        shell.content.innerHTML = `
+          <div class="filter-bar"><select class="form-control" id="actFilter"><option value="">ทุกประเภท</option>
+            <option>แข่งขันวิชาการ</option><option>แข่งโครงงาน</option><option>แข่งนวัตกรรม</option><option>อบรม/ค่าย</option><option>อื่น ๆ</option></select></div>
+          <div class="grid-2" id="actBoard"></div>
+          <div class="panel mt-3"><div class="panel-header"><h3>ทีมของฉัน</h3></div><div id="myTeams"></div></div>`;
+        const draw = () => {
+          const filter = document.getElementById('actFilter').value;
+          const list = Store.load().activities.filter((a) => !filter || a.category === filter);
+          document.getElementById('actBoard').innerHTML = list
+            .map((a) => {
+              const slots = Math.max(0, a.teamSize - a.members.length);
+              const joined = a.members.includes(session.name);
+              return `<div class="activity-card">
+                <div class="flex justify-between flex-wrap gap-2"><span class="badge badge-gold">${esc(a.category)}</span>
+                ${joined ? '<span class="badge badge-info">คุณอยู่ในทีม</span>' : a.open && slots ? '<span class="badge badge-success">รับสมัคร</span>' : '<span class="badge badge-danger">เต็ม/ปิด</span>'}</div>
+                <h4>${esc(a.title)}</h4><p class="muted">${esc(a.desc || '')}</p>
+                <p class="muted">${formatDate(a.date)} · ${esc(a.place)}</p>
+                <div class="team-slot">${a.members.map((m) => `<span class="member-chip">👤 ${esc(m)}</span>`).join('') || '<span class="muted">ยังไม่มีสมาชิก</span>'}
+                ${slots && a.open ? `<span class="muted">ว่าง ${slots}</span>` : ''}</div>
+                ${!joined && a.open && slots ? `<button class="btn btn-primary btn-sm" data-join="${a.id}">ขอเข้าทีม</button>` : ''}
+                ${joined ? `<button class="btn btn-outline btn-sm" data-leave="${a.id}">ออกจากทีม</button>` : ''}
+              </div>`;
+            })
+            .join('') || '<div class="empty-state">ไม่พบกิจกรรม</div>';
+          document.querySelectorAll('[data-join]').forEach((btn) => {
+            btn.onclick = () => {
+              Store.update((d) => {
+                const a = d.activities.find((x) => x.id === btn.dataset.join);
+                if (!a || a.members.includes(session.name) || a.members.length >= a.teamSize) return;
+                a.members.push(session.name);
+                if (a.members.length >= a.teamSize) a.open = false;
+              });
+              toast('เข้าร่วมทีมสำเร็จ!', 'success');
+              draw();
+              myTeams();
+            };
+          });
+          document.querySelectorAll('[data-leave]').forEach((btn) => {
+            btn.onclick = () => {
+              Store.update((d) => {
+                const a = d.activities.find((x) => x.id === btn.dataset.leave);
+                if (!a) return;
+                a.members = a.members.filter((m) => m !== session.name);
+                a.open = true;
+              });
+              toast('ออกจากทีมแล้ว');
+              draw();
+              myTeams();
+            };
+          });
+        };
+        const myTeams = () => {
+          const mine = Store.load().activities.filter((a) => a.members.includes(session.name));
+          document.getElementById('myTeams').innerHTML = mine.length
+            ? mine
+                .map(
+                  (a) =>
+                    `<div class="feed-item"><div class="feed-dot">🤝</div><div class="feed-body"><h4>${esc(a.title)}</h4>
+                    <p class="time">ทีม ${a.members.length}/${a.teamSize} · ${formatDate(a.date)}</p>
+                    <p class="muted">สมาชิก: ${a.members.map(esc).join(', ')}</p></div></div>`
+                )
+                .join('')
+            : '<div class="empty-state">ยังไม่ได้เข้าร่วมทีม</div>';
+        };
+        document.getElementById('actFilter').onchange = draw;
+        draw();
+        myTeams();
+      }
+
+      if (section === 'news') {
+        const news = studentAnnouncements(data);
+        shell.content.innerHTML = `<div class="panel"><div class="panel-header"><h3>ประกาศสำหรับนักเรียน</h3></div>
+          <p class="muted mb-2">ไม่แสดงงานภายในสภาหรือประกาศที่มอบหมายให้คณะกรรมการสภา</p>
+          ${news.length
+            ? news
+                .map(
+                  (n) =>
+                    `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4><p class="time">${formatDate(n.date)}</p><p>${esc(n.body)}</p></div></div>`
+                )
+                .join('')
+            : '<div class="empty-state">ยังไม่มีประกาศ</div>'}</div>`;
+      }
+
+      if (section === 'calendar') {
+        const now = new Date();
+        const events = studentEvents(data);
+        const upcoming = [...events]
+          .filter((e) => e.date >= todayISO())
+          .sort((a, b) => a.date.localeCompare(b.date))
+          .slice(0, 8);
+        shell.content.innerHTML = `
+          <div class="panel"><div class="panel-header"><h3>ปฏิทินกิจกรรมนักเรียน</h3><span class="badge badge-purple">${monthLabel(now.getFullYear(), now.getMonth())}</span></div>
+            <p class="muted mb-2">แสดงเฉพาะกิจกรรมโรงเรียน — ไม่รวมเวรหรือตารางงานภายในสภา</p>
+            <div id="sCal"></div></div>
+          <div class="panel mt-3"><div class="panel-header"><h3>กิจกรรมที่จะถึง</h3></div>
+            ${upcoming
+              .map(
+                (e) =>
+                  `<div class="feed-item"><div class="feed-dot">📅</div><div class="feed-body"><h4>${esc(e.title)}</h4><p class="time">${formatDate(e.date)} · ${esc(e.spot || '-')}</p></div></div>`
+              )
+              .join('') || '<div class="empty-state">ไม่มีรายการถัดไป</div>'}
+          </div>`;
+        renderCalendar(document.getElementById('sCal'), events, now.getFullYear(), now.getMonth());
+      }
+
+      if (section === 'records') {
+        const h = data.helmetReports.filter((r) => r.studentId === studentId);
+        const l = data.lateReports.filter((r) => r.studentId === studentId);
+        shell.content.innerHTML = `
+          <div class="alert alert-info">แสดงเฉพาะประวัติความประพฤติของรหัส ${esc(studentId)} — ไม่สามารถดูรายงานหรืองานของสภาได้</div>
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>รายงานหมวกของฉัน</h3></div>
+              ${h.length
+                ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>วันที่</th><th>ทะเบียน</th><th>สถานะ</th><th>หมายเหตุ</th></tr></thead><tbody>
+                ${h.map((r) => `<tr><td>${formatDate(r.date)}</td><td>${esc(r.plate)}</td><td>${badge(r.status)}</td><td>${esc(r.note)}</td></tr>`).join('')}
+                </tbody></table></div>`
+                : '<div class="empty-state">ไม่มีรายงานหมวก</div>'}
+            </div>
+            <div class="panel"><div class="panel-header"><h3>รายงานสายของฉัน</h3></div>
+              ${l.length
+                ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>วันที่</th><th>ผู้บันทึก</th><th>สถานะ</th><th>หมายเหตุ</th></tr></thead><tbody>
+                ${l.map((r) => `<tr><td>${formatDate(r.date)}</td><td>${esc(r.recorder)}</td><td>${badge(r.status)}</td><td>${esc(r.note)}</td></tr>`).join('')}
+                </tbody></table></div>`
+                : '<div class="empty-state">ไม่มีรายงานสาย</div>'}
+            </div>
+          </div>`;
+      }
+
+      if (section === 'lostfound') {
+        const items = lfList(data);
+        const mine = items.filter((x) => x.reporterId === studentId || x.reporter === session.name || x.claimId === studentId);
+        const foundOpen = items.filter((x) => x.type === 'found' && (x.status === 'open' || x.status === 'claimed'));
+        const catOpts = LF_CATEGORIES.map((c) => `<option>${c}</option>`).join('');
+        shell.content.innerHTML = `
+          <div class="section-intro"><p>แจ้งของหาย ดูของพบ และขอรับคืน — สภา/ครูกิจการจะช่วยส่งคืนให้</p></div>
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-header"><h3>แจ้งของหาย</h3></div>
+              <form id="fLfLost">
+                <div class="form-group"><label>ชื่อสิ่งของ</label><input class="form-control" name="title" required placeholder="เช่น ปากกา iPad" /></div>
+                <div class="form-row">
+                  <div class="form-group"><label>หมวดหมู่</label><select class="form-control" name="category">${catOpts}</select></div>
+                  <div class="form-group"><label>สถานที่ที่คิดว่าหาย</label><input class="form-control" name="location" required /></div>
+                </div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="description" required placeholder="สี ลักษณะเด่น ฯลฯ"></textarea></div>
+                <div class="form-group"><label>ห้อง / ช่องทางติดต่อ</label><input class="form-control" name="contact" placeholder="เช่น ม.4/2" /></div>
+                <button class="btn btn-primary" type="submit">ส่งแจ้งหาย</button>
+              </form>
+            </div>
+            <div class="panel">
+              <div class="panel-header"><h3>แจ้งของพบ</h3></div>
+              <form id="fLfFound">
+                <div class="form-group"><label>ชื่อสิ่งของ</label><input class="form-control" name="title" required /></div>
+                <div class="form-row">
+                  <div class="form-group"><label>หมวดหมู่</label><select class="form-control" name="category">${catOpts}</select></div>
+                  <div class="form-group"><label>พบที่</label><input class="form-control" name="location" required /></div>
+                </div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="description"></textarea></div>
+                <button class="btn btn-outline" type="submit">ส่งของพบให้สภา</button>
+              </form>
+            </div>
+          </div>
+          <div class="panel mt-3">
+            <div class="panel-header"><h3>ของพบที่รอเจ้าของ</h3></div>
+            <div class="grid-2">
+              ${foundOpen.length
+                ? foundOpen
+                    .map(
+                      (x) => `<div class="activity-card">
+                        <div class="flex justify-between flex-wrap gap-2">${badge('found')} ${badge(x.status)}<span class="badge badge-purple">${esc(x.category)}</span></div>
+                        <h4>${esc(x.title)}</h4>
+                        <p class="muted">${esc(x.description || '-')}</p>
+                        <p class="muted">${formatDate(x.date)} · พบที่ ${esc(x.location)} · รับได้ที่ ${esc(x.contact || 'ห้องกิจการ')}</p>
+                        ${
+                          x.status === 'open'
+                            ? `<button class="btn btn-primary btn-sm" data-lf-claim="${x.id}">นี่ของฉัน — ขอรับคืน</button>`
+                            : x.claimId === studentId
+                              ? '<div class="alert alert-info">คุณขอรับคืนแล้ว — รอสภา/ครูยืนยัน</div>'
+                              : '<div class="alert alert-warning">มีผู้ขอรับแล้ว</div>'
+                        }
+                      </div>`
+                    )
+                    .join('')
+                : '<div class="empty-state">ยังไม่มีของพบในระบบ</div>'}
+            </div>
+          </div>
+          <div class="panel mt-3">
+            <div class="panel-header"><h3>รายการของฉัน</h3></div>
+            ${mine.length
+              ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>ประเภท</th><th>รายการ</th><th>วันที่</th><th>สถานะ</th></tr></thead><tbody>
+                ${mine
+                  .map(
+                    (x) => `<tr><td>${badge(x.type)}</td><td>${esc(x.title)}<br><small class="muted">${esc(x.location)}</small></td><td>${formatDate(x.date)}</td><td>${badge(x.status)}</td></tr>`
+                  )
+                  .join('')}
+              </tbody></table></div>`
+              : '<div class="empty-state">คุณยังไม่มีรายการ</div>'}
+          </div>`;
+
+        document.getElementById('fLfLost').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            if (!d.lostFound) d.lostFound = [];
+            d.lostFound.unshift({
+              id: uid('lf'),
+              type: 'lost',
+              title: fd.get('title'),
+              category: fd.get('category'),
+              description: fd.get('description'),
+              location: fd.get('location'),
+              date: todayISO(),
+              reporter: session.name,
+              reporterId: studentId,
+              contact: fd.get('contact') || session.name,
+              status: 'open',
+            });
+          });
+          toast('แจ้งของหายแล้ว', 'success');
+          render();
+        };
+        document.getElementById('fLfFound').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            if (!d.lostFound) d.lostFound = [];
+            d.lostFound.unshift({
+              id: uid('lf'),
+              type: 'found',
+              title: fd.get('title'),
+              category: fd.get('category'),
+              description: fd.get('description'),
+              location: fd.get('location'),
+              date: todayISO(),
+              reporter: session.name,
+              reporterId: studentId,
+              contact: 'ห้องกิจการนักเรียน',
+              status: 'open',
+            });
+            d.announcements.unshift({
+              id: uid('n'),
+              title: 'พบของหาย: ' + fd.get('title'),
+              body: `พบที่ ${fd.get('location')} — นักเรียนสามารถขอรับคืนได้ในเมนูของหายได้คืน`,
+              date: todayISO(),
+              audience: 'all',
+            });
+          });
+          toast('ส่งของพบให้สภาแล้ว', 'success');
+          render();
+        };
+        shell.content.querySelectorAll('[data-lf-claim]').forEach((btn) => {
+          btn.onclick = () => {
+            const note = prompt('ระบุหลักฐานสั้น ๆ ว่าทำไมถึงเป็นของของคุณ (เช่น สี/ชื่อบนของ)');
+            if (note === null) return;
+            Store.update((d) => {
+              const x = lfList(d).find((i) => i.id === btn.dataset.lfClaim);
+              if (!x || x.status !== 'open') return;
+              x.status = 'claimed';
+              x.claimBy = session.name;
+              x.claimId = studentId;
+              x.claimNote = note || '';
+              x.claimAt = todayISO();
+            });
+            toast('ส่งคำขอรับคืนแล้ว — รอสภา/ครูยืนยัน', 'success');
+            render();
+          };
+        });
+      }
+
+      if (section === 'help') {
+        const mine = data.studentMessages.filter((m) => m.fromId === studentId || m.from === session.name);
+        shell.content.innerHTML = `
+          <div class="grid-2">
+            <div class="panel"><div class="panel-header"><h3>แจ้งเรื่อง / ข้อเสนอ</h3></div>
+              <p class="muted mb-2">ส่งข้อความถึงครูกิจการ — ของหาย/ของพบใช้เมนู “ของหายได้คืน”</p>
+              <form id="fHelp">
+                <div class="form-group"><label>หัวข้อ</label><select class="form-control" name="topic">
+                  <option>ขอแก้ข้อมูลรายงานความประพฤติ</option>
+                  <option>เสนอไอเดียกิจกรรม</option><option>อื่น ๆ</option>
+                </select></div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="detail" required></textarea></div>
+                <button class="btn btn-primary">ส่งข้อความ</button>
+              </form>
+            </div>
+            <div class="panel"><div class="panel-header"><h3>ข้อความของฉัน</h3></div>
+              ${mine
+                .map(
+                  (m) =>
+                    `<div class="feed-item"><div class="feed-dot">💬</div><div class="feed-body"><h4>${esc(m.topic)} ${badge(m.status || 'open')}</h4>
+                    <p class="time">${formatDate(m.date)}</p><p>${esc(m.detail)}</p>
+                    ${m.reply ? `<div class="alert alert-success mt-1">คำตอบ: ${esc(m.reply)}</div>` : '<p class="muted">รอการตอบกลับ</p>'}
+                    </div></div>`
+                )
+                .join('') || '<div class="empty-state">ยังไม่มีข้อความ</div>'}
+            </div>
+          </div>`;
+        document.getElementById('fHelp').onsubmit = (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          Store.update((d) => {
+            d.studentMessages.unshift({
+              id: uid('m'),
+              topic: fd.get('topic'),
+              detail: fd.get('detail'),
+              from: session.name,
+              fromId: studentId,
+              date: todayISO(),
+              status: 'open',
+            });
+            // ส่งเข้าคิวของครูเท่านั้น ไม่เปิดให้นักเรียนเห็นระบบสภา
+            d.incidents.unshift({
+              id: uid('i'),
+              type: 'สถานการณ์',
+              title: '[จากนักเรียน] ' + fd.get('topic'),
+              detail: fd.get('detail') + ` — โดย ${session.name} (${studentId})`,
+              date: todayISO(),
+              by: session.name,
+              status: 'open',
+            });
+          });
+          toast('ส่งข้อความแล้ว — ครูกิจการจะตอบกลับให้', 'success');
+          render();
+        };
+      }
+    }
+
+    shell.onNav((id) => {
+      section = id;
+      render();
+    });
+    render();
+  }
+
+  /* ==================== BOOT ==================== */
+  function enterRole(role) {
+    const session = Auth.get();
+    if (!session || session.role !== role) {
+      showLogin();
+      return;
+    }
+    const starters = { admin: startAdmin, teacher: startTeacher, council: startCouncil, student: startStudent };
+    starters[role](session);
+  }
+
+  const SUPER_ADMIN = {
+    username: '0937107114',
+    password: '0937107114',
+    name: 'ผู้ดูแลระบบ',
+    allRoles: true,
+  };
+
+  const ACCOUNTS = [
+    SUPER_ADMIN,
+    { username: 'admin', password: 'admin123', role: 'admin', name: 'ผู้บริหารโรงเรียน', studentId: null },
+    { username: 'teacher', password: 'teacher123', role: 'teacher', name: 'ครูกิจการนักเรียน', studentId: null },
+    { username: 'council', password: 'council123', role: 'council', name: 'สมชาย ใจดี', studentId: null },
+    { username: 'student', password: 'student123', role: 'student', name: 'นางสาวมินตรา ใฝ่รู้', studentId: '17001' },
+    { username: '16701', password: '16701', role: 'student', name: 'นายธีรพงศ์ สุขใจ', studentId: '16701' },
+  ];
+
+  function initLogin() {
+    let selectedRole = null;
+    const cards = document.querySelectorAll('.role-card');
+    const box = document.getElementById('loginBox');
+    const label = document.getElementById('loginRoleLabel');
+    const studentExtra = document.getElementById('studentExtra');
+    const demoHint = document.getElementById('loginDemoHint');
+    const demoByRole = {
+      admin: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
+      teacher: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
+      council: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
+      student: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
+    };
+
+    function selectRole(role) {
+      selectedRole = role;
+      cards.forEach((c) => c.classList.toggle('selected', c.dataset.role === role));
+      label.textContent = 'เข้าสู่ระบบในฐานะ' + ROLES[role].label;
+      studentExtra.style.display = role === 'student' ? 'block' : 'none';
+      if (demoHint) demoHint.textContent = demoByRole[role] || '';
+      box.classList.add('show');
+      document.getElementById('loginUsername').focus();
+    }
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => selectRole(card.dataset.role));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectRole(card.dataset.role);
+        }
+      });
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!selectedRole) {
+        toast('กรุณาเลือกบทบาทก่อน', 'error');
+        return;
+      }
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const studentIdInput = document.getElementById('studentId').value.trim();
+
+      const account = ACCOUNTS.find(
+        (a) => a.username === username && a.password === password
+      );
+      if (!account) {
+        toast('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'error');
+        return;
+      }
+      if (!account.allRoles && account.role !== selectedRole) {
+        toast('บัญชีนี้ไม่ตรงกับบทบาทที่เลือก', 'error');
+        return;
+      }
+
+      const studentId =
+        selectedRole === 'student' ? studentIdInput || account.studentId || '17001' : null;
+      const roleLabel = ROLES[selectedRole]?.label || selectedRole;
+      const displayName = account.allRoles
+        ? account.name + ' (' + roleLabel + ')'
+        : account.name || username;
+
+      Auth.set({
+        role: selectedRole,
+        name: displayName,
+        username: account.username,
+        studentId,
+        isSuperAdmin: !!account.allRoles,
+        loginAt: new Date().toISOString(),
+      });
+      if (selectedRole === 'student') {
+        Store.update((d) => ensureBehavior(d, studentId, displayName));
+      }
+      toast('ยินดีต้อนรับ ' + displayName, 'success');
+      setTimeout(() => enterRole(selectedRole), 200);
+    });
+  }
+
+  // migrate old key once
+  try {
+    if (!localStorage.getItem(DATA_KEY) && localStorage.getItem('banphai_council_v1')) {
+      const old = JSON.parse(localStorage.getItem('banphai_council_v1'));
+      localStorage.setItem(DATA_KEY, JSON.stringify({ ...defaults(), ...old, version: 2 }));
+    }
+  } catch {}
+
+  initLogin();
+  const session = Auth.get();
+  if (session && ROLES[session.role]) enterRole(session.role);
+  else showLogin();
+
+  window.BanphaiApp = { Store, Auth, enterRole, showLogin };
+})();
+
+</script>
+</body>
+</html>
