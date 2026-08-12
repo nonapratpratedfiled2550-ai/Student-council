@@ -74,12 +74,13 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-html:has(body.login-page) { background: #2a1444; height: 100%; overflow: hidden; }
+html:has(body.login-page) { background: #2a1444; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
 body.login-page {
-  height: 100dvh;
   min-height: 100dvh;
-  max-height: 100dvh;
-  overflow: hidden;
+  height: auto;
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: #2a1444;
   background-attachment: fixed;
 }
@@ -338,6 +339,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
 }
 .modal.modal-lg { width: min(880px, 100%); }
 .modal h3 { color: var(--plum-900); margin-bottom: 1rem; font-size: 1.25rem; }
+.modal:not(.modal-lg) { width: min(480px, 100%); }
 
 /* App shell */
 .app-shell { display: flex; min-height: 100vh; }
@@ -380,7 +382,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   background: linear-gradient(90deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
   color: #fff; box-shadow: inset 3px 0 0 var(--gold);
 }
-.nav-icon { width: 1.3rem; text-align: center; opacity: .95; font-size: 1.05rem; }
+.nav-icon { width: 1.3rem; text-align: center; opacity: .95; font-size: 1.05rem; flex-shrink: 0; }
+.nav-label { line-height: 1.35; }
 
 /* Featured student menus — catch the eye on login */
 .nav-list a.nav-featured {
@@ -509,7 +512,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     radial-gradient(ellipse 35% 28% at 80% 12%, rgba(201, 162, 74, 0.22), transparent 50%),
     linear-gradient(180deg, #4b2478 0%, #3a1d5c 45%, #2a1444 100%);
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .login-page::before {
   content: '';
@@ -528,16 +531,18 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   animation: spinSoft 48s linear infinite;
 }
 #login-root.active {
-  height: 100dvh;
-  max-height: 100dvh;
-  overflow: hidden;
+  min-height: 100dvh;
+  height: auto;
+  max-height: none;
+  overflow: visible;
 }
 .login-stage {
   position: relative; z-index: 2;
-  height: 100dvh;
-  max-height: 100dvh;
+  min-height: 100dvh;
+  height: auto;
+  max-height: none;
   display: flex; flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
 }
 .login-beam {
   position: absolute; inset: -8% 18% auto; height: 42%;
@@ -679,7 +684,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   flex: 1;
   min-height: 0;
   display: flex; flex-direction: column; justify-content: center;
-  overflow: auto;
+  overflow: visible;
 }
 .role-section > .section-label {
   text-align: center; font-family: var(--font-display); font-weight: 600;
@@ -765,28 +770,58 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
 .role-card p { font-size: .9rem; color: rgba(255,255,255,.75); line-height: 1.5; }
 
 .login-box {
-  max-width: 440px; margin: 2.1rem auto 0;
-  background: linear-gradient(180deg, rgba(74, 36, 120, 0.92), rgba(46, 22, 78, 0.94));
-  backdrop-filter: blur(18px);
-  border-radius: 26px; padding: 1.9rem 1.75rem;
-  border: 1px solid rgba(240, 223, 154, 0.35);
-  box-shadow: 0 24px 60px rgba(12, 4, 28, 0.4); display: none; animation: rise .4s var(--ease);
-  position: relative;
+  max-width: 420px; width: 100%; margin: 0.6rem auto 0;
+  background: linear-gradient(165deg, rgba(88, 42, 140, 0.88) 0%, rgba(42, 20, 68, 0.94) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 28px; padding: 1.35rem 1.45rem 1.5rem;
+  border: 1px solid rgba(240, 223, 154, 0.38);
+  box-shadow: 0 24px 60px rgba(12, 4, 28, 0.45), inset 0 1px 0 rgba(255,255,255,.12);
+  display: none; animation: rise .4s var(--ease);
+  position: relative; overflow: visible;
 }
 .login-box::before {
   content: '';
-  position: absolute; inset: 0 0 auto 0; height: 3px;
-  background: linear-gradient(90deg, #9a63d1, #f0df9a, #9a63d1);
-  border-radius: 26px 26px 0 0;
+  position: absolute; inset: 0 0 auto 0; height: 4px;
+  background: linear-gradient(90deg, #9a63d1, #f0df9a, #c9a24a, #9a63d1);
 }
 .login-box.show { display: block; }
-.login-box h3 { text-align: center; color: #f0df9a; margin-bottom: .3rem; font-size: 1.25rem; }
-.login-hint { text-align: center; font-size: .88rem; color: rgba(243, 232, 250, 0.78); margin-bottom: 1.3rem; }
-.login-box .form-group label { color: #f3e8fa; }
+.login-back {
+  display: inline-flex; align-items: center; gap: .4rem;
+  margin: 0 0 1rem; padding: .45rem .85rem;
+  border-radius: 999px;
+  font-family: var(--font-display); font-weight: 600; font-size: .84rem;
+  color: #f0df9a;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(240, 223, 154, 0.32);
+  transition: background .2s, transform .2s, border-color .2s;
+}
+.login-back:hover {
+  background: rgba(240, 223, 154, 0.16);
+  border-color: rgba(240, 223, 154, 0.55);
+  transform: translateX(-2px);
+}
+.login-box-head { text-align: center; margin-bottom: 1.15rem; }
+.login-role-badge {
+  width: 64px; height: 64px; margin: 0 auto .75rem;
+  border-radius: 20px; display: grid; place-items: center;
+  font-size: 1.7rem;
+  background: linear-gradient(160deg, rgba(240,223,154,.28), rgba(154,99,209,.35));
+  border: 1px solid rgba(240, 223, 154, 0.4);
+  box-shadow: 0 10px 24px rgba(12, 4, 28, 0.3);
+}
+.login-box h3 {
+  text-align: center; color: #f0df9a; margin-bottom: .35rem;
+  font-size: clamp(1.1rem, 2.8vw, 1.3rem); line-height: 1.35;
+}
+.login-hint { text-align: center; font-size: .88rem; color: rgba(243, 232, 250, 0.78); margin-bottom: 0; }
+.login-box .form-group { margin-bottom: .9rem; }
+.login-box .form-group label { color: #f3e8fa; font-size: .88rem; }
 .login-box .form-control {
   background: rgba(255,255,255,.12);
-  border-color: rgba(240, 223, 154, 0.28);
+  border: 1.5px solid rgba(240, 223, 154, 0.28);
   color: #fff;
+  border-radius: 14px;
+  padding: .82rem 1.05rem;
 }
 .login-box .form-control::placeholder { color: rgba(255,255,255,.45); }
 .login-box .form-control:focus {
@@ -794,6 +829,59 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   border-color: #f0df9a;
   box-shadow: 0 0 0 4px rgba(240, 223, 154, 0.18);
 }
+.login-box .btn-primary {
+  margin-top: .35rem;
+  background: linear-gradient(135deg, #c9a24a 0%, #e8d48b 45%, #a8842e 100%);
+  color: #2a1444;
+  border: none;
+  box-shadow: 0 12px 28px rgba(201, 162, 74, 0.35);
+  font-weight: 700;
+}
+.login-box .btn-primary:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 14px 32px rgba(201, 162, 74, 0.45);
+  color: #2a1444;
+}
+.login-box .login-demo {
+  text-align: center; margin: .85rem 0 0;
+  font-size: .76rem; color: rgba(243, 232, 250, 0.55); line-height: 1.45;
+}
+#login-root.auth-step .section-label,
+#login-root.auth-step .role-grid { display: none; }
+#login-root.auth-step .login-header {
+  padding: 0.7rem 0 0.15rem;
+}
+#login-root.auth-step .school-crest {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 0.4rem;
+  animation: none;
+}
+#login-root.auth-step .school-crest::before,
+#login-root.auth-step .school-crest::after {
+  animation: none;
+}
+#login-root.auth-step .login-header .brand {
+  font-size: clamp(1.2rem, 3vw, 1.55rem);
+}
+#login-root.auth-step .login-header .brand-line {
+  margin-top: .4rem; width: min(120px, 36%); height: 2px;
+}
+#login-root.auth-step .role-section {
+  justify-content: flex-start;
+  padding: 0.25rem 0 1.2rem;
+  flex: 0 0 auto;
+}
+#login-root.auth-step .login-box {
+  margin-top: 0.55rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+#login-root.auth-step .login-box-head { margin-bottom: 0.85rem; }
+#login-root.auth-step .login-role-badge {
+  width: 52px; height: 52px; font-size: 1.4rem; margin-bottom: .55rem;
+}
+#login-root.auth-step .login-back { margin-bottom: .75rem; }
+#login-root.auth-step .login-footer { padding-bottom: 1.1rem; }
 .login-footer {
   text-align: center; padding: 0.45rem 1.5rem 0.9rem; color: rgba(240, 223, 154, 0.75);
   font-size: .86rem; position: relative; z-index: 2;
@@ -901,8 +989,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
 /* Activities */
 .activity-card {
   border: 1px solid rgba(94, 45, 150, 0.12); border-radius: var(--radius);
-  padding: 1.3rem; background: rgba(255,255,255,.88);
-  display: flex; flex-direction: column; gap: .7rem;
+  padding: 1.15rem; background: rgba(255,255,255,.88);
+  display: flex; flex-direction: column; gap: .65rem;
   transition: border-color .22s, box-shadow .22s, transform .22s;
   box-shadow: var(--shadow);
 }
@@ -911,6 +999,48 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   transform: translateY(-3px);
 }
 .activity-card h4 { color: var(--plum-900); font-size: 1.05rem; }
+.activity-cover {
+  width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
+  background: linear-gradient(135deg, #efe6f8, #f7f2fc); margin: -.2rem 0 .2rem;
+  cursor: zoom-in; position: relative;
+}
+.activity-cover img, .feed-media img, .media-preview img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.feed-media {
+  margin: .55rem 0; border-radius: 14px; overflow: hidden; max-height: 280px;
+  background: #f3ebf9; cursor: zoom-in;
+}
+.feed-media img { max-height: 280px; width: 100%; object-fit: cover; }
+.media-skeleton {
+  display: grid; place-items: center; height: 100%; min-height: 120px;
+  color: var(--muted); font-size: .85rem;
+}
+.media-preview {
+  margin-top: .55rem; border-radius: 14px; overflow: hidden;
+  border: 1.5px dashed var(--plum-300); background: #faf7fd;
+  aspect-ratio: 16 / 9; display: none; position: relative;
+}
+.media-preview.is-on { display: block; }
+.media-preview .clear-img {
+  position: absolute; top: .5rem; right: .5rem; z-index: 2;
+}
+.team-progress {
+  height: 8px; border-radius: 999px; background: var(--plum-100); overflow: hidden; margin: .15rem 0;
+}
+.team-progress > span {
+  display: block; height: 100%; border-radius: inherit;
+  background: linear-gradient(90deg, var(--plum-500), #9b5de5);
+  transition: width .4s ease;
+}
+.img-lightbox {
+  position: fixed; inset: 0; z-index: 9999; background: rgba(20, 10, 35, .82);
+  display: grid; place-items: center; padding: 1.5rem; cursor: zoom-out;
+}
+.img-lightbox img {
+  max-width: min(960px, 100%); max-height: 90vh; border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35); object-fit: contain; background: #111;
+}
 .team-slot {
   display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
   padding: .75rem; background: linear-gradient(135deg, #f7eefc, #fbf7ff);
@@ -920,6 +1050,18 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   display: inline-flex; align-items: center; gap: .3rem;
   background: #fff; border: 1px solid rgba(94, 45, 150, 0.12);
   padding: .28rem .65rem; border-radius: 999px; font-size: .8rem; font-weight: 600;
+}
+.sub-card {
+  background: #faf7fd; border: 1px solid rgba(94, 45, 150, 0.1);
+  border-radius: 14px; padding: .85rem .95rem; margin-top: .55rem;
+}
+.sub-card h5 { font-size: .92rem; color: var(--plum-900); margin-bottom: .35rem; }
+.buddy-chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: linear-gradient(135deg, #fff8e8, #fff);
+  border: 1px solid rgba(201, 162, 74, 0.35);
+  padding: .4rem .75rem; border-radius: 999px; font-size: .82rem; font-weight: 600;
+  color: #7a5a12;
 }
 
 /* Feed */
@@ -1163,8 +1305,12 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         <article class="role-card" data-role="student" tabindex="0"><div class="role-icon" aria-hidden="true">🎒</div><h3>นักเรียน</h3></article>
       </div>
       <div class="login-box" id="loginBox">
-        <h3 id="loginRoleLabel">เข้าสู่ระบบ</h3>
-        <p class="login-hint">กรอกชื่อผู้ใช้และรหัสผ่านเพื่อเข้าสู่ระบบ</p>
+        <button type="button" class="login-back" id="loginBack">← กลับไปเลือกบทบาท</button>
+        <div class="login-box-head">
+          <div class="login-role-badge" id="loginRoleIcon" aria-hidden="true">🎖️</div>
+          <h3 id="loginRoleLabel">เข้าสู่ระบบ</h3>
+          <p class="login-hint">กรอกชื่อผู้ใช้และรหัสผ่านเพื่อเข้าสู่ระบบ</p>
+        </div>
         <form id="loginForm">
           <div class="form-group">
             <label for="loginUsername">ชื่อผู้ใช้</label>
@@ -1179,7 +1325,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             <input class="form-control" id="studentId" placeholder="เช่น 16701" />
           </div>
           <button type="submit" class="btn btn-primary btn-block">เข้าสู่ระบบ</button>
-          <p class="login-hint mt-2" id="loginDemoHint" style="margin-bottom:0;font-size:.8rem"></p>
+          <p class="login-demo" id="loginDemoHint"></p>
         </form>
       </div>
     </main>
@@ -1265,7 +1411,533 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     });
   }
   const SUBJECTS = ['ไทย', 'คณิต', 'เคมี', 'ชีวะ', 'ฟิสิกส์', 'อังกฤษ', 'Netsat', 'T-gat', 'T-pat', 'A-level'];
+  const PHYSICS_VIDEO_SEED = 2;
+
+  function seedPhysicsVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['phy-m4t1-01', 'ม.4 เทอม 1', 'บทที่ 1 ธรรมชาติและพัฒนาการทางฟิสิกส์', '0LfQXlR4FVk'],
+      ['phy-m4t1-02', 'ม.4 เทอม 1', 'บทที่ 2 การเคลื่อนที่แนวตรง', 'PyXMBxPonaI'],
+      ['phy-m4t1-03', 'ม.4 เทอม 1', 'บทที่ 3 แรงและกฎการเคลื่อนที่', '6tAvT81BGGE'],
+      ['phy-m4t2-04', 'ม.4 เทอม 2', 'บทที่ 4 สมดุลกล', 'EcSHK27lcPs'],
+      ['phy-m4t2-05', 'ม.4 เทอม 2', 'บทที่ 5 งานและพลังงาน', 'Jb8znZIgzNQ'],
+      ['phy-m4t2-06', 'ม.4 เทอม 2', 'บทที่ 6 โมเมนตัมและการชน', 'zl-wwBcFm6k'],
+      ['phy-m4t2-07', 'ม.4 เทอม 2', 'บทที่ 7 การเคลื่อนที่แนวโค้ง', 'KfevaIyW2-I'],
+      ['phy-m5t1-08', 'ม.5 เทอม 1', 'บทที่ 8 การเคลื่อนที่แบบฮาร์มอนิกอย่างง่าย', 'glA_RBEixjg'],
+      ['phy-m5t1-09', 'ม.5 เทอม 1', 'บทที่ 9 คลื่น', 'uwCjSZPylIA'],
+      ['phy-m5t1-10', 'ม.5 เทอม 1', 'บทที่ 10 แสงเชิงคลื่น', 'a0izXgPfHsQ'],
+      ['phy-m5t1-11', 'ม.5 เทอม 1', 'บทที่ 11 แสงเชิงรังสี', 'Kuz0iwCb7HE'],
+      ['phy-m5t2-12', 'ม.5 เทอม 2', 'บทที่ 12 เสียง', 'NzPCA4JB9Kk'],
+      ['phy-m5t2-13', 'ม.5 เทอม 2', 'บทที่ 13 ไฟฟ้าสถิต', '0toKBLb0UXQ'],
+      ['phy-m5t2-14', 'ม.5 เทอม 2', 'บทที่ 14 ไฟฟ้ากระแส', 'ZOcxu-4pocY'],
+      ['phy-m6t1-15', 'ม.6 เทอม 1', 'บทที่ 15 แม่เหล็กและไฟฟ้า', 'V9qhdQd_9G0'],
+      ['phy-m6t1-16', 'ม.6 เทอม 1', 'บทที่ 16 คลื่นแม่เหล็กไฟฟ้า', 'kFin5X19ytQ'],
+      ['phy-m6t1-17', 'ม.6 เทอม 1', 'บทที่ 17 ความร้อนและแก๊ส', 'xEQ7HLCQ0vE'],
+      ['phy-m6t1-18', 'ม.6 เทอม 1', 'บทที่ 18 ของแข็งและของไหล', 'rIhP13f8gvA'],
+      ['phy-m6t2-19', 'ม.6 เทอม 2', 'บทที่ 19 ฟิสิกส์อะตอม', '_mfV_RPugkQ'],
+      ['phy-m6t2-20', 'ม.6 เทอม 2', 'บทที่ 20 ฟิสิกส์นิวเคลียร์และฟิสิกส์อนุภาค', '-uTlvKJVz4E'],
+    ];
+    return rows.map(([id, term, title, yid]) => ({
+      id,
+      subject: 'ฟิสิกส์',
+      title,
+      teacher: 'สรุปบทเรียนฟิสิกส์',
+      duration: '—',
+      views: 0,
+      desc: 'ฟิสิกส์ ' + term,
+      gradeTerm: term,
+      url: 'https://www.youtube.com/watch?v=' + yid,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensurePhysicsVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedPhysicsVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+
+    const before = d.videos.length;
+    d.videos = d.videos.filter(
+      (v) =>
+        v.id !== 'v3' &&
+        !(
+          v.subject === 'ฟิสิกส์' &&
+          !v.seeded &&
+          /แรงและการเคลื่อนที่/.test(String(v.title || ''))
+        )
+    );
+    if (d.videos.length !== before) changed = true;
+
+    if (d.physicsVideoSeed !== PHYSICS_VIDEO_SEED) {
+      d.physicsVideoSeed = PHYSICS_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const CHEMISTRY_VIDEO_SEED = 1;
+
+  function seedChemistryVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      // ม.4 เทอม 1 — บทที่ 1 มี 4 คลิป
+      ['chem-m4t1-01a', 'ม.4 เทอม 1', 'บทที่ 1 ความปลอดภัยและทักษะในปฏิบัติการเคมี (ตอนที่ 1)', 'on1qlg7kl58'],
+      ['chem-m4t1-01b', 'ม.4 เทอม 1', 'บทที่ 1 ความปลอดภัยและทักษะในปฏิบัติการเคมี (ตอนที่ 2)', '3kbO3Qf9_Lo'],
+      ['chem-m4t1-01c', 'ม.4 เทอม 1', 'บทที่ 1 ความปลอดภัยและทักษะในปฏิบัติการเคมี (ตอนที่ 3)', 'cwX_XreZWuE'],
+      ['chem-m4t1-01d', 'ม.4 เทอม 1', 'บทที่ 1 ความปลอดภัยและทักษะในปฏิบัติการเคมี (ตอนที่ 4)', 'iVhNMfVrUkY'],
+      ['chem-m4t1-02a', 'ม.4 เทอม 1', 'บทที่ 2 อะตอมและสมบัติของธาตุ (ตอนที่ 1)', 'igrp4AJZJTQ'],
+      ['chem-m4t1-02b', 'ม.4 เทอม 1', 'บทที่ 2 อะตอมและสมบัติของธาตุ (ตอนที่ 2)', 'aQYN5Jvr8qY'],
+      ['chem-m4t1-03', 'ม.4 เทอม 1', 'บทที่ 3 พันธะเคมี', '-4r8CA2ufCA'],
+      // ม.4 เทอม 2
+      ['chem-m4t2-04', 'ม.4 เทอม 2', 'บทที่ 4 โมลและสูตรเคมี', 'KbTeQNGw4x0'],
+      ['chem-m4t2-05', 'ม.4 เทอม 2', 'บทที่ 5 สารละลาย', '0Nu9M9Jdq_I'],
+      ['chem-m4t2-06', 'ม.4 เทอม 2', 'บทที่ 6 ปริมาณสารสัมพันธ์', 'C492zRTQ9rc'],
+      // ม.5 เทอม 1
+      ['chem-m5t1-07', 'ม.5 เทอม 1', 'บทที่ 7 แก๊สและสมบัติของแก๊ส', 'trAtnLRXL_k'],
+      ['chem-m5t1-08', 'ม.5 เทอม 1', 'บทที่ 8 อัตราการเกิดปฏิกิริยาเคมี', '3vVo40c7pIY'],
+      ['chem-m5t1-09', 'ม.5 เทอม 1', 'บทที่ 9 สมดุลเคมี', 'Z2poIvdm8d0'],
+      // ม.5 เทอม 2
+      ['chem-m5t2-10', 'ม.5 เทอม 2', 'บทที่ 10 กรด-เบส', '8meT89jkAcQ'],
+      ['chem-m5t2-11', 'ม.5 เทอม 2', 'บทที่ 11 เคมีไฟฟ้า', 'hAjsEOn8Ins'],
+      // ม.6 เทอม 1
+      ['chem-m6t1-12', 'ม.6 เทอม 1', 'บทที่ 12 เคมีอินทรีย์', 'HBJ664ryYeU'],
+      ['chem-m6t1-13', 'ม.6 เทอม 1', 'บทที่ 13 พอลิเมอร์', 'RxkRlWrROwY'],
+    ];
+    return rows.map(([id, term, title, yid]) => ({
+      id,
+      subject: 'เคมี',
+      title,
+      teacher: 'สรุปบทเรียนเคมี',
+      duration: '—',
+      views: 0,
+      desc: 'เคมี ' + term,
+      gradeTerm: term,
+      url: 'https://www.youtube.com/watch?v=' + yid,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureChemistryVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedChemistryVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.chemistryVideoSeed !== CHEMISTRY_VIDEO_SEED) {
+      d.chemistryVideoSeed = CHEMISTRY_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const NETSAT_VIDEO_SEED = 1;
+
+  function seedNetsatVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['netsat-math', 'คณิต', 'Netsat คณิตศาสตร์', 'ZiLCqiMqKiY'],
+      ['netsat-eng', 'อังกฤษ', 'Netsat อังกฤษ', 'lx2yoJCt7eg'],
+      ['netsat-thai', 'ไทย', 'Netsat ภาษาไทย', 'vc9hqP4ROQI'],
+      ['netsat-phy', 'ฟิสิกส์', 'Netsat ฟิสิกส์', '65G068vtyE0'],
+      ['netsat-chem', 'เคมี', 'Netsat เคมี', 'tro2hdG3ziw'],
+      ['netsat-bio', 'ชีวะ', 'Netsat ชีววิทยา', 'LUSSyAyHrh8'],
+    ];
+    return rows.map(([id, topic, title, yid]) => ({
+      id,
+      subject: 'Netsat',
+      title,
+      teacher: 'สรุป Netsat',
+      duration: '—',
+      views: 0,
+      desc: 'Netsat · ' + topic,
+      gradeTerm: topic,
+      url: 'https://www.youtube.com/watch?v=' + yid,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureNetsatVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedNetsatVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.netsatVideoSeed !== NETSAT_VIDEO_SEED) {
+      d.netsatVideoSeed = NETSAT_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const ALEVEL_VIDEO_SEED = 1;
+
+  function seedAlevelVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['alevel-bio', 'ชีวะ', 'A-level ชีววิทยา', 'Rrk5KhF-B7E'],
+      ['alevel-thai', 'ไทย', 'A-level ภาษาไทย', 'osEnH9GU14Y'],
+      ['alevel-chem', 'เคมี', 'A-level เคมี', 'zyYlQs0czoA'],
+      ['alevel-phy', 'ฟิสิกส์', 'A-level ฟิสิกส์', 'JxKixmivgKY'],
+      ['alevel-math1', 'คณิต 1', 'A-level คณิตศาสตร์ 1', 'A_R_f8-pYUI'],
+      ['alevel-math2', 'คณิต 2', 'A-level คณิตศาสตร์ 2', '9665mA3sWPY'],
+      ['alevel-appsci', 'วิทประยุกต์', 'A-level วิทยาศาสตร์ประยุกต์', '_xxf1kVOSYE'],
+      ['alevel-social', 'สังคม', 'A-level สังคมศึกษา', 'nxo9d04vxY0'],
+      ['alevel-eng', 'อังกฤษ', 'A-level อังกฤษ', '1WNA8u7NWVo'],
+    ];
+    return rows.map(([id, topic, title, yid]) => ({
+      id,
+      subject: 'A-level',
+      title,
+      teacher: 'สรุป A-level',
+      duration: '—',
+      views: 0,
+      desc: 'A-level · ' + topic,
+      gradeTerm: topic,
+      url: 'https://www.youtube.com/watch?v=' + yid,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureAlevelVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedAlevelVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.alevelVideoSeed !== ALEVEL_VIDEO_SEED) {
+      d.alevelVideoSeed = ALEVEL_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const TGAT_VIDEO_SEED = 1;
+
+  function seedTgatVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['tgat-1', 'T-gat 1', 'T-gat 1', 'A3LCNy17mYk'],
+      ['tgat-23', 'T-gat 2,3', 'T-gat 2 และ 3', 'NLDsN-arZBM'],
+    ];
+    return rows.map(([id, topic, title, yid]) => ({
+      id,
+      subject: 'T-gat',
+      title,
+      teacher: 'สรุป T-gat',
+      duration: '—',
+      views: 0,
+      desc: topic,
+      gradeTerm: topic,
+      url: 'https://www.youtube.com/watch?v=' + yid,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureTgatVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedTgatVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.tgatVideoSeed !== TGAT_VIDEO_SEED) {
+      d.tgatVideoSeed = TGAT_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const TPAT_VIDEO_SEED = 1;
+
+  function seedTpatVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['tpat-1', 'T-pat 1', 'T-pat 1', 'FkSg_b5U6oo'],
+      ['tpat-2', 'T-pat 2', 'T-pat 2', 'wp3_z8_VrgM'],
+      ['tpat-3', 'T-pat 3', 'T-pat 3', 'rf-LAYPvdF8'],
+      ['tpat-4', 'T-pat 4', 'T-pat 4', 'Wol8ZdgAnqg'],
+      ['tpat-5', 'T-pat 5', 'T-pat 5', 'KBruqJCew34'],
+    ];
+    return rows.map(([id, topic, title, yid]) => ({
+      id,
+      subject: 'T-pat',
+      title,
+      teacher: 'สรุป T-pat',
+      duration: '—',
+      views: 0,
+      desc: topic,
+      gradeTerm: topic,
+      url: 'https://www.youtube.com/watch?v=' + yid,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureTpatVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedTpatVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.tpatVideoSeed !== TPAT_VIDEO_SEED) {
+      d.tpatVideoSeed = TPAT_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const BIO_VIDEO_SEED = 1;
+
+  function seedBioVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['bio-basic-01', 'ปรับพื้นฐาน', 'ปรับพื้นฐาน Ep.1', 'F1R31WwMNt0'],
+      ['bio-basic-02', 'ปรับพื้นฐาน', 'ปรับพื้นฐาน Ep.2', 'ZVEWcxnRrgU'],
+    ];
+    return rows.map(([id, topic, title, yid]) => ({
+      id,
+      subject: 'ชีวะ',
+      title,
+      teacher: 'สรุปบทเรียนชีวะ',
+      duration: '—',
+      views: 0,
+      desc: 'ชีวะ · ' + topic,
+      gradeTerm: topic,
+      url: 'https://www.youtube.com/watch?v=' + yid,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureBioVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedBioVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.bioVideoSeed !== BIO_VIDEO_SEED) {
+      d.bioVideoSeed = BIO_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const THAI_VIDEO_SEED = 1;
+
+  function seedThaiVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['thai-m4', 'ม.4', 'ภาษาไทย ม.4 (เพลย์ลิสต์)', 'PLwXBH08pjlzpq_2pKhfax8lAm7-iOnhG8'],
+      ['thai-m5', 'ม.5', 'ภาษาไทย ม.5 (เพลย์ลิสต์)', 'PLwXBH08pjlzrPiRNN7dYmZVYahWX8JK-j'],
+      ['thai-m6', 'ม.6', 'ภาษาไทย ม.6 (เพลย์ลิสต์)', 'PLwXBH08pjlzq6BSRzT8_g6qxS3cJ5e0aZ'],
+    ];
+    return rows.map(([id, topic, title, listId]) => ({
+      id,
+      subject: 'ไทย',
+      title,
+      teacher: 'ภาษาไทย',
+      duration: 'เพลย์ลิสต์',
+      views: 0,
+      desc: 'ภาษาไทย · ' + topic,
+      gradeTerm: topic,
+      url: 'https://www.youtube.com/playlist?list=' + listId,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureThaiVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedThaiVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.thaiVideoSeed !== THAI_VIDEO_SEED) {
+      d.thaiVideoSeed = THAI_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const ENGLISH_VIDEO_SEED = 1;
+
+  function seedEnglishVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    const rows = [
+      ['eng-mhigh', 'ม.ปลาย', 'ภาษาอังกฤษ ม.ปลาย (เพลย์ลิสต์)', 'PLTEHyVDbZX-K576eLccm8kbYrnyA40lT2'],
+    ];
+    return rows.map(([id, topic, title, listId]) => ({
+      id,
+      subject: 'อังกฤษ',
+      title,
+      teacher: 'ภาษาอังกฤษ',
+      duration: 'เพลย์ลิสต์',
+      views: 0,
+      desc: 'ภาษาอังกฤษ · ' + topic,
+      gradeTerm: topic,
+      url: 'https://www.youtube.com/playlist?list=' + listId,
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureEnglishVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedEnglishVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.englishVideoSeed !== ENGLISH_VIDEO_SEED) {
+      d.englishVideoSeed = ENGLISH_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
+  const MATH_VIDEO_SEED = 1;
+
+  function seedMathVideos(createdAt) {
+    const t = createdAt || (typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0, 10));
+    // yid ว่าง = ยังไม่มีลิงก์ เก็บหัวข้อไว้ก่อน
+    const rows = [
+      // ม.4 คณิตพื้นฐาน
+      ['math-m4-basic-set', 'ม.4 คณิตพื้นฐาน', 'เซต', ''],
+      ['math-m4-basic-logic', 'ม.4 คณิตพื้นฐาน', 'ตรรกศาสตร์เบื้องต้น', ''],
+      ['math-m4-basic-count', 'ม.4 คณิตพื้นฐาน', 'หลักการนับเบื้องต้น', ''],
+      ['math-m4-basic-prob', 'ม.4 คณิตพื้นฐาน', 'ความน่าจะเป็น', ''],
+      // ม.4 คณิตเพิ่มเติม เทอม 1
+      ['math-m4-add-t1-set', 'ม.4 คณิตเพิ่มเติม เทอม 1', 'เซต', 'bYRwxh0LdHk'],
+      ['math-m4-add-t1-logic', 'ม.4 คณิตเพิ่มเติม เทอม 1', 'ตรรกศาสตร์', 'eTBFewOC8Ys'],
+      ['math-m4-add-t1-real', 'ม.4 คณิตเพิ่มเติม เทอม 1', 'จำนวนจริง', 'gpdoXG8-X3w'],
+      // ม.4 คณิตเพิ่มเติม เทอม 2
+      ['math-m4-add-t2-rel', 'ม.4 คณิตเพิ่มเติม เทอม 2', 'ความสัมพันธ์และฟังก์ชัน', '470KJ3cIEFU'],
+      ['math-m4-add-t2-exp', 'ม.4 คณิตเพิ่มเติม เทอม 2', 'ฟังก์ชันเอกซ์โพเนนเชียล', '9syNtzgOobA'],
+      ['math-m4-add-t2-log', 'ม.4 คณิตเพิ่มเติม เทอม 2', 'ลอการิทึม', 'FVVxsFm_hwM'],
+      ['math-m4-add-t2-conic', 'ม.4 คณิตเพิ่มเติม เทอม 2', 'เรขาคณิตวิเคราะห์และภาคตัดกรวย', 'PLfhBnVe6vE'],
+      // ม.5 คณิตพื้นฐาน
+      ['math-m5-basic-pow', 'ม.5 คณิตพื้นฐาน', 'เลขยกกำลัง', ''],
+      ['math-m5-basic-fn', 'ม.5 คณิตพื้นฐาน', 'ฟังก์ชัน', ''],
+      ['math-m5-basic-seq', 'ม.5 คณิตพื้นฐาน', 'ลำดับและอนุกรม', ''],
+      // ม.5 คณิตเพิ่มเติม เทอม 1
+      ['math-m5-add-t1-trig', 'ม.5 คณิตเพิ่มเติม เทอม 1', 'ฟังก์ชันตรีโกณมิติ', 'Xem6fVP3TBk'],
+      ['math-m5-add-t1-matrix', 'ม.5 คณิตเพิ่มเติม เทอม 1', 'เมทริกซ์', 'qVt_fdsvHqw'],
+      ['math-m5-add-t1-vec', 'ม.5 คณิตเพิ่มเติม เทอม 1', 'เวกเตอร์', 'VmisQSKhm9A'],
+    ];
+    return rows.map(([id, term, topic, yid]) => ({
+      id,
+      subject: 'คณิต',
+      title: term + ' · ' + topic,
+      teacher: 'สรุปบทเรียนคณิต',
+      duration: yid ? '—' : 'ยังไม่มีคลิป',
+      views: 0,
+      desc: 'คณิต · ' + term,
+      gradeTerm: term,
+      url: yid ? 'https://www.youtube.com/watch?v=' + yid : '',
+      createdAt: t,
+      createdBy: 'ระบบ',
+      seeded: true,
+    }));
+  }
+
+  function ensureMathVideoSeed(d) {
+    if (!Array.isArray(d.videos)) d.videos = [];
+    const seeded = seedMathVideos();
+    const existingIds = new Set(d.videos.map((v) => v.id));
+    let changed = false;
+    seeded.forEach((v) => {
+      if (!existingIds.has(v.id)) {
+        d.videos.push(v);
+        existingIds.add(v.id);
+        changed = true;
+      }
+    });
+    if (d.mathVideoSeed !== MATH_VIDEO_SEED) {
+      d.mathVideoSeed = MATH_VIDEO_SEED;
+      changed = true;
+    }
+    return changed;
+  }
+
   const LF_CATEGORIES = ['กระเป๋า', 'อุปกรณ์การเรียน', 'เสื้อผ้า', 'อิเล็กทรอนิกส์', 'เอกสาร', 'กุญแจ', 'อื่น ๆ'];
+  const MISCONDUCT_TYPES = [
+    'แต่งกายไม่เรียบร้อย',
+    'พูดจาไม่สุภาพ',
+    'ทะเลาะวิวาท',
+    'ใช้โทรศัพท์ในเวลาเรียน',
+    'ไม่เคารพครู / เพื่อน',
+    'ทำลายทรัพย์สิน',
+    'อื่น ๆ',
+  ];
   const DEFAULT_ORG_GROUPS = [
     {
       name: 'กลุ่มบริหารอำนวยการ',
@@ -1303,6 +1975,9 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
 
   function lfList(data) {
     return Array.isArray(data.lostFound) ? data.lostFound : [];
+  }
+  function misconductList(data) {
+    return Array.isArray(data.misconductReports) ? data.misconductReports : [];
   }
 
   function uid(p) {
@@ -1344,6 +2019,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       ],
       helmetReports: [],
       lateReports: [],
+      misconductReports: [],
       incidents: [],
       behaviorScores: [
         { studentId: '16701', name: 'นายธีรพงศ์ สุขใจ', className: 'ม.4/2', score: 95, notes: '-' },
@@ -1356,11 +2032,54 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       videos: [
         { id: 'v1', subject: 'คณิต', title: 'สมการเชิงเส้น (ตัวอย่าง)', teacher: 'ครูสมศรี', duration: '10:00', views: 0, desc: 'คลิปตัวอย่างจาก YouTube สำหรับทบทวน', url: 'https://www.youtube.com/watch?v=NybHckSEQBI', createdAt: t, createdBy: 'ระบบ' },
         { id: 'v2', subject: 'อังกฤษ', title: 'Present Simple ทบทวน', teacher: 'ครู John', duration: '8:00', views: 0, desc: 'พื้นฐาน Present Simple', url: 'https://www.youtube.com/watch?v=zx1kddE7q8o', createdAt: t, createdBy: 'ระบบ' },
-        { id: 'v3', subject: 'ฟิสิกส์', title: 'แรงและการเคลื่อนที่', teacher: 'ครูวิชัย', duration: '12:00', views: 0, desc: 'แนวคิดเบื้องต้น', url: 'https://www.youtube.com/watch?v=kKKM8Y-u7ds', createdAt: t, createdBy: 'ระบบ' },
+        ...seedPhysicsVideos(t),
+        ...seedChemistryVideos(t),
+        ...seedNetsatVideos(t),
+        ...seedAlevelVideos(t),
+        ...seedTgatVideos(t),
+        ...seedTpatVideos(t),
+        ...seedBioVideos(t),
+        ...seedThaiVideos(t),
+        ...seedEnglishVideos(t),
+        ...seedMathVideos(t),
       ],
+      physicsVideoSeed: PHYSICS_VIDEO_SEED,
+      chemistryVideoSeed: CHEMISTRY_VIDEO_SEED,
+      netsatVideoSeed: NETSAT_VIDEO_SEED,
+      alevelVideoSeed: ALEVEL_VIDEO_SEED,
+      tgatVideoSeed: TGAT_VIDEO_SEED,
+      tpatVideoSeed: TPAT_VIDEO_SEED,
+      bioVideoSeed: BIO_VIDEO_SEED,
+      thaiVideoSeed: THAI_VIDEO_SEED,
+      englishVideoSeed: ENGLISH_VIDEO_SEED,
+      mathVideoSeed: MATH_VIDEO_SEED,
       activities: [
-        { id: 'a1', title: 'แข่งตอบปัญหาวิชาการ', category: 'แข่งขันวิชาการ', date: t, place: 'หอประชุม', teamSize: 3, members: [], open: true, desc: 'วิชาวิทย์–คณิต ทีมละ 3 คน' },
-        { id: 'a2', title: 'ค่ายอบรมผู้นำนวัตกรรม', category: 'อบรม/ค่าย', date: t, place: 'ห้องมัลติมีเดีย', teamSize: 5, members: [], open: true, desc: 'Design Thinking' },
+        {
+          id: 'a1',
+          title: 'แข่งตอบปัญหาวิชาการ',
+          category: 'แข่งขันวิชาการ',
+          date: t,
+          place: 'หอประชุม',
+          mode: 'team',
+          suggestedSize: 3,
+          teams: [],
+          buddies: [],
+          open: true,
+          desc: 'วิชาวิทย์–คณิต — นักเรียนสร้างทีมเอง ทีมละ 3 คน',
+        },
+        {
+          id: 'a2',
+          title: 'ค่ายอบรมผู้นำนวัตกรรม',
+          category: 'อบรม/ค่าย',
+          date: t,
+          place: 'ห้องมัลติมีเดีย',
+          mode: 'buddy',
+          suggestedSize: 0,
+          teams: [],
+          buddies: [],
+          open: true,
+          desc: 'Design Thinking — หาเพื่อนไปด้วยกันได้ ไม่ต้องตั้งทีมแข่งขัน',
+        },
       ],
       announcements: [
         { id: 'n1', title: 'ยินดีต้อนรับสู่ระบบสภานักเรียน', date: t, body: 'ใช้งานได้จริง — ข้อมูลบันทึกในเครื่องของคุณ', audience: 'all' },
@@ -1447,17 +2166,50 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           });
           localStorage.setItem(DATA_KEY, JSON.stringify(merged));
         }
+        if (ensurePhysicsVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureChemistryVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureNetsatVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureAlevelVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureTgatVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureTpatVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureBioVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureThaiVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureEnglishVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (ensureMathVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        ensureActivitiesShape(merged);
         return merged;
       } catch {
         return defaults();
       }
     },
     save(data) {
+      ensureActivitiesShape(data);
       localStorage.setItem(DATA_KEY, JSON.stringify(data));
       window.dispatchEvent(new CustomEvent('banphai-data', { detail: data }));
     },
     update(fn) {
       const data = this.load();
+      ensureActivitiesShape(data);
       const result = fn(data);
       this.save(data);
       return result;
@@ -1477,7 +2229,281 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     },
   };
 
-  /* ---------- IndexedDB for video files ---------- */
+  /* ---------- Google Sheets backend ---------- */
+  const SHEETS_URL_KEY = 'banphai_sheets_webapp_url';
+  const GOOGLE_SHEET_ID = '1eI-A2RUYkDu2D6v952ikNwKzTVt6TRLFJ_6Wr96Tw1o';
+  const GOOGLE_SHEET_LINK = 'https://docs.google.com/spreadsheets/d/' + GOOGLE_SHEET_ID + '/edit';
+  const DEFAULT_SHEETS_WEBAPP_URL =
+    'https://script.google.com/macros/s/AKfycbzkYKXk5S_lzN158l0P5OvFn1UXNkuUgXArrI6DML8gIwvfIcjTjDTMtkgO47fEc5ds/exec';
+  const SHEETS_URL_VERSION = '6';
+  const SHEETS_URL_VERSION_KEY = 'banphai_sheets_webapp_url_ver';
+  if (localStorage.getItem(SHEETS_URL_VERSION_KEY) !== SHEETS_URL_VERSION) {
+    localStorage.setItem(SHEETS_URL_KEY, DEFAULT_SHEETS_WEBAPP_URL);
+    localStorage.setItem(SHEETS_URL_VERSION_KEY, SHEETS_URL_VERSION);
+  }
+
+  const SheetsAPI = {
+    getUrl() {
+      return (localStorage.getItem(SHEETS_URL_KEY) || DEFAULT_SHEETS_WEBAPP_URL || '').trim();
+    },
+    setUrl(url) {
+      localStorage.setItem(SHEETS_URL_KEY, String(url || '').trim());
+    },
+    enabled() {
+      return !!this.getUrl();
+    },
+    async request(payload) {
+      const url = this.getUrl();
+      if (!url) throw new Error('ยังไม่ได้ตั้งค่า Web App URL');
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        redirect: 'follow',
+      });
+      const text = await res.text();
+      try {
+        return JSON.parse(text);
+      } catch {
+        throw new Error('ตอบกลับจาก Google Sheet ไม่ถูกต้อง — ตรวจว่า Deploy เป็น Web app แล้ว');
+      }
+    },
+    async list() {
+      return this.request({ action: 'list' });
+    },
+    async add(report) {
+      return this.request({ action: 'add', report });
+    },
+    async addTask(task) {
+      return this.request({ action: 'addTask', task });
+    },
+    async deleteTask(id) {
+      return this.request({ action: 'deleteTask', id });
+    },
+    async addLog(log) {
+      return this.request({ action: 'addLog', log });
+    },
+    async deleteLog(id) {
+      return this.request({ action: 'deleteLog', id });
+    },
+    async addLostFound(item) {
+      return this.request({ action: 'addLostFound', item });
+    },
+    async updateLostFound(payload) {
+      return this.request({ action: 'updateLostFound', ...payload });
+    },
+    async deleteLostFound(id) {
+      return this.request({ action: 'deleteLostFound', id });
+    },
+    async addMessage(message) {
+      return this.request({ action: 'addMessage', message });
+    },
+    async updateMessage(payload) {
+      return this.request({ action: 'updateMessage', ...payload });
+    },
+    async updateStatus(payload) {
+      return this.request({ action: 'updateStatus', ...payload });
+    },
+    applyReports(reports) {
+      Store.update((d) => {
+        d.helmetReports = [];
+        d.lateReports = [];
+        d.misconductReports = [];
+        (reports || []).forEach((r) => {
+          const type = r.type || r.typeKey;
+          if (type === 'helmet') {
+            d.helmetReports.push({
+              id: r.id,
+              studentId: r.studentId,
+              plate: r.plate || '',
+              note: r.detail || r.note || '',
+              date: r.date,
+              by: r.by || '',
+              status: r.status || 'pending',
+              reviewedBy: r.reviewedBy || '',
+              reviewedAt: r.reviewedAt || '',
+            });
+          } else if (type === 'late') {
+            d.lateReports.push({
+              id: r.id,
+              studentId: r.studentId,
+              recorder: r.by || r.recorder || '',
+              note: r.detail || r.note || '',
+              date: r.date,
+              status: r.status || 'pending',
+              reviewedBy: r.reviewedBy || '',
+              reviewedAt: r.reviewedAt || '',
+            });
+          } else {
+            d.misconductReports.push({
+              id: r.id,
+              studentId: r.studentId,
+              category: r.category || 'อื่น ๆ',
+              detail: r.detail || r.note || '',
+              date: r.date,
+              by: r.by || '',
+              status: r.status || 'pending',
+              reviewedBy: r.reviewedBy || '',
+              reviewedAt: r.reviewedAt || '',
+            });
+          }
+        });
+      });
+    },
+    async pull() {
+      const res = await this.list();
+      if (!res.ok) throw new Error(res.error || 'ดึงข้อมูลไม่สำเร็จ');
+      this.applyReports(res.reports || []);
+      return (res.reports || []).length;
+    },
+  };
+
+  async function pushBehaviorToSheets(report) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.add(report);
+      if (!res.ok) throw new Error(res.error || 'บันทึกชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('บันทึกในเครื่องแล้ว แต่ส่งขึ้น Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function pushTaskToSheets(task) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.addTask(task);
+      if (!res.ok) throw new Error(res.error || 'บันทึกงานขึ้นชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('บันทึกในเครื่องแล้ว แต่ส่งขึ้น Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function deleteTaskFromSheets(id) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.deleteTask(id);
+      if (!res.ok) throw new Error(res.error || 'ลบงานในชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('ลบในเครื่องแล้ว แต่ซิงก์ Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function pushLogToSheets(log) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.addLog(log);
+      if (!res.ok) throw new Error(res.error || 'บันทึกขึ้นชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('บันทึกในเครื่องแล้ว แต่ส่งขึ้น Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function deleteLogFromSheets(id) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.deleteLog(id);
+      if (!res.ok) throw new Error(res.error || 'ลบบันทึกในชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('ลบในเครื่องแล้ว แต่ซิงก์ Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function pushLostFoundToSheets(item) {
+    if (!SheetsAPI.enabled()) {
+      toast('ยังไม่ได้ตั้งค่า Web App URL', 'warning');
+      return false;
+    }
+    try {
+      const res = await SheetsAPI.addLostFound(item);
+      if (!res.ok) throw new Error(res.error || 'บันทึกของหายได้คืนขึ้นชีตไม่สำเร็จ');
+      return true;
+    } catch (err) {
+      console.warn(err);
+      toast('บันทึกในเครื่องแล้ว แต่ส่งขึ้น Google Sheet ไม่สำเร็จ: ' + (err.message || err), 'warning');
+      return false;
+    }
+  }
+
+  async function updateLostFoundInSheets(payload) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.updateLostFound(payload);
+      if (!res.ok) throw new Error(res.error || 'อัปเดตชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('อัปเดตในเครื่องแล้ว แต่ซิงก์ Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function deleteLostFoundFromSheets(id) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.deleteLostFound(id);
+      if (!res.ok) throw new Error(res.error || 'ลบรายการในชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('ลบในเครื่องแล้ว แต่ซิงก์ Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function pushMessageToSheets(message) {
+    if (!SheetsAPI.enabled()) {
+      toast('ยังไม่ได้ตั้งค่า Web App URL', 'warning');
+      return false;
+    }
+    try {
+      const res = await SheetsAPI.addMessage(message);
+      if (!res.ok) throw new Error(res.error || 'บันทึกแจ้งเรื่องขึ้นชีตไม่สำเร็จ');
+      return true;
+    } catch (err) {
+      console.warn(err);
+      toast('บันทึกในเครื่องแล้ว แต่ส่งขึ้น Google Sheet ไม่สำเร็จ: ' + (err.message || err), 'warning');
+      return false;
+    }
+  }
+
+  async function updateMessageInSheets(payload) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.updateMessage(payload);
+      if (!res.ok) throw new Error(res.error || 'อัปเดตชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('อัปเดตในเครื่องแล้ว แต่ซิงก์ Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function pushStatusToSheets(id, status, reviewedBy, reviewedAt) {
+    if (!SheetsAPI.enabled()) return;
+    try {
+      const res = await SheetsAPI.updateStatus({ id, status, reviewedBy, reviewedAt });
+      if (!res.ok) throw new Error(res.error || 'อัปเดตชีตไม่สำเร็จ');
+    } catch (err) {
+      console.warn(err);
+      toast('อัปเดตในเครื่องแล้ว แต่ซิงก์ Google Sheet ไม่สำเร็จ', 'warning');
+    }
+  }
+
+  async function syncBehaviorFromSheets(renderFn) {
+    if (!SheetsAPI.enabled()) return false;
+    try {
+      const n = await SheetsAPI.pull();
+      toast('ซิงก์จาก Google Sheet แล้ว (' + n + ' รายการ)', 'success');
+      if (renderFn) renderFn();
+      return true;
+    } catch (err) {
+      console.warn(err);
+      toast(String(err.message || err), 'error');
+      return false;
+    }
+  }
+
+  /* ---------- IndexedDB for video / image files ---------- */
   const VideoDB = {
     open() {
       return new Promise((resolve, reject) => {
@@ -1519,9 +2545,285 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     },
   };
 
+  const IMG_MAX_BYTES = 8 * 1024 * 1024;
+
+  function compressImageFile(file, maxW = 1280, quality = 0.78) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const scale = Math.min(1, maxW / img.width);
+          const w = Math.max(1, Math.round(img.width * scale));
+          const h = Math.max(1, Math.round(img.height * scale));
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          canvas.toBlob(
+            (blob) => {
+              URL.revokeObjectURL(url);
+              if (!blob) reject(new Error('บีบอัดรูปไม่สำเร็จ'));
+              else resolve(blob);
+            },
+            'image/jpeg',
+            quality
+          );
+        } catch (err) {
+          URL.revokeObjectURL(url);
+          reject(err);
+        }
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('อ่านไฟล์รูปไม่สำเร็จ'));
+      };
+      img.src = url;
+    });
+  }
+
+  async function saveImageFile(file) {
+    if (!file) return null;
+    if (!String(file.type || '').startsWith('image/')) throw new Error('กรุณาเลือกไฟล์รูปภาพ');
+    if (file.size > IMG_MAX_BYTES) throw new Error('รูปใหญ่เกิน 8MB');
+    const blob = await compressImageFile(file);
+    const id = uid('img');
+    await VideoDB.put(id, blob);
+    return id;
+  }
+
+  async function imageObjectUrl(imageId) {
+    if (!imageId) return '';
+    const blob = await VideoDB.get(imageId);
+    if (!blob) return '';
+    return URL.createObjectURL(blob);
+  }
+
+  function mediaSlot(imageId, className) {
+    if (!imageId) return '';
+    return `<div class="${className}" data-img-id="${esc(imageId)}"><div class="media-skeleton">กำลังโหลดรูป...</div></div>`;
+  }
+
+  async function hydrateImages(root) {
+    if (!root) return;
+    const nodes = root.querySelectorAll('[data-img-id]');
+    await Promise.all(
+      [...nodes].map(async (el) => {
+        const id = el.dataset.imgId;
+        if (!id || el.dataset.hydrated === '1') return;
+        try {
+          const src = await imageObjectUrl(id);
+          if (!src) {
+            el.innerHTML = '<div class="media-skeleton">ไม่พบรูป</div>';
+            return;
+          }
+          el.dataset.hydrated = '1';
+          el.innerHTML = `<img src="${src}" alt="แนบรูป" loading="lazy" />`;
+          el.onclick = (ev) => {
+            ev.stopPropagation();
+            openImageLightbox(src);
+          };
+        } catch {
+          el.innerHTML = '<div class="media-skeleton">โหลดรูปไม่สำเร็จ</div>';
+        }
+      })
+    );
+  }
+
+  function openImageLightbox(src) {
+    const old = document.querySelector('.img-lightbox');
+    if (old) old.remove();
+    const box = document.createElement('div');
+    box.className = 'img-lightbox';
+    box.innerHTML = `<img src="${src}" alt="ดูรูปขยาย" />`;
+    box.onclick = () => box.remove();
+    document.body.appendChild(box);
+  }
+
+  function bindImagePicker(fileInput, previewEl, clearBtn) {
+    if (!fileInput || !previewEl) return;
+    const show = (file) => {
+      if (!file) {
+        previewEl.classList.remove('is-on');
+        previewEl.querySelector('img')?.remove();
+        fileInput.value = '';
+        return;
+      }
+      const url = URL.createObjectURL(file);
+      let img = previewEl.querySelector('img');
+      if (!img) {
+        img = document.createElement('img');
+        img.alt = 'ตัวอย่างรูป';
+        previewEl.appendChild(img);
+      }
+      img.src = url;
+      previewEl.classList.add('is-on');
+    };
+    fileInput.onchange = () => {
+      const file = fileInput.files?.[0];
+      if (!file) return show(null);
+      if (!String(file.type || '').startsWith('image/')) {
+        toast('กรุณาเลือกไฟล์รูปภาพ', 'warning');
+        fileInput.value = '';
+        return show(null);
+      }
+      if (file.size > IMG_MAX_BYTES) {
+        toast('รูปใหญ่เกิน 8MB', 'warning');
+        fileInput.value = '';
+        return show(null);
+      }
+      show(file);
+    };
+    if (clearBtn) {
+      clearBtn.onclick = (e) => {
+        e.preventDefault();
+        show(null);
+      };
+    }
+  }
+
+  function teamFillBar(members, teamSize) {
+    const n = members?.length || 0;
+    const max = Math.max(1, Number(teamSize) || 1);
+    const pct = Math.min(100, Math.round((n / max) * 100));
+    return `<div class="team-progress" title="${n}/${max}"><span style="width:${pct}%"></span></div>
+      <p class="muted" style="font-size:.8rem;margin:0">สมาชิก ${n}/${max} คน</p>`;
+  }
+
+  function activityMode(category) {
+    if (/อบรม|ค่าย/.test(String(category || ''))) return 'buddy';
+    return 'team';
+  }
+
+  function normalizeActivity(a) {
+    if (!a || typeof a !== 'object') return a;
+    const mode = a.mode || activityMode(a.category);
+    const teams = Array.isArray(a.teams)
+      ? a.teams
+      : [];
+    const buddies = Array.isArray(a.buddies) ? a.buddies : [];
+    const suggestedSize =
+      Number(a.suggestedSize || a.teamSize || 0) || (mode === 'team' ? 3 : 0);
+    return {
+      ...a,
+      mode,
+      suggestedSize,
+      teams,
+      buddies,
+      open: a.open !== false,
+    };
+  }
+
+  function ensureActivitiesShape(d) {
+    if (!Array.isArray(d.activities)) d.activities = [];
+    d.activities = d.activities.map(normalizeActivity);
+  }
+
+  function modeLabel(mode) {
+    return mode === 'buddy' ? 'หาเพื่อนไปด้วย' : 'นักเรียนสร้างทีม';
+  }
+
+  function memberName(m) {
+    if (!m) return '';
+    return typeof m === 'string' ? m : String(m.name || '');
+  }
+
+  function memberLabel(m) {
+    if (!m) return '';
+    if (typeof m === 'string') return m;
+    return [m.name, m.className, m.contact].filter(Boolean).join(' · ');
+  }
+
+  function memberMatches(m, name) {
+    return memberName(m) === name;
+  }
+
+  function isInActivityTeam(act, name, sid) {
+    return (act.teams || []).some((t) => {
+      if (t.leader === name || (sid && t.leaderId === sid)) return true;
+      return (t.members || []).some((m) => {
+        if (typeof m === 'string') return m === name;
+        return m.name === name || (sid && m.studentId === sid);
+      });
+    });
+  }
+
+  function findMyTeam(act, name, sid) {
+    return (
+      (act.teams || []).find((t) => {
+        if (t.leader === name || (sid && t.leaderId === sid)) return true;
+        return (t.members || []).some((m) => {
+          if (typeof m === 'string') return m === name;
+          return m.name === name || (sid && m.studentId === sid);
+        });
+      }) || null
+    );
+  }
+
+  function findBuddy(act, name, sid) {
+    return (
+      (act.buddies || []).find((b) => b.name === name || (sid && b.studentId === sid)) || null
+    );
+  }
+
+  function openSignupForm({ title, showTeamName = false, defaults = {} }) {
+    return new Promise((resolve) => {
+      openModal(
+        `
+        <h3>${esc(title)}</h3>
+        <p class="muted mb-2">กรอกข้อมูลเพื่อให้เพื่อนและสภาติดต่อได้</p>
+        <form id="fSignup">
+          ${
+            showTeamName
+              ? `<div class="form-group"><label>ชื่อทีม</label><input class="form-control" name="teamName" value="${esc(defaults.teamName || '')}" required /></div>`
+              : ''
+          }
+          <div class="form-group"><label>ชื่อ-นามสกุล</label><input class="form-control" name="name" value="${esc(defaults.name || '')}" required /></div>
+          <div class="form-row">
+            <div class="form-group"><label>ชั้น / ห้อง</label><input class="form-control" name="className" value="${esc(defaults.className || '')}" placeholder="เช่น ม.4/2" required /></div>
+            <div class="form-group"><label>ช่องทางติดต่อ</label><input class="form-control" name="contact" value="${esc(defaults.contact || '')}" placeholder="เช่น ไลน์ / เบอร์โทร" required /></div>
+          </div>
+          <div class="toolbar-row">
+            <button type="submit" class="btn btn-primary">ยืนยัน</button>
+            <button type="button" class="btn btn-outline" id="signupCancel">ยกเลิก</button>
+          </div>
+        </form>`,
+        { large: false }
+      );
+      const finish = (val) => {
+        closeModal();
+        resolve(val);
+      };
+      const form = document.getElementById('fSignup');
+      form.onsubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const payload = {
+          name: String(fd.get('name') || '').trim(),
+          className: String(fd.get('className') || '').trim(),
+          contact: String(fd.get('contact') || '').trim(),
+        };
+        if (showTeamName) payload.teamName = String(fd.get('teamName') || '').trim();
+        if (!payload.name || !payload.className || !payload.contact) {
+          toast('กรุณากรอกข้อมูลให้ครบ', 'warning');
+          return;
+        }
+        finish(payload);
+      };
+      document.getElementById('signupCancel').onclick = () => finish(null);
+    });
+  }
+
   function youtubeId(url) {
     if (!url) return null;
-    const m = String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+    const m = String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([\w-]{11})/);
+    return m ? m[1] : null;
+  }
+
+  function youtubePlaylistId(url) {
+    if (!url) return null;
+    const m = String(url).match(/[?&]list=([A-Za-z0-9_-]+)/);
     return m ? m[1] : null;
   }
 
@@ -1529,6 +2831,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     const yid = youtubeId(video.url);
     if (yid) {
       return `<div class="video-player-wrap"><iframe src="https://www.youtube.com/embed/${yid}?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${esc(video.title)}"></iframe></div>`;
+    }
+    const plist = youtubePlaylistId(video.url);
+    if (plist) {
+      return `<div class="video-player-wrap"><iframe src="https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(plist)}&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${esc(video.title)}"></iframe></div>`;
     }
     if (video.fileId) {
       const blob = await VideoDB.get(video.fileId);
@@ -1600,9 +2906,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     return `<span class="badge ${c}">${l}</span>`;
   }
 
-  function openModal(html) {
+  function openModal(html, opts = {}) {
     const overlay = document.getElementById('globalModal');
     const body = document.getElementById('globalModalBody');
+    body.classList.toggle('modal-lg', opts.large !== false);
     body.innerHTML = html;
     overlay.classList.add('open');
     body.querySelectorAll('[data-close-modal]').forEach((b) =>
@@ -1642,7 +2949,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     }
     const helmetWeekly = days.map((day) => data.helmetReports.filter((r) => r.date === day).length);
     const lateWeekly = days.map((day) => data.lateReports.filter((r) => r.date === day).length);
-    const misconductWeekly = days.map((_, i) => helmetWeekly[i] + lateWeekly[i]);
+    const misconductTypeWeekly = days.map((day) => misconductList(data).filter((r) => r.date === day).length);
+    const misconductWeekly = days.map((_, i) => helmetWeekly[i] + lateWeekly[i] + misconductTypeWeekly[i]);
     const dayLabels = days.map((day) => {
       const d = new Date(day + 'T12:00:00');
       return labels[d.getDay()];
@@ -1657,7 +2965,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     const behaviorAvg = days.map(() => avg);
     const helmetTotal = helmetWeekly.reduce((s, n) => s + n, 0);
     const lateTotal = lateWeekly.reduce((s, n) => s + n, 0);
-    const misconductTotal = helmetTotal + lateTotal;
+    const misconductTypeTotal = misconductTypeWeekly.reduce((s, n) => s + n, 0);
+    const misconductTotal = helmetTotal + lateTotal + misconductTypeTotal;
     const deptWorkload = {
       labels: DEPTS.map((d) => d.replace('ฝ่าย', '')),
       values: DEPTS.map((d) => data.tasks.filter((t) => t.dept === d).length),
@@ -1666,9 +2975,11 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       labels: dayLabels,
       helmetWeekly,
       lateWeekly,
+      misconductTypeWeekly,
       misconductWeekly,
       helmetTotal,
       lateTotal,
+      misconductTypeTotal,
       misconductTotal,
       taskCompletion,
       behaviorAvg,
@@ -1846,7 +3157,12 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   function showLogin() {
     destroyCharts();
     document.getElementById('app-stage').innerHTML = '';
-    document.getElementById('login-root').classList.add('active');
+    const loginRoot = document.getElementById('login-root');
+    loginRoot.classList.add('active');
+    loginRoot.classList.remove('auth-step');
+    const box = document.getElementById('loginBox');
+    if (box) box.classList.remove('show');
+    document.querySelectorAll('.role-card').forEach((c) => c.classList.remove('selected'));
     document.body.className = 'login-page';
   }
 
@@ -1877,6 +3193,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               <span class="dash-chip">รวม 7 วัน <em>${a.misconductTotal}</em> รายการ</span>
               <span class="dash-chip soft">ย่อย: ไม่สวมหมวก <em>${a.helmetTotal}</em></span>
               <span class="dash-chip soft">ย่อย: กักแถวสาย <em>${a.lateTotal}</em></span>
+              <span class="dash-chip soft">ย่อย: พฤติกรรมไม่ถูกต้อง <em>${a.misconductTypeTotal}</em></span>
             </div>
           </div>
           <div class="grid-2 mt-3">
@@ -1929,7 +3246,11 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                 callbacks: {
                   afterBody(items) {
                     const i = items[0]?.dataIndex ?? 0;
-                    return [`ย่อย · ไม่สวมหมวก ${a.helmetWeekly[i]}`, `ย่อย · กักแถวสาย ${a.lateWeekly[i]}`];
+                    return [
+                      `ย่อย · ไม่สวมหมวก ${a.helmetWeekly[i]}`,
+                      `ย่อย · กักแถวสาย ${a.lateWeekly[i]}`,
+                      `ย่อย · พฤติกรรมไม่ถูกต้อง ${a.misconductTypeWeekly[i]}`,
+                    ];
                   },
                 },
               },
@@ -1951,11 +3272,11 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         charts.c = new Chart(document.getElementById('cSubtype'), {
           type: 'doughnut',
           data: {
-            labels: ['ไม่สวมหมวก', 'กักแถวสาย'],
+            labels: ['ไม่สวมหมวก', 'กักแถวสาย', 'พฤติกรรมไม่ถูกต้อง'],
             datasets: [
               {
-                data: [a.helmetTotal || 0, a.lateTotal || 0],
-                backgroundColor: ['#9a63d1', '#c9a24a'],
+                data: [a.helmetTotal || 0, a.lateTotal || 0, a.misconductTypeTotal || 0],
+                backgroundColor: ['#9a63d1', '#c9a24a', '#db2777'],
                 borderWidth: 0,
                 hoverOffset: 6,
               },
@@ -2051,11 +3372,18 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       }
 
       if (section === 'reports') {
+        const mc = misconductList(data);
         shell.content.innerHTML = `
+          <div class="toolbar-row">
+            <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิด Google Sheet</a>
+            <button class="btn btn-primary btn-sm" id="btnPullSheets">ซิงก์จากชีต</button>
+            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'เชื่อม Google Sheet แล้ว' : 'ยังไม่ได้ตั้งค่า Web App URL (เมนูระบบข้อมูล)'}</span>
+          </div>
           <div class="tab-group">
             <div class="tabs">
               <button class="tab-btn active" data-tab="rh">หมวกกันน็อค</button>
               <button class="tab-btn" data-tab="rl">กักแถวสาย</button>
+              <button class="tab-btn" data-tab="rm">พฤติกรรมไม่ถูกต้อง</button>
             </div>
             <div class="tab-panel active" data-panel="rh"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>สถานะ</th></tr></thead><tbody>
               ${data.helmetReports.map((r) => `<tr><td>${esc(r.studentId)}</td><td>${esc(r.plate)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${badge(r.status)}</td></tr>`).join('') || '<tr><td colspan="5">ยังไม่มีรายงาน</td></tr>'}
@@ -2063,8 +3391,13 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             <div class="tab-panel" data-panel="rl"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>วันที่</th><th>ผู้บันทึก</th><th>หมายเหตุ</th><th>สถานะ</th></tr></thead><tbody>
               ${data.lateReports.map((r) => `<tr><td>${esc(r.studentId)}</td><td>${formatDate(r.date)}</td><td>${esc(r.recorder)}</td><td>${esc(r.note)}</td><td>${badge(r.status)}</td></tr>`).join('') || '<tr><td colspan="5">ยังไม่มีรายงาน</td></tr>'}
             </tbody></table></div></div>
+            <div class="tab-panel" data-panel="rm"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ประเภท</th><th>วันที่</th><th>ผู้บันทึก</th><th>รายละเอียด</th><th>สถานะ</th></tr></thead><tbody>
+              ${mc.map((r) => `<tr><td>${esc(r.studentId)}</td><td>${esc(r.category)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${esc(r.detail)}</td><td>${badge(r.status)}</td></tr>`).join('') || '<tr><td colspan="6">ยังไม่มีรายงาน</td></tr>'}
+            </tbody></table>            </div></div>
           </div>`;
         bindTabs(shell.content);
+        const btnPull = document.getElementById('btnPullSheets');
+        if (btnPull) btnPull.onclick = () => syncBehaviorFromSheets(render);
       }
 
       if (section === 'council') {
@@ -2114,6 +3447,28 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       if (section === 'system') {
         shell.content.innerHTML = `
           <div class="panel">
+            <div class="panel-header"><h3>Google Sheet — หลังบ้านรายงานความประพฤติ</h3>
+              <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิดชีต</a>
+            </div>
+            <p class="muted mb-2">เชื่อมชีต <strong>สภา</strong> เพื่อเก็บรายงานไม่สวมหมวก / กักแถวสาย / พฤติกรรมไม่ถูกต้อง</p>
+            <ol class="muted mb-2" style="padding-left:1.2rem;line-height:1.8">
+              <li>เปิดชีต → Extensions → Apps Script</li>
+              <li>วางโค้ดจากไฟล์ <code>sheets-backend.gs</code> แล้ว Save</li>
+              <li>Run ฟังก์ชัน <code>setupSheets</code> (สร้างหัวคอลัมน์อัตโนมัติ)</li>
+              <li>Deploy → New deployment → Web app → Who has access: Anyone</li>
+              <li>คัดลอก Web app URL มาวางด้านล่าง</li>
+            </ol>
+            <div class="form-group">
+              <label>Web App URL</label>
+              <input class="form-control" id="sheetsUrl" placeholder="https://script.google.com/macros/s/.../exec" value="${esc(SheetsAPI.getUrl())}" />
+            </div>
+            <div class="toolbar-row">
+              <button class="btn btn-primary" id="btnSaveSheets">บันทึก URL</button>
+              <button class="btn btn-outline" id="btnSyncSheets">ซิงก์ข้อมูลจากชีต</button>
+            </div>
+            <div class="alert alert-info mt-2">ชีต <strong>รายงานความประพฤติ</strong>, <strong>มอบหมายงานสภา</strong>, <strong>บันทึกงาน</strong>, <strong>ของหายได้คืน</strong>, <strong>แจ้งเรื่อง</strong> — ต้องรัน <code>setupSheets</code> แล้ว Deploy ใหม่หลังอัปเดตโค้ด Apps Script</div>
+          </div>
+          <div class="panel mt-3">
             <div class="panel-header"><h3>สำรอง / นำเข้า / รีเซ็ตข้อมูล</h3></div>
             <p class="muted mb-2">ข้อมูลทั้งหมดเก็บบนเบราว์เซอร์เครื่องนี้ — สำรองเป็นไฟล์ JSON ได้</p>
             <div class="toolbar-row">
@@ -2123,6 +3478,11 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             </div>
             <div class="alert alert-info mt-2">ไฟล์วิดีโอที่อัปโหลดเก็บใน IndexedDB ของเบราว์เซอร์แยกจาก JSON</div>
           </div>`;
+        document.getElementById('btnSaveSheets').onclick = () => {
+          SheetsAPI.setUrl(document.getElementById('sheetsUrl').value);
+          toast(SheetsAPI.enabled() ? 'บันทึก Web App URL แล้ว' : 'ล้าง URL แล้ว', 'success');
+        };
+        document.getElementById('btnSyncSheets').onclick = () => syncBehaviorFromSheets(render);
         document.getElementById('btnExport').onclick = () => {
           const blob = new Blob([Store.export()], { type: 'application/json' });
           const a = document.createElement('a');
@@ -2196,7 +3556,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         const todo = data.tasks.filter((t) => t.status !== 'done').length;
         const pending =
           data.helmetReports.filter((r) => r.status === 'pending').length +
-          data.lateReports.filter((r) => r.status === 'pending').length;
+          data.lateReports.filter((r) => r.status === 'pending').length +
+          misconductList(data).filter((r) => r.status === 'pending').length;
         const msgs = data.studentMessages.filter((m) => m.status !== 'closed').length;
         shell.content.innerHTML = `
           <div class="alert alert-info">คุณกำกับงานสภา — มอบหมายงาน ลงปฏิทินเวร และตรวจรายงานความประพฤติ</div>
@@ -2260,35 +3621,39 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         document.getElementById('fAssign').onsubmit = (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const task = {
+            id: uid('t'),
+            title: fd.get('title'),
+            dept: fd.get('dept'),
+            assignee: fd.get('assignee'),
+            due: fd.get('due'),
+            status: 'todo',
+            priority: fd.get('priority'),
+            note: fd.get('note'),
+            createdBy: session.name,
+            createdAt: todayISO(),
+          };
           Store.update((d) => {
-            d.tasks.unshift({
-              id: uid('t'),
-              title: fd.get('title'),
-              dept: fd.get('dept'),
-              assignee: fd.get('assignee'),
-              due: fd.get('due'),
-              status: 'todo',
-              priority: fd.get('priority'),
-              note: fd.get('note'),
-              createdBy: session.name,
-              createdAt: todayISO(),
-            });
+            d.tasks.unshift({ ...task });
             d.announcements.unshift({
               id: uid('n'),
-              title: 'งานใหม่จากครูกิจการ: ' + fd.get('title'),
-              body: `มอบหมายให้ ${fd.get('dept')} — กำหนดส่ง ${formatDate(fd.get('due'))}`,
+              title: 'งานใหม่จากครูกิจการ: ' + task.title,
+              body: `มอบหมายให้ ${task.dept} — กำหนดส่ง ${formatDate(task.due)}`,
               date: todayISO(),
               audience: 'council',
             });
           });
-          toast('มอบหมายงานแล้ว', 'success');
+          pushTaskToSheets(task);
+          toast('มอบหมายงานแล้ว — ส่งไป Google Sheet แล้ว', 'success');
           render();
         };
         shell.content.querySelectorAll('[data-del-task]').forEach((btn) => {
           btn.onclick = () => {
+            const id = btn.dataset.delTask;
             Store.update((d) => {
-              d.tasks = d.tasks.filter((t) => t.id !== btn.dataset.delTask);
+              d.tasks = d.tasks.filter((t) => t.id !== id);
             });
+            deleteTaskFromSheets(id);
             toast('ลบงานแล้ว');
             render();
           };
@@ -2459,11 +3824,18 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       }
 
       if (section === 'reports') {
+        const mc = misconductList(data);
         shell.content.innerHTML = `
+          <div class="toolbar-row">
+            <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิด Google Sheet</a>
+            <button class="btn btn-primary btn-sm" id="btnPullSheetsTeacher">ซิงก์จากชีต</button>
+            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'เชื่อม Google Sheet แล้ว' : 'ยังไม่ได้ตั้งค่า Web App URL'}</span>
+          </div>
           <div class="tab-group">
             <div class="tabs">
               <button class="tab-btn active" data-tab="th">หมวกกันน็อค</button>
               <button class="tab-btn" data-tab="tl">กักแถวสาย</button>
+              <button class="tab-btn" data-tab="tm">พฤติกรรมไม่ถูกต้อง</button>
             </div>
             <div class="tab-panel active" data-panel="th"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>หมายเหตุ</th><th></th></tr></thead><tbody>
               ${data.helmetReports
@@ -2483,32 +3855,70 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                 )
                 .join('') || '<tr><td colspan="5">ยังไม่มีรายงาน</td></tr>'}
             </tbody></table></div></div>
+            <div class="tab-panel" data-panel="tm"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ประเภท</th><th>วันที่</th><th>ผู้บันทึก</th><th>รายละเอียด</th><th></th></tr></thead><tbody>
+              ${mc
+                .map(
+                  (r) => `<tr><td>${esc(r.studentId)}</td><td>${esc(r.category)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${esc(r.detail)}</td><td>
+                  ${r.status === 'pending' ? `<button class="btn btn-sm btn-success" data-ok-m="${r.id}">รับรอง (−4)</button>` : badge(r.status)}
+                  </td></tr>`
+                )
+                .join('') || '<tr><td colspan="6">ยังไม่มีรายงาน</td></tr>'}
+            </tbody></table></div></div>
           </div>`;
         bindTabs(shell.content);
+        const btnPullT = document.getElementById('btnPullSheetsTeacher');
+        if (btnPullT) btnPullT.onclick = () => syncBehaviorFromSheets(render);
         shell.content.querySelectorAll('[data-ok-h]').forEach((btn) => {
           btn.onclick = () => {
+            const reviewedAt = todayISO();
+            let ok = false;
             Store.update((d) => {
               const r = d.helmetReports.find((x) => x.id === btn.dataset.okH);
               if (!r || r.status !== 'pending') return;
               r.status = 'reviewed';
               r.reviewedBy = session.name;
-              r.reviewedAt = todayISO();
+              r.reviewedAt = reviewedAt;
               adjustScore(d, r.studentId, -5, 'หักคะแนนไม่สวมหมวกกันน็อค');
+              ok = true;
             });
+            if (ok) pushStatusToSheets(btn.dataset.okH, 'reviewed', session.name, reviewedAt);
             toast('รับรองและหักคะแนนแล้ว', 'success');
             render();
           };
         });
         shell.content.querySelectorAll('[data-ok-l]').forEach((btn) => {
           btn.onclick = () => {
+            const reviewedAt = todayISO();
+            let ok = false;
             Store.update((d) => {
               const r = d.lateReports.find((x) => x.id === btn.dataset.okL);
               if (!r || r.status !== 'pending') return;
               r.status = 'reviewed';
               r.reviewedBy = session.name;
-              r.reviewedAt = todayISO();
+              r.reviewedAt = reviewedAt;
               adjustScore(d, r.studentId, -3, 'หักคะแนนกักแถวสาย');
+              ok = true;
             });
+            if (ok) pushStatusToSheets(btn.dataset.okL, 'reviewed', session.name, reviewedAt);
+            toast('รับรองและหักคะแนนแล้ว', 'success');
+            render();
+          };
+        });
+        shell.content.querySelectorAll('[data-ok-m]').forEach((btn) => {
+          btn.onclick = () => {
+            const reviewedAt = todayISO();
+            let ok = false;
+            Store.update((d) => {
+              if (!d.misconductReports) d.misconductReports = [];
+              const r = d.misconductReports.find((x) => x.id === btn.dataset.okM);
+              if (!r || r.status !== 'pending') return;
+              r.status = 'reviewed';
+              r.reviewedBy = session.name;
+              r.reviewedAt = reviewedAt;
+              adjustScore(d, r.studentId, -4, 'หักคะแนนพฤติกรรมไม่ถูกต้อง');
+              ok = true;
+            });
+            if (ok) pushStatusToSheets(btn.dataset.okM, 'reviewed', session.name, reviewedAt);
             toast('รับรองและหักคะแนนแล้ว', 'success');
             render();
           };
@@ -2540,14 +3950,19 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           form.onsubmit = (e) => {
             e.preventDefault();
             const fd = new FormData(form);
+            const id = form.dataset.reply;
+            const reply = fd.get('reply');
+            const repliedAt = todayISO();
             Store.update((d) => {
-              const m = d.studentMessages.find((x) => x.id === form.dataset.reply);
+              const m = d.studentMessages.find((x) => x.id === id);
               if (m) {
-                m.reply = fd.get('reply');
+                m.reply = reply;
                 m.status = 'closed';
                 m.repliedBy = session.name;
+                m.repliedAt = repliedAt;
               }
             });
+            updateMessageInSheets({ id, reply, status: 'closed', repliedBy: session.name, repliedAt });
             toast('ตอบกลับแล้ว', 'success');
             render();
           };
@@ -2585,23 +4000,28 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           </div>`;
         shell.content.querySelectorAll('[data-lf-return]').forEach((btn) => {
           btn.onclick = () => {
+            const id = btn.dataset.lfReturn;
+            const returnedAt = todayISO();
             Store.update((d) => {
-              const x = lfList(d).find((i) => i.id === btn.dataset.lfReturn);
+              const x = lfList(d).find((i) => i.id === id);
               if (!x) return;
               x.status = 'returned';
               x.returnedBy = session.name;
-              x.returnedAt = todayISO();
+              x.returnedAt = returnedAt;
             });
+            updateLostFoundInSheets({ id, status: 'returned', returnedBy: session.name, returnedAt });
             toast('ยืนยันส่งคืนแล้ว', 'success');
             render();
           };
         });
         shell.content.querySelectorAll('[data-lf-close]').forEach((btn) => {
           btn.onclick = () => {
+            const id = btn.dataset.lfClose;
             Store.update((d) => {
-              const x = lfList(d).find((i) => i.id === btn.dataset.lfClose);
+              const x = lfList(d).find((i) => i.id === id);
               if (x) x.status = 'closed';
             });
+            updateLostFoundInSheets({ id, status: 'closed' });
             toast('ปิดรายการแล้ว');
             render();
           };
@@ -2622,8 +4042,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       { id: 'home', label: 'หน้าหลัก', icon: '🏠' },
       { id: 'tasks', label: 'แผนงานที่ได้รับมอบ', icon: '📋' },
       { id: 'log', label: 'บันทึกงาน / เหตุการณ์', icon: '📝' },
-      { id: 'helmet', label: 'รายงานไม่สวมหมวก', icon: '🪖' },
-      { id: 'late', label: 'รายงานกักแถวสาย', icon: '⏰' },
+      { id: 'behavior', label: 'รายงานนักเรียนมีพฤติกรรมไม่ถูกต้องตามกฎระเบียบ', icon: '⚠️' },
       { id: 'videos', label: 'วิดีโอสรุปบทเรียน', icon: '🎬' },
       { id: 'activities', label: 'ประกาศ & จับคู่ทีม', icon: '🏆' },
       { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
@@ -2632,7 +4051,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     ];
     const shell = mountShell(session, nav, 'พอร์ทัลคณะกรรมการ');
     let section = 'home';
-    let videoFilter = 'ทั้งหมด';
+    let videoFilter = SUBJECTS[0];
 
     async function playVideo(v) {
       Store.update((d) => {
@@ -2659,15 +4078,15 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             <h2>สวัสดี, ${esc(session.name)}</h2>
             <p>บันทึกงาน รายงานความประพฤติ อัปโหลดวิดีโอสรุปบทเรียน และเปิดรับสมัครทีม — ข้อมูลบันทึกจริงในระบบ</p>
             <div class="quick-links">
-              <a class="quick-link" href="#" data-go="helmet"><span>🪖</span>รายงานหมวก</a>
-              <a class="quick-link" href="#" data-go="late"><span>⏰</span>กักแถวสาย</a>
+              <a class="quick-link" href="#" data-go="behavior"><span>⚠️</span>รายงานพฤติกรรม</a>
               <a class="quick-link" href="#" data-go="lostfound"><span>🎒</span>ของหายได้คืน</a>
               <a class="quick-link" href="#" data-go="videos"><span>🎬</span>วิดีโอ</a>
+              <a class="quick-link" href="#" data-go="tasks"><span>📋</span>งานที่ได้รับมอบ</a>
             </div>
           </div>
           <div class="grid-4">
             <div class="stat-card"><div class="label">งานค้าง</div><div class="value">${data.tasks.filter((t) => t.status !== 'done').length}</div></div>
-            <div class="stat-card"><div class="label">รายงานหมวก</div><div class="value">${data.helmetReports.length}</div></div>
+            <div class="stat-card"><div class="label">รายงานพฤติกรรม</div><div class="value">${data.helmetReports.length + data.lateReports.length + misconductList(data).length}</div></div>
             <div class="stat-card"><div class="label">ของรอคืน</div><div class="value">${(data.lostFound || []).filter((x) => x.status === 'open' || x.status === 'claimed').length}</div></div>
             <div class="stat-card"><div class="label">วิดีโอบทเรียน</div><div class="value">${data.videos.length}</div></div>
           </div>
@@ -2752,118 +4171,224 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         document.getElementById('fInc').onsubmit = (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const log = {
+            id: uid('i'),
+            type: fd.get('type'),
+            title: fd.get('title'),
+            detail: fd.get('detail'),
+            date: todayISO(),
+            by: session.name,
+            status: 'open',
+          };
           Store.update((d) => {
-            d.incidents.unshift({
-              id: uid('i'),
-              type: fd.get('type'),
-              title: fd.get('title'),
-              detail: fd.get('detail'),
-              date: todayISO(),
-              by: session.name,
-              status: 'open',
-            });
+            d.incidents.unshift({ ...log });
           });
-          toast('บันทึกแล้ว', 'success');
+          pushLogToSheets(log);
+          toast('บันทึกแล้ว — ส่งไป Google Sheet แล้ว', 'success');
           render();
         };
         shell.content.querySelectorAll('[data-del-i]').forEach((btn) => {
           btn.onclick = () => {
+            const id = btn.dataset.delI;
             Store.update((d) => {
-              d.incidents = d.incidents.filter((x) => x.id !== btn.dataset.delI);
+              d.incidents = d.incidents.filter((x) => x.id !== id);
             });
+            deleteLogFromSheets(id);
             render();
           };
         });
       }
 
-      if (section === 'helmet') {
+      if (section === 'behavior') {
+        const mc = misconductList(data);
+        const catOpts = MISCONDUCT_TYPES.map((c) => `<option>${c}</option>`).join('');
         shell.content.innerHTML = `
-          <div class="grid-2">
-            <div class="panel"><div class="panel-header"><h3>รายงานไม่สวมหมวกกันน็อค</h3></div>
-              <form id="fHel">
-                <div class="form-row">
-                  <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required pattern="[0-9A-Za-z]+" /></div>
-                  <div class="form-group"><label>ทะเบียนรถ</label><input class="form-control" name="plate" required /></div>
-                </div>
-                <div class="form-group"><label>หมายเหตุ</label><input class="form-control" name="note" /></div>
-                <button class="btn btn-primary">ส่งรายงาน</button>
-              </form>
+          <div class="toolbar-row">
+            <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิด Google Sheet</a>
+            <button class="btn btn-primary btn-sm" id="btnPullSheetsBehavior">ซิงก์จากชีต</button>
+            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'รายงานจะถูกส่งขึ้น Google Sheet อัตโนมัติ' : 'ยังไม่ได้ตั้งค่า Web App URL (แอดมิน → ระบบข้อมูล)'}</span>
+          </div>
+          <div class="tab-group">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="bh">ไม่สวมหมวกกันน็อค</button>
+              <button class="tab-btn" data-tab="bl">กักแถวสาย</button>
+              <button class="tab-btn" data-tab="bm">พฤติกรรมไม่ถูกต้อง</button>
             </div>
-            <div class="panel"><div class="panel-header"><h3>ประวัติ</h3></div>
-              <div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>สถานะ</th></tr></thead><tbody>
-              ${data.helmetReports
-                .map(
-                  (r) =>
-                    `<tr><td>${esc(r.studentId)}</td><td>${esc(r.plate)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${badge(r.status)}</td></tr>`
-                )
-                .join('') || '<tr><td colspan="5">ยังไม่มี</td></tr>'}
-              </tbody></table></div>
+            <div class="tab-panel active" data-panel="bh">
+              <div class="grid-2">
+                <div class="panel"><div class="panel-header"><h3>รายงานไม่สวมหมวกกันน็อค</h3></div>
+                  <form id="fHel">
+                    <div class="form-row">
+                      <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required pattern="[0-9A-Za-z]+" /></div>
+                      <div class="form-group"><label>ทะเบียนรถ</label><input class="form-control" name="plate" required /></div>
+                    </div>
+                    <div class="form-group"><label>หมายเหตุ</label><input class="form-control" name="note" /></div>
+                    <button class="btn btn-primary">ส่งรายงาน</button>
+                  </form>
+                </div>
+                <div class="panel"><div class="panel-header"><h3>ประวัติ</h3></div>
+                  <div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>สถานะ</th></tr></thead><tbody>
+                  ${data.helmetReports
+                    .map(
+                      (r) =>
+                        `<tr><td>${esc(r.studentId)}</td><td>${esc(r.plate)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${badge(r.status)}</td></tr>`
+                    )
+                    .join('') || '<tr><td colspan="5">ยังไม่มี</td></tr>'}
+                  </tbody></table></div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-panel" data-panel="bl">
+              <div class="grid-2">
+                <div class="panel"><div class="panel-header"><h3>รายงานกักแถวสาย</h3></div>
+                  <form id="fLate">
+                    <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required /></div>
+                    <div class="form-group"><label>ชื่อผู้บันทึกงาน</label><input class="form-control" name="recorder" value="${esc(session.name)}" required /></div>
+                    <div class="form-group"><label>หมายเหตุ</label><input class="form-control" name="note" placeholder="เช่น สาย 5 นาที" /></div>
+                    <button class="btn btn-primary">ส่งรายงาน</button>
+                  </form>
+                </div>
+                <div class="panel"><div class="panel-header"><h3>ประวัติ</h3></div>
+                  <div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>วันที่</th><th>ผู้บันทึก</th><th>หมายเหตุ</th><th>สถานะ</th></tr></thead><tbody>
+                  ${data.lateReports
+                    .map(
+                      (r) =>
+                        `<tr><td>${esc(r.studentId)}</td><td>${formatDate(r.date)}</td><td>${esc(r.recorder)}</td><td>${esc(r.note)}</td><td>${badge(r.status)}</td></tr>`
+                    )
+                    .join('') || '<tr><td colspan="5">ยังไม่มี</td></tr>'}
+                  </tbody></table></div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-panel" data-panel="bm">
+              <div class="grid-2">
+                <div class="panel"><div class="panel-header"><h3>รายงานพฤติกรรมไม่ถูกต้อง</h3></div>
+                  <form id="fMc">
+                    <div class="form-row">
+                      <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required /></div>
+                      <div class="form-group"><label>ประเภท</label><select class="form-control" name="category">${catOpts}</select></div>
+                    </div>
+                    <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="detail" required placeholder="อธิบายพฤติกรรมที่พบ"></textarea></div>
+                    <button class="btn btn-primary">ส่งรายงาน</button>
+                  </form>
+                </div>
+                <div class="panel"><div class="panel-header"><h3>ประวัติ</h3></div>
+                  <div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ประเภท</th><th>วันที่</th><th>โดย</th><th>สถานะ</th></tr></thead><tbody>
+                  ${mc
+                    .map(
+                      (r) =>
+                        `<tr><td>${esc(r.studentId)}</td><td>${esc(r.category)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${badge(r.status)}</td></tr>`
+                    )
+                    .join('') || '<tr><td colspan="5">ยังไม่มี</td></tr>'}
+                  </tbody></table></div>
+                </div>
+              </div>
             </div>
           </div>`;
-        document.getElementById('fHel').onsubmit = (e) => {
-          e.preventDefault();
-          const fd = new FormData(e.target);
-          Store.update((d) => {
-            d.helmetReports.unshift({
+        bindTabs(shell.content);
+        const btnPullB = document.getElementById('btnPullSheetsBehavior');
+        if (btnPullB) btnPullB.onclick = () => syncBehaviorFromSheets(render);
+        const fHel = document.getElementById('fHel');
+        if (fHel)
+          fHel.onsubmit = (e) => {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const report = {
               id: uid('h'),
+              type: 'helmet',
               studentId: String(fd.get('studentId')).trim(),
               plate: String(fd.get('plate')).trim(),
               note: fd.get('note'),
+              detail: fd.get('note'),
               date: todayISO(),
               by: session.name,
               status: 'pending',
+            };
+            Store.update((d) => {
+              d.helmetReports.unshift({
+                id: report.id,
+                studentId: report.studentId,
+                plate: report.plate,
+                note: report.note,
+                date: report.date,
+                by: report.by,
+                status: 'pending',
+              });
+              ensureBehavior(d, report.studentId);
             });
-            ensureBehavior(d, String(fd.get('studentId')).trim());
-          });
-          toast('ส่งรายงานแล้ว — รอครูกิจการรับรอง', 'success');
-          e.target.reset();
-          render();
-        };
-      }
-
-      if (section === 'late') {
-        shell.content.innerHTML = `
-          <div class="grid-2">
-            <div class="panel"><div class="panel-header"><h3>รายงานกักแถวสาย</h3></div>
-              <form id="fLate">
-                <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required /></div>
-                <div class="form-group"><label>ชื่อผู้บันทึกงาน</label><input class="form-control" name="recorder" value="${esc(session.name)}" required /></div>
-                <div class="form-group"><label>หมายเหตุ</label><input class="form-control" name="note" placeholder="เช่น สาย 5 นาที" /></div>
-                <button class="btn btn-primary">ส่งรายงาน</button>
-              </form>
-            </div>
-            <div class="panel"><div class="panel-header"><h3>ประวัติ</h3></div>
-              <div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>วันที่</th><th>ผู้บันทึก</th><th>หมายเหตุ</th><th>สถานะ</th></tr></thead><tbody>
-              ${data.lateReports
-                .map(
-                  (r) =>
-                    `<tr><td>${esc(r.studentId)}</td><td>${formatDate(r.date)}</td><td>${esc(r.recorder)}</td><td>${esc(r.note)}</td><td>${badge(r.status)}</td></tr>`
-                )
-                .join('') || '<tr><td colspan="5">ยังไม่มี</td></tr>'}
-              </tbody></table></div>
-            </div>
-          </div>`;
-        document.getElementById('fLate').onsubmit = (e) => {
-          e.preventDefault();
-          const fd = new FormData(e.target);
-          Store.update((d) => {
-            d.lateReports.unshift({
+            pushBehaviorToSheets(report);
+            toast('ส่งรายงานแล้ว — รอครูกิจการรับรอง', 'success');
+            e.target.reset();
+            render();
+          };
+        const fLate = document.getElementById('fLate');
+        if (fLate)
+          fLate.onsubmit = (e) => {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const report = {
               id: uid('l'),
+              type: 'late',
               studentId: String(fd.get('studentId')).trim(),
               recorder: fd.get('recorder'),
+              by: fd.get('recorder'),
               note: fd.get('note'),
+              detail: fd.get('note'),
               date: todayISO(),
               status: 'pending',
+            };
+            Store.update((d) => {
+              d.lateReports.unshift({
+                id: report.id,
+                studentId: report.studentId,
+                recorder: report.recorder,
+                note: report.note,
+                date: report.date,
+                status: 'pending',
+              });
+              ensureBehavior(d, report.studentId);
             });
-            ensureBehavior(d, String(fd.get('studentId')).trim());
-          });
-          toast('ส่งรายงานแล้ว — รอครูกิจการรับรอง', 'success');
-          render();
-        };
+            pushBehaviorToSheets(report);
+            toast('ส่งรายงานแล้ว — รอครูกิจการรับรอง', 'success');
+            render();
+          };
+        const fMc = document.getElementById('fMc');
+        if (fMc)
+          fMc.onsubmit = (e) => {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const report = {
+              id: uid('m'),
+              type: 'misconduct',
+              studentId: String(fd.get('studentId')).trim(),
+              category: fd.get('category'),
+              detail: fd.get('detail'),
+              date: todayISO(),
+              by: session.name,
+              status: 'pending',
+            };
+            Store.update((d) => {
+              if (!d.misconductReports) d.misconductReports = [];
+              d.misconductReports.unshift({
+                id: report.id,
+                studentId: report.studentId,
+                category: report.category,
+                detail: report.detail,
+                date: report.date,
+                by: report.by,
+                status: 'pending',
+              });
+              ensureBehavior(d, report.studentId);
+            });
+            pushBehaviorToSheets(report);
+            toast('ส่งรายงานแล้ว — รอครูกิจการรับรอง', 'success');
+            e.target.reset();
+            render();
+          };
       }
 
       if (section === 'videos') {
-        const list = videoFilter === 'ทั้งหมด' ? data.videos : data.videos.filter((v) => v.subject === videoFilter);
+        const list = data.videos.filter((v) => v.subject === videoFilter);
         shell.content.innerHTML = `
           <div class="section-intro"><p>อัปโหลดไฟล์วิดีโอหรือวางลิงก์ YouTube — นักเรียนรับชมได้จริงในระบบ</p></div>
           <div class="grid-2">
@@ -2882,7 +4407,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               </form>
             </div>
             <div class="panel"><div class="panel-header"><h3>คลังวิดีโอ</h3></div>
-              <div class="subject-pills">${['ทั้งหมด', ...SUBJECTS]
+              <div class="subject-pills">${SUBJECTS
                 .map((s) => `<button type="button" class="subject-pill ${videoFilter === s ? 'active' : ''}" data-sub="${s}">${s}</button>`)
                 .join('')}</div>
               <div class="video-grid">${list
@@ -2890,12 +4415,13 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                   (v) => `<article class="video-card" data-play="${v.id}">
                   <div class="video-thumb"><div class="play">▶</div></div>
                   <div class="video-body"><span class="badge badge-purple">${esc(v.subject)}</span>
+                  ${v.gradeTerm || v.desc ? `<div class="meta" style="margin-top:.25rem">${esc(v.gradeTerm || v.desc)}</div>` : ''}
                   <h4 class="mt-1">${esc(v.title)}</h4>
                   <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ชม.</div>
                   <button type="button" class="danger-link mt-1" data-del-v="${v.id}">ลบ</button>
                   </div></article>`
                 )
-                .join('') || '<div class="empty-state">ยังไม่มีวิดีโอ</div>'}</div>
+                .join('') || '<div class="empty-state">ยังไม่มีวิดีโอในหมวดนี้</div>'}</div>
             </div>
           </div>`;
         shell.content.querySelectorAll('[data-sub]').forEach((btn) => {
@@ -2971,20 +4497,33 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       }
 
       if (section === 'activities') {
+        const acts = data.activities.map(normalizeActivity);
         shell.content.innerHTML = `
+          <div class="section-intro"><p>สภาทำหน้าที่ประกาศการแข่งขัน/อบรมเท่านั้น — <strong>นักเรียนเป็นคนสร้างทีม</strong> หรือ <strong>หาเพื่อนไปอบรม</strong> เอง</p></div>
           <div class="grid-2 mb-2">
-            <div class="panel"><div class="panel-header"><h3>ประกาศเชิญชวนกิจกรรม</h3></div>
+            <div class="panel"><div class="panel-header"><h3>ประกาศกิจกรรม</h3></div>
               <form id="fAct">
                 <div class="form-group"><label>ชื่อกิจกรรม</label><input class="form-control" name="title" required /></div>
                 <div class="form-row">
-                  <div class="form-group"><label>ประเภท</label><select class="form-control" name="category"><option>แข่งขันวิชาการ</option><option>แข่งโครงงาน</option><option>แข่งนวัตกรรม</option><option>อบรม/ค่าย</option><option>อื่น ๆ</option></select></div>
+                  <div class="form-group"><label>ประเภท</label>
+                    <select class="form-control" name="category" id="actCategory">
+                      <option>แข่งขันวิชาการ</option><option>แข่งโครงงาน</option><option>แข่งนวัตกรรม</option><option>อบรม/ค่าย</option><option>อื่น ๆ</option>
+                    </select>
+                  </div>
                   <div class="form-group"><label>วันที่</label><input class="form-control" type="date" name="date" value="${todayISO()}" required /></div>
                 </div>
                 <div class="form-row">
                   <div class="form-group"><label>สถานที่</label><input class="form-control" name="place" required /></div>
-                  <div class="form-group"><label>จำนวนสมาชิกทีม</label><input class="form-control" type="number" name="teamSize" min="1" max="20" value="3" required /></div>
+                  <div class="form-group" id="actSizeWrap"><label>ขนาดทีมที่แนะนำ</label><input class="form-control" type="number" name="suggestedSize" min="1" max="20" value="3" /><p class="chip-file">ใช้เมื่อเป็นประเภทแข่งขัน — นักเรียนสร้างทีมตามขนาดนี้</p></div>
                 </div>
-                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="desc"></textarea></div>
+                <div class="alert alert-info" id="actModeHint">โหมด: นักเรียนสร้างทีมแข่งขัน</div>
+                <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="desc" placeholder="กติกา รางวัล หรือข้อมูลการอบรม"></textarea></div>
+                <div class="form-group">
+                  <label>แนบรูปโปสเตอร์</label>
+                  <input class="form-control" type="file" name="image" id="actImage" accept="image/*" />
+                  <p class="chip-file">รองรับ JPG/PNG/WebP สูงสุด 8MB</p>
+                  <div class="media-preview" id="actPreview"><button type="button" class="btn btn-sm btn-outline clear-img" id="actClearImg">ลบรูป</button></div>
+                </div>
                 <button class="btn btn-primary">เผยแพร่ประกาศ</button>
               </form>
             </div>
@@ -2992,83 +4531,180 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               <form id="fAnn" class="mb-2">
                 <div class="form-group"><label>หัวข้อ</label><input class="form-control" name="title" required /></div>
                 <div class="form-group"><label>เนื้อหา</label><textarea class="form-control" name="body" required></textarea></div>
-                <button class="btn btn-outline">โพสต์ประกาศ</button>
+                <div class="form-row">
+                  <div class="form-group"><label>กลุ่มเป้าหมาย</label>
+                    <select class="form-control" name="audience">
+                      <option value="all">ทุกคน</option>
+                      <option value="student">นักเรียน</option>
+                      <option value="council">คณะกรรมการสภา</option>
+                    </select>
+                  </div>
+                  <div class="form-group"><label>แนบรูป</label>
+                    <input class="form-control" type="file" name="image" id="annImage" accept="image/*" />
+                  </div>
+                </div>
+                <div class="media-preview" id="annPreview"><button type="button" class="btn btn-sm btn-outline clear-img" id="annClearImg">ลบรูป</button></div>
+                <button class="btn btn-outline mt-2" type="submit">โพสต์ประกาศ</button>
               </form>
+              <div id="annFeed">
               ${data.announcements
                 .map(
                   (n) =>
-                    `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4><p class="time">${formatDate(n.date)}</p><p>${esc(n.body)}</p>
+                    `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4>
+                    <p class="time">${formatDate(n.date)}${n.audience && n.audience !== 'all' ? ' · ' + esc(n.audience) : ''}</p>
+                    <p>${esc(n.body)}</p>
+                    ${mediaSlot(n.imageId, 'feed-media')}
                     <button class="danger-link" data-del-n="${n.id}">ลบ</button></div></div>`
                 )
-                .join('')}
+                .join('') || '<div class="empty-state">ยังไม่มีประกาศ</div>'}
+              </div>
             </div>
           </div>
-          <div class="panel"><div class="panel-header"><h3>ระบบจับคู่ / หาทีม</h3></div>
-            <div class="grid-2">${data.activities
+          <div class="panel"><div class="panel-header"><h3>กิจกรรมที่ประกาศแล้ว</h3>
+            <span class="badge badge-purple">${acts.filter((a) => a.open).length} เปิดอยู่</span>
+          </div>
+            <div class="grid-2">${acts
               .map((a) => {
-                const slots = Math.max(0, a.teamSize - a.members.length);
+                const teams = a.teams || [];
+                const buddies = a.buddies || [];
                 return `<div class="activity-card">
-                  <div class="flex justify-between flex-wrap gap-2"><span class="badge badge-gold">${esc(a.category)}</span>
-                  ${a.open && slots ? '<span class="badge badge-success">เปิดรับทีม</span>' : '<span class="badge badge-danger">เต็ม/ปิด</span>'}</div>
-                  <h4>${esc(a.title)}</h4><p class="muted">${esc(a.desc || '')}</p>
-                  <p class="muted">${formatDate(a.date)} · ${esc(a.place)} · ทีม ${a.teamSize} คน</p>
-                  <div class="team-slot">${a.members.map((m) => `<span class="member-chip">👤 ${esc(m)}</span>`).join('')}
-                  ${slots ? `<span class="muted">ว่าง ${slots}</span>` : ''}</div>
+                  ${mediaSlot(a.imageId, 'activity-cover')}
+                  <div class="flex justify-between flex-wrap gap-2">
+                    <span class="badge badge-gold">${esc(a.category)}</span>
+                    <span class="badge badge-info">${modeLabel(a.mode)}</span>
+                    ${a.open ? '<span class="badge badge-success">เปิดให้นักเรียน</span>' : '<span class="badge badge-danger">ปิดแล้ว</span>'}
+                  </div>
+                  <h4>${esc(a.title)}</h4>
+                  <p class="muted">${esc(a.desc || '')}</p>
+                  <p class="muted">${formatDate(a.date)} · ${esc(a.place)}${a.mode === 'team' ? ` · แนะนำทีมละ ${a.suggestedSize} คน` : ''}</p>
+                  ${
+                    a.mode === 'team'
+                      ? `<div class="sub-card"><h5>ทีมที่นักเรียนสร้าง (${teams.length})</h5>
+                        ${
+                          teams.length
+                            ? teams
+                                .map(
+                                  (t) => `<div style="margin:.45rem 0">
+                          <p class="muted" style="margin:0">🏁 <strong>${esc(t.name)}</strong> — หัวหน้า ${esc(t.leader)} · ${(t.members || []).length}/${t.maxSize} คน ${t.open ? '(รับสมาชิก)' : '(เต็ม/ปิด)'}</p>
+                          <div class="team-slot" style="margin-top:.35rem">${(t.members || [])
+                            .map((m) => `<span class="member-chip">👤 ${esc(memberLabel(m))}</span>`)
+                            .join('')}</div>
+                        </div>`
+                                )
+                                .join('')
+                            : '<p class="muted">ยังไม่มีทีมจากนักเรียน</p>'
+                        }
+                      </div>`
+                      : `<div class="sub-card"><h5>เพื่อนที่อยากไปด้วย (${buddies.length})</h5>
+                        ${
+                          buddies.length
+                            ? `<div class="team-slot">${buddies
+                                .map((b) => `<span class="buddy-chip">👋 ${esc(memberLabel(b))}</span>`)
+                                .join('')}</div>`
+                            : '<p class="muted">ยังไม่มีใครลงชื่อหาเพื่อน</p>'
+                        }
+                      </div>`
+                  }
                   <div class="toolbar-row">
-                  ${a.open && slots ? `<button class="btn btn-primary btn-sm" data-join="${a.id}">เข้าร่วมทีม</button>` : ''}
-                  <button class="btn btn-outline btn-sm" data-toggle-a="${a.id}">${a.open ? 'ปิดรับสมัคร' : 'เปิดรับสมัคร'}</button>
-                  <button class="danger-link" data-del-a="${a.id}">ลบ</button>
-                  </div></div>`;
+                    <button class="btn btn-outline btn-sm" data-toggle-a="${a.id}">${a.open ? 'ปิดการลงทะเบียน' : 'เปิดให้นักเรียน'}</button>
+                    <button class="danger-link" data-del-a="${a.id}">ลบประกาศ</button>
+                  </div>
+                </div>`;
               })
-              .join('')}</div>
+              .join('') || '<div class="empty-state">ยังไม่มีกิจกรรม</div>'}</div>
           </div>`;
-        document.getElementById('fAct').onsubmit = (e) => {
+
+        const syncModeHint = () => {
+          const cat = document.getElementById('actCategory')?.value || '';
+          const mode = activityMode(cat);
+          const hint = document.getElementById('actModeHint');
+          const sizeWrap = document.getElementById('actSizeWrap');
+          if (hint) {
+            hint.textContent =
+              mode === 'buddy'
+                ? 'โหมด: หาเพื่อนไปอบรม/ค่าย — นักเรียนลงชื่อหาเพื่อนไปด้วย ไม่สร้างทีมแข่งขัน'
+                : 'โหมด: แข่งขัน — นักเรียนสร้างทีมเอง สภาแค่ประกาศ';
+          }
+          if (sizeWrap) sizeWrap.style.display = mode === 'buddy' ? 'none' : '';
+        };
+        document.getElementById('actCategory').onchange = syncModeHint;
+        syncModeHint();
+
+        bindImagePicker(document.getElementById('actImage'), document.getElementById('actPreview'), document.getElementById('actClearImg'));
+        bindImagePicker(document.getElementById('annImage'), document.getElementById('annPreview'), document.getElementById('annClearImg'));
+        hydrateImages(shell.content);
+
+        document.getElementById('fAct').onsubmit = async (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const file = document.getElementById('actImage')?.files?.[0];
+          let imageId = '';
+          try {
+            if (file) imageId = (await saveImageFile(file)) || '';
+          } catch (err) {
+            toast(String(err.message || err), 'error');
+            return;
+          }
+          const category = fd.get('category');
+          const mode = activityMode(category);
+          const act = {
+            id: uid('a'),
+            title: fd.get('title'),
+            category,
+            date: fd.get('date'),
+            place: fd.get('place'),
+            mode,
+            suggestedSize: mode === 'team' ? Number(fd.get('suggestedSize') || 3) : 0,
+            teams: [],
+            buddies: [],
+            open: true,
+            desc: fd.get('desc'),
+            imageId,
+            createdBy: session.name,
+            createdAt: todayISO(),
+          };
           Store.update((d) => {
-            d.activities.unshift({
-              id: uid('a'),
-              title: fd.get('title'),
-              category: fd.get('category'),
-              date: fd.get('date'),
-              place: fd.get('place'),
-              teamSize: Number(fd.get('teamSize')),
-              members: [],
-              open: true,
-              desc: fd.get('desc'),
-            });
+            d.activities.unshift(act);
             d.announcements.unshift({
               id: uid('n'),
-              title: 'เชิญชวน: ' + fd.get('title'),
-              body: fd.get('desc') || 'เปิดรับสมัครทีมแล้ว',
+              title: (mode === 'buddy' ? 'อบรม/ค่าย: ' : 'แข่งขัน: ') + act.title,
+              body:
+                (act.desc || (mode === 'buddy' ? 'เปิดให้นักเรียนหาเพื่อนไปด้วยกัน' : 'เปิดให้นักเรียนสร้างทีมเอง')) +
+                ` — ${formatDate(act.date)} ที่ ${act.place}`,
               date: todayISO(),
               audience: 'all',
+              createdBy: session.name,
+              linkedActivityId: act.id,
             });
           });
-          toast('เผยแพร่กิจกรรมแล้ว', 'success');
+          toast('เผยแพร่ประกาศแล้ว — นักเรียนจัดการทีม/หาเพื่อนเอง', 'success');
           render();
         };
-        document.getElementById('fAnn').onsubmit = (e) => {
+        document.getElementById('fAnn').onsubmit = async (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const file = document.getElementById('annImage')?.files?.[0];
+          let imageId = '';
+          try {
+            if (file) imageId = (await saveImageFile(file)) || '';
+          } catch (err) {
+            toast(String(err.message || err), 'error');
+            return;
+          }
           Store.update((d) => {
-            d.announcements.unshift({ id: uid('n'), title: fd.get('title'), body: fd.get('body'), date: todayISO(), audience: 'all' });
+            d.announcements.unshift({
+              id: uid('n'),
+              title: fd.get('title'),
+              body: fd.get('body'),
+              date: todayISO(),
+              audience: fd.get('audience') || 'all',
+              imageId: imageId || undefined,
+              createdBy: session.name,
+            });
           });
           toast('โพสต์แล้ว', 'success');
           render();
         };
-        shell.content.querySelectorAll('[data-join]').forEach((btn) => {
-          btn.onclick = () => {
-            Store.update((d) => {
-              const a = d.activities.find((x) => x.id === btn.dataset.join);
-              if (!a || a.members.includes(session.name) || a.members.length >= a.teamSize) return;
-              a.members.push(session.name);
-              if (a.members.length >= a.teamSize) a.open = false;
-            });
-            toast('เข้าร่วมทีมแล้ว', 'success');
-            render();
-          };
-        });
         shell.content.querySelectorAll('[data-toggle-a]').forEach((btn) => {
           btn.onclick = () => {
             Store.update((d) => {
@@ -3079,22 +4715,35 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           };
         });
         shell.content.querySelectorAll('[data-del-a]').forEach((btn) => {
-          btn.onclick = () => {
+          btn.onclick = async () => {
+            if (!confirm('ลบประกาศกิจกรรมนี้?')) return;
+            let imageId = '';
             Store.update((d) => {
+              const a = d.activities.find((x) => x.id === btn.dataset.delA);
+              imageId = a?.imageId || '';
               d.activities = d.activities.filter((x) => x.id !== btn.dataset.delA);
             });
+            if (imageId) await VideoDB.del(imageId);
+            toast('ลบแล้ว');
             render();
           };
         });
         shell.content.querySelectorAll('[data-del-n]').forEach((btn) => {
-          btn.onclick = () => {
+          btn.onclick = async () => {
+            if (!confirm('ลบประกาศนี้?')) return;
+            let imageId = '';
             Store.update((d) => {
+              const n = d.announcements.find((x) => x.id === btn.dataset.delN);
+              imageId = n?.imageId || '';
               d.announcements = d.announcements.filter((x) => x.id !== btn.dataset.delN);
             });
+            if (imageId) await VideoDB.del(imageId);
+            toast('ลบประกาศแล้ว');
             render();
           };
         });
       }
+
 
       if (section === 'org') {
         const depts = [...new Set(data.tasks.map((t) => t.dept))];
@@ -3183,62 +4832,73 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         document.getElementById('fLfCouncil').onsubmit = (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const item = {
+            id: uid('lf'),
+            type: fd.get('type'),
+            title: fd.get('title'),
+            category: fd.get('category'),
+            description: fd.get('description'),
+            location: fd.get('location'),
+            date: fd.get('date'),
+            reporter: session.name,
+            reporterId: '',
+            contact: fd.get('contact'),
+            status: 'open',
+          };
           Store.update((d) => {
             if (!d.lostFound) d.lostFound = [];
-            d.lostFound.unshift({
-              id: uid('lf'),
-              type: fd.get('type'),
-              title: fd.get('title'),
-              category: fd.get('category'),
-              description: fd.get('description'),
-              location: fd.get('location'),
-              date: fd.get('date'),
-              reporter: session.name,
-              reporterId: '',
-              contact: fd.get('contact'),
-              status: 'open',
-            });
-            if (fd.get('type') === 'found') {
+            d.lostFound.unshift({ ...item });
+            if (item.type === 'found') {
               d.announcements.unshift({
                 id: uid('n'),
-                title: 'พบของหาย: ' + fd.get('title'),
-                body: `พบที่ ${fd.get('location')} — ติดต่อรับได้ที่ ${fd.get('contact') || 'ห้องกิจการ'}`,
+                title: 'พบของหาย: ' + item.title,
+                body: `พบที่ ${item.location} — ติดต่อรับได้ที่ ${item.contact || 'ห้องกิจการ'}`,
                 date: todayISO(),
                 audience: 'all',
               });
             }
           });
-          toast('บันทึกรายการแล้ว', 'success');
+          pushLostFoundToSheets(item).then((ok) => {
+            if (ok) toast('บันทึกรายการแล้ว — ส่งไป Google Sheet แล้ว', 'success');
+            else toast('บันทึกรายการแล้ว (ในเครื่อง)', 'warning');
+          });
           render();
         };
         board.querySelectorAll('[data-lf-return]').forEach((btn) => {
           btn.onclick = () => {
+            const id = btn.dataset.lfReturn;
+            const returnedAt = todayISO();
             Store.update((d) => {
-              const x = lfList(d).find((i) => i.id === btn.dataset.lfReturn);
+              const x = lfList(d).find((i) => i.id === id);
               if (!x) return;
               x.status = 'returned';
               x.returnedBy = session.name;
-              x.returnedAt = todayISO();
+              x.returnedAt = returnedAt;
             });
+            updateLostFoundInSheets({ id, status: 'returned', returnedBy: session.name, returnedAt });
             toast('ยืนยันส่งคืนแล้ว', 'success');
             render();
           };
         });
         board.querySelectorAll('[data-lf-close]').forEach((btn) => {
           btn.onclick = () => {
+            const id = btn.dataset.lfClose;
             Store.update((d) => {
-              const x = lfList(d).find((i) => i.id === btn.dataset.lfClose);
+              const x = lfList(d).find((i) => i.id === id);
               if (x) x.status = 'closed';
             });
+            updateLostFoundInSheets({ id, status: 'closed' });
             render();
           };
         });
         board.querySelectorAll('[data-lf-del]').forEach((btn) => {
           btn.onclick = () => {
             if (!confirm('ลบรายการนี้?')) return;
+            const id = btn.dataset.lfDel;
             Store.update((d) => {
-              d.lostFound = lfList(d).filter((i) => i.id !== btn.dataset.lfDel);
+              d.lostFound = lfList(d).filter((i) => i.id !== id);
             });
+            deleteLostFoundFromSheets(id);
             toast('ลบแล้ว');
             render();
           };
@@ -3298,7 +4958,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     ];
     const shell = mountShell(session, nav, 'พอร์ทัลนักเรียน');
     let section = 'home';
-    let videoFilter = 'ทั้งหมด';
+    let videoFilter = SUBJECTS[0];
 
     // กระพริบสั้น ๆ ที่เมนูเด่นตอนเข้าสู่ระบบ เพื่อดึงสายตา
     setTimeout(() => {
@@ -3351,7 +5011,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             <p>พอร์ทัลสำหรับนักเรียน — เรียนจากคลิปสรุป สมัครกิจกรรม/หาทีม และติดตามประกาศที่เปิดให้นักเรียน</p>
             <div class="quick-links">
               <a class="quick-link" href="#" data-go="videos"><span>🎬</span>วิดีโอ</a>
-              <a class="quick-link" href="#" data-go="activities"><span>🤝</span>หาทีม</a>
+              <a class="quick-link" href="#" data-go="activities"><span>🤝</span>กิจกรรม</a>
               <a class="quick-link" href="#" data-go="lostfound"><span>🎒</span>ของหายได้คืน</a>
               <a class="quick-link" href="#" data-go="records"><span>🛡️</span>ประวัติความประพฤติ</a>
             </div>
@@ -3399,9 +5059,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       }
 
       if (section === 'videos') {
-        const list = videoFilter === 'ทั้งหมด' ? data.videos : data.videos.filter((v) => v.subject === videoFilter);
+        const list = data.videos.filter((v) => v.subject === videoFilter);
         shell.content.innerHTML = `
-          <div class="subject-pills">${['ทั้งหมด', ...SUBJECTS]
+          <div class="section-intro"><p>เลือกหมวดวิชาเพื่อดูวิดีโอสรุปบทเรียน</p></div>
+          <div class="subject-pills">${SUBJECTS
             .map((s) => `<button type="button" class="subject-pill ${videoFilter === s ? 'active' : ''}" data-sub="${s}">${s}</button>`)
             .join('')}</div>
           <div class="video-grid">${list
@@ -3409,10 +5070,11 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               (v) => `<article class="video-card" data-play="${v.id}">
               <div class="video-thumb"><div class="play">▶</div></div>
               <div class="video-body"><span class="badge badge-purple">${esc(v.subject)}</span>
+              ${v.gradeTerm || v.desc ? `<div class="meta" style="margin-top:.25rem">${esc(v.gradeTerm || v.desc)}</div>` : ''}
               <h4 class="mt-1">${esc(v.title)}</h4>
               <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ชม.</div></div></article>`
             )
-            .join('') || '<div class="empty-state">ยังไม่มีวิดีโอ</div>'}</div>`;
+            .join('') || '<div class="empty-state">ยังไม่มีวิดีโอในหมวดนี้</div>'}</div>`;
         shell.content.querySelectorAll('[data-sub]').forEach((btn) => {
           btn.onclick = () => {
             videoFilter = btn.dataset.sub;
@@ -3429,73 +5091,321 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
 
       if (section === 'activities') {
         shell.content.innerHTML = `
+          <div class="section-intro"><p>สภาประกาศกิจกรรมให้ — <strong>คุณสร้างทีมเอง</strong> สำหรับการแข่งขัน หรือ <strong>หาเพื่อนไปด้วย</strong> สำหรับอบรม/ค่าย</p></div>
           <div class="filter-bar"><select class="form-control" id="actFilter"><option value="">ทุกประเภท</option>
             <option>แข่งขันวิชาการ</option><option>แข่งโครงงาน</option><option>แข่งนวัตกรรม</option><option>อบรม/ค่าย</option><option>อื่น ๆ</option></select></div>
           <div class="grid-2" id="actBoard"></div>
-          <div class="panel mt-3"><div class="panel-header"><h3>ทีมของฉัน</h3></div><div id="myTeams"></div></div>`;
-        const draw = () => {
+          <div class="panel mt-3"><div class="panel-header"><h3>ของฉัน</h3></div><div id="myTeams"></div></div>`;
+
+        const draw = async () => {
           const filter = document.getElementById('actFilter').value;
-          const list = Store.load().activities.filter((a) => !filter || a.category === filter);
+          const list = Store.load().activities.map(normalizeActivity).filter((a) => !filter || a.category === filter);
           document.getElementById('actBoard').innerHTML = list
             .map((a) => {
-              const slots = Math.max(0, a.teamSize - a.members.length);
-              const joined = a.members.includes(session.name);
+              const myTeam = findMyTeam(a, session.name, studentId);
+              const myBuddy = findBuddy(a, session.name, studentId);
+              if (a.mode === 'buddy') {
+                const buddies = a.buddies || [];
+                return `<div class="activity-card">
+                  ${mediaSlot(a.imageId, 'activity-cover')}
+                  <div class="flex justify-between flex-wrap gap-2">
+                    <span class="badge badge-gold">${esc(a.category)}</span>
+                    <span class="badge badge-info">หาเพื่อนไปด้วย</span>
+                    ${myBuddy ? '<span class="badge badge-success">คุณลงชื่อแล้ว</span>' : a.open ? '<span class="badge badge-success">เปิดอยู่</span>' : '<span class="badge badge-danger">ปิดแล้ว</span>'}
+                  </div>
+                  <h4>${esc(a.title)}</h4>
+                  <p class="muted">${esc(a.desc || '')}</p>
+                  <p class="muted">${formatDate(a.date)} · ${esc(a.place)}</p>
+                  <div class="sub-card">
+                    <h5>เพื่อนที่อยากไปด้วย (${buddies.length})</h5>
+                    <div class="team-slot">${buddies.map((b) => `<span class="buddy-chip">👋 ${esc(memberLabel(b))}</span>`).join('') || '<span class="muted">ยังไม่มีใคร — เป็นคนแรกได้เลย</span>'}</div>
+                  </div>
+                  <div class="toolbar-row">
+                    ${
+                      !myBuddy && a.open
+                        ? `<button class="btn btn-primary btn-sm" data-buddy-join="${a.id}">อยากไป — หาเพื่อน</button>`
+                        : ''
+                    }
+                    ${myBuddy ? `<button class="btn btn-outline btn-sm" data-buddy-leave="${a.id}">ยกเลิกการลงชื่อ</button>` : ''}
+                  </div>
+                </div>`;
+              }
+
+              const teams = a.teams || [];
               return `<div class="activity-card">
-                <div class="flex justify-between flex-wrap gap-2"><span class="badge badge-gold">${esc(a.category)}</span>
-                ${joined ? '<span class="badge badge-info">คุณอยู่ในทีม</span>' : a.open && slots ? '<span class="badge badge-success">รับสมัคร</span>' : '<span class="badge badge-danger">เต็ม/ปิด</span>'}</div>
-                <h4>${esc(a.title)}</h4><p class="muted">${esc(a.desc || '')}</p>
-                <p class="muted">${formatDate(a.date)} · ${esc(a.place)}</p>
-                <div class="team-slot">${a.members.map((m) => `<span class="member-chip">👤 ${esc(m)}</span>`).join('') || '<span class="muted">ยังไม่มีสมาชิก</span>'}
-                ${slots && a.open ? `<span class="muted">ว่าง ${slots}</span>` : ''}</div>
-                ${!joined && a.open && slots ? `<button class="btn btn-primary btn-sm" data-join="${a.id}">ขอเข้าทีม</button>` : ''}
-                ${joined ? `<button class="btn btn-outline btn-sm" data-leave="${a.id}">ออกจากทีม</button>` : ''}
+                ${mediaSlot(a.imageId, 'activity-cover')}
+                <div class="flex justify-between flex-wrap gap-2">
+                  <span class="badge badge-gold">${esc(a.category)}</span>
+                  <span class="badge badge-info">สร้างทีมเอง</span>
+                  ${myTeam ? '<span class="badge badge-success">คุณอยู่ในทีม</span>' : a.open ? '<span class="badge badge-success">เปิดอยู่</span>' : '<span class="badge badge-danger">ปิดแล้ว</span>'}
+                </div>
+                <h4>${esc(a.title)}</h4>
+                <p class="muted">${esc(a.desc || '')}</p>
+                <p class="muted">${formatDate(a.date)} · ${esc(a.place)} · แนะนำทีมละ ${a.suggestedSize || 3} คน</p>
+                <div class="sub-card">
+                  <h5>ทีมจากนักเรียน (${teams.length})</h5>
+                  ${
+                    teams.length
+                      ? teams
+                          .map((t) => {
+                            const slots = Math.max(0, (t.maxSize || 3) - (t.members || []).length);
+                            const inTeam =
+                              (t.members || []).some(
+                                (m) => memberMatches(m, session.name) || (typeof m === 'object' && m.studentId === studentId)
+                              ) || t.leader === session.name || t.leaderId === studentId;
+                            return `<div style="margin:.55rem 0;padding:.55rem 0;border-top:1px solid rgba(94,45,150,.08)">
+                              <strong>🏁 ${esc(t.name)}</strong>
+                              <span class="muted"> · หัวหน้า ${esc(t.leader)}</span>
+                              ${teamFillBar(t.members, t.maxSize)}
+                              <div class="team-slot">${(t.members || []).map((m) => `<span class="member-chip">👤 ${esc(memberLabel(m))}</span>`).join('')}
+                              ${slots && t.open ? `<span class="muted">ว่าง ${slots}</span>` : ''}</div>
+                              ${
+                                !myTeam && a.open && t.open && slots
+                                  ? `<button class="btn btn-primary btn-sm" data-join-team="${a.id}" data-team="${t.id}">ขอเข้าทีมนี้</button>`
+                                  : ''
+                              }
+                              ${
+                                inTeam && t.leader === session.name
+                                  ? `<button class="danger-link" data-disband="${a.id}" data-team="${t.id}">ยุบทีม</button>`
+                                  : ''
+                              }
+                              ${
+                                inTeam && t.leader !== session.name
+                                  ? `<button class="btn btn-outline btn-sm" data-leave-team="${a.id}" data-team="${t.id}">ออกจากทีม</button>`
+                                  : ''
+                              }
+                            </div>`;
+                          })
+                          .join('')
+                      : '<p class="muted">ยังไม่มีทีม — สร้างทีมแรกได้เลย</p>'
+                  }
+                </div>
+                <div class="toolbar-row">
+                  ${
+                    !myTeam && a.open
+                      ? `<button class="btn btn-primary btn-sm" data-create-team="${a.id}">สร้างทีมของฉัน</button>`
+                      : ''
+                  }
+                </div>
               </div>`;
             })
             .join('') || '<div class="empty-state">ไม่พบกิจกรรม</div>';
-          document.querySelectorAll('[data-join]').forEach((btn) => {
-            btn.onclick = () => {
-              Store.update((d) => {
-                const a = d.activities.find((x) => x.id === btn.dataset.join);
-                if (!a || a.members.includes(session.name) || a.members.length >= a.teamSize) return;
-                a.members.push(session.name);
-                if (a.members.length >= a.teamSize) a.open = false;
+
+          await hydrateImages(document.getElementById('actBoard'));
+
+          document.querySelectorAll('[data-create-team]').forEach((btn) => {
+            btn.onclick = async () => {
+              const actId = btn.dataset.createTeam;
+              const act = normalizeActivity(Store.load().activities.find((x) => x.id === actId));
+              if (!act || !act.open) return;
+              if (isInActivityTeam(act, session.name, studentId)) {
+                toast('คุณอยู่ในทีมของกิจกรรมนี้อยู่แล้ว', 'warning');
+                return;
+              }
+              const info = await openSignupForm({
+                title: 'สร้างทีม — ' + act.title,
+                showTeamName: true,
+                defaults: {
+                  teamName: 'ทีมของ ' + session.name,
+                  name: session.name,
+                  className: '',
+                  contact: '',
+                },
               });
-              toast('เข้าร่วมทีมสำเร็จ!', 'success');
+              if (!info) return;
+              Store.update((d) => {
+                ensureActivitiesShape(d);
+                const a = d.activities.find((x) => x.id === actId);
+                if (!a || !a.open) return;
+                if (isInActivityTeam(a, info.name, studentId) || isInActivityTeam(a, session.name, studentId)) return;
+                a.teams = a.teams || [];
+                a.teams.unshift({
+                  id: uid('tm'),
+                  name: info.teamName || 'ทีมของ ' + info.name,
+                  leader: info.name,
+                  leaderId: studentId,
+                  members: [
+                    {
+                      name: info.name,
+                      className: info.className,
+                      contact: info.contact,
+                      studentId,
+                    },
+                  ],
+                  maxSize: a.suggestedSize || 3,
+                  open: true,
+                  createdAt: todayISO(),
+                });
+              });
+              toast('สร้างทีมแล้ว — ชวนเพื่อนมาร่วมได้', 'success');
               draw();
               myTeams();
             };
           });
-          document.querySelectorAll('[data-leave]').forEach((btn) => {
-            btn.onclick = () => {
+
+          document.querySelectorAll('[data-join-team]').forEach((btn) => {
+            btn.onclick = async () => {
+              const actId = btn.dataset.joinTeam;
+              const teamId = btn.dataset.team;
+              const act = normalizeActivity(Store.load().activities.find((x) => x.id === actId));
+              if (!act || !act.open) return;
+              if (isInActivityTeam(act, session.name, studentId)) {
+                toast('คุณอยู่ในทีมของกิจกรรมนี้อยู่แล้ว', 'warning');
+                return;
+              }
+              const info = await openSignupForm({
+                title: 'สมัครเข้าทีม',
+                defaults: { name: session.name, className: '', contact: '' },
+              });
+              if (!info) return;
               Store.update((d) => {
-                const a = d.activities.find((x) => x.id === btn.dataset.leave);
-                if (!a) return;
-                a.members = a.members.filter((m) => m !== session.name);
-                a.open = true;
+                ensureActivitiesShape(d);
+                const a = d.activities.find((x) => x.id === actId);
+                if (!a || !a.open) return;
+                if (isInActivityTeam(a, info.name, studentId) || isInActivityTeam(a, session.name, studentId)) return;
+                const t = (a.teams || []).find((x) => x.id === teamId);
+                if (!t || !t.open || (t.members || []).length >= (t.maxSize || 3)) return;
+                t.members.push({
+                  name: info.name,
+                  className: info.className,
+                  contact: info.contact,
+                  studentId,
+                });
+                if (t.members.length >= t.maxSize) t.open = false;
+              });
+              toast('เข้าร่วมทีมแล้ว', 'success');
+              draw();
+              myTeams();
+            };
+          });
+
+          document.querySelectorAll('[data-leave-team]').forEach((btn) => {
+            btn.onclick = () => {
+              const actId = btn.dataset.leaveTeam;
+              const teamId = btn.dataset.team;
+              Store.update((d) => {
+                ensureActivitiesShape(d);
+                const a = d.activities.find((x) => x.id === actId);
+                const t = (a?.teams || []).find((x) => x.id === teamId);
+                if (!t || t.leader === session.name || t.leaderId === studentId) return;
+                t.members = (t.members || []).filter(
+                  (m) => !memberMatches(m, session.name) && !(typeof m === 'object' && m.studentId === studentId)
+                );
+                t.open = true;
               });
               toast('ออกจากทีมแล้ว');
               draw();
               myTeams();
             };
           });
+
+          document.querySelectorAll('[data-disband]').forEach((btn) => {
+            btn.onclick = () => {
+              if (!confirm('ยุบทีมนี้? สมาชิกทั้งหมดจะออกจากทีม')) return;
+              const actId = btn.dataset.disband;
+              const teamId = btn.dataset.team;
+              Store.update((d) => {
+                ensureActivitiesShape(d);
+                const a = d.activities.find((x) => x.id === actId);
+                if (!a) return;
+                a.teams = (a.teams || []).filter(
+                  (t) => !(t.id === teamId && (t.leader === session.name || t.leaderId === studentId))
+                );
+              });
+              toast('ยุบทีมแล้ว');
+              draw();
+              myTeams();
+            };
+          });
+
+          document.querySelectorAll('[data-buddy-join]').forEach((btn) => {
+            btn.onclick = async () => {
+              const actId = btn.dataset.buddyJoin;
+              const act = normalizeActivity(Store.load().activities.find((x) => x.id === actId));
+              if (!act || !act.open) return;
+              const info = await openSignupForm({
+                title: 'ลงชื่อหาเพื่อนไปอบรม — ' + act.title,
+                defaults: { name: session.name, className: '', contact: '' },
+              });
+              if (!info) return;
+              Store.update((d) => {
+                ensureActivitiesShape(d);
+                const a = d.activities.find((x) => x.id === actId);
+                if (!a || !a.open || a.mode !== 'buddy') return;
+                if (findBuddy(a, info.name, studentId) || findBuddy(a, session.name, studentId)) return;
+                a.buddies = a.buddies || [];
+                a.buddies.unshift({
+                  id: uid('bd'),
+                  name: info.name,
+                  className: info.className,
+                  contact: info.contact,
+                  studentId,
+                  note: info.className,
+                  createdAt: todayISO(),
+                });
+              });
+              toast('ลงชื่อหาเพื่อนแล้ว — เพื่อนจะเห็นชื่อ ชั้น และช่องทางติดต่อ', 'success');
+              draw();
+              myTeams();
+            };
+          });
+
+          document.querySelectorAll('[data-buddy-leave]').forEach((btn) => {
+            btn.onclick = () => {
+              const actId = btn.dataset.buddyLeave;
+              Store.update((d) => {
+                ensureActivitiesShape(d);
+                const a = d.activities.find((x) => x.id === actId);
+                if (!a) return;
+                a.buddies = (a.buddies || []).filter((b) => b.name !== session.name && b.studentId !== studentId);
+              });
+              toast('ยกเลิกการลงชื่อแล้ว');
+              draw();
+              myTeams();
+            };
+          });
         };
+
         const myTeams = () => {
-          const mine = Store.load().activities.filter((a) => a.members.includes(session.name));
-          document.getElementById('myTeams').innerHTML = mine.length
-            ? mine
-                .map(
-                  (a) =>
-                    `<div class="feed-item"><div class="feed-dot">🤝</div><div class="feed-body"><h4>${esc(a.title)}</h4>
-                    <p class="time">ทีม ${a.members.length}/${a.teamSize} · ${formatDate(a.date)}</p>
-                    <p class="muted">สมาชิก: ${a.members.map(esc).join(', ')}</p></div></div>`
-                )
-                .join('')
-            : '<div class="empty-state">ยังไม่ได้เข้าร่วมทีม</div>';
+          const acts = Store.load().activities.map(normalizeActivity);
+          const mineTeams = [];
+          const mineBuddies = [];
+          acts.forEach((a) => {
+            const t = findMyTeam(a, session.name, studentId);
+            if (t) mineTeams.push({ a, t });
+            const b = findBuddy(a, session.name, studentId);
+            if (b) mineBuddies.push({ a, b });
+          });
+          let html = '';
+          if (mineTeams.length) {
+            html += mineTeams
+              .map(
+                ({ a, t }) =>
+                  `<div class="feed-item"><div class="feed-dot">🏁</div><div class="feed-body"><h4>${esc(t.name)} · ${esc(a.title)}</h4>
+                  <p class="time">แข่งขัน · ${formatDate(a.date)} · สมาชิก ${(t.members || []).length}/${t.maxSize}</p>
+                  ${teamFillBar(t.members, t.maxSize)}
+                  <p class="muted">สมาชิก: ${(t.members || []).map((m) => esc(memberLabel(m))).join(', ')}</p></div></div>`
+              )
+              .join('');
+          }
+          if (mineBuddies.length) {
+            html += mineBuddies
+              .map(
+                ({ a, b }) =>
+                  `<div class="feed-item"><div class="feed-dot">👋</div><div class="feed-body"><h4>หาเพื่อนไป · ${esc(a.title)}</h4>
+                  <p class="time">อบรม/ค่าย · ${formatDate(a.date)} · ${esc(a.place)}</p>
+                  <p class="muted">${esc(memberLabel(b))}</p></div></div>`
+              )
+              .join('');
+          }
+          document.getElementById('myTeams').innerHTML = html || '<div class="empty-state">ยังไม่ได้สร้างทีมหรือลงชื่อหาเพื่อน</div>';
         };
+
         document.getElementById('actFilter').onchange = draw;
         draw();
         myTeams();
       }
+
 
       if (section === 'news') {
         const news = studentAnnouncements(data);
@@ -3505,10 +5415,11 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             ? news
                 .map(
                   (n) =>
-                    `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4><p class="time">${formatDate(n.date)}</p><p>${esc(n.body)}</p></div></div>`
+                    `<div class="feed-item"><div class="feed-dot">📢</div><div class="feed-body"><h4>${esc(n.title)}</h4><p class="time">${formatDate(n.date)}</p><p>${esc(n.body)}</p>${mediaSlot(n.imageId, 'feed-media')}</div></div>`
                 )
                 .join('')
             : '<div class="empty-state">ยังไม่มีประกาศ</div>'}</div>`;
+        hydrateImages(shell.content);
       }
 
       if (section === 'calendar') {
@@ -3536,9 +5447,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       if (section === 'records') {
         const h = data.helmetReports.filter((r) => r.studentId === studentId);
         const l = data.lateReports.filter((r) => r.studentId === studentId);
+        const m = misconductList(data).filter((r) => r.studentId === studentId);
         shell.content.innerHTML = `
           <div class="alert alert-info">แสดงเฉพาะประวัติความประพฤติของรหัส ${esc(studentId)} — ไม่สามารถดูรายงานหรืองานของสภาได้</div>
-          <div class="grid-2">
+          <div class="grid-3">
             <div class="panel"><div class="panel-header"><h3>รายงานหมวกของฉัน</h3></div>
               ${h.length
                 ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>วันที่</th><th>ทะเบียน</th><th>สถานะ</th><th>หมายเหตุ</th></tr></thead><tbody>
@@ -3553,6 +5465,13 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                 </tbody></table></div>`
                 : '<div class="empty-state">ไม่มีรายงานสาย</div>'}
             </div>
+            <div class="panel"><div class="panel-header"><h3>พฤติกรรมไม่ถูกต้อง</h3></div>
+              ${m.length
+                ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>วันที่</th><th>ประเภท</th><th>สถานะ</th><th>รายละเอียด</th></tr></thead><tbody>
+                ${m.map((r) => `<tr><td>${formatDate(r.date)}</td><td>${esc(r.category)}</td><td>${badge(r.status)}</td><td>${esc(r.detail)}</td></tr>`).join('')}
+                </tbody></table></div>`
+                : '<div class="empty-state">ไม่มีรายงาน</div>'}
+            </div>
           </div>`;
       }
 
@@ -3563,6 +5482,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         const catOpts = LF_CATEGORIES.map((c) => `<option>${c}</option>`).join('');
         shell.content.innerHTML = `
           <div class="section-intro"><p>แจ้งของหาย ดูของพบ และขอรับคืน — สภา/ครูกิจการจะช่วยส่งคืนให้</p></div>
+          <div class="toolbar-row">
+            <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิด Google Sheet</a>
+            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'เมื่อกดส่ง ข้อมูลจะเข้าชีตของหายได้คืนอัตโนมัติ' : 'ยังไม่ได้ตั้งค่า Web App URL'}</span>
+          </div>
           <div class="grid-2">
             <div class="panel">
               <div class="panel-header"><h3>แจ้งของหาย</h3></div>
@@ -3627,69 +5550,81 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               : '<div class="empty-state">คุณยังไม่มีรายการ</div>'}
           </div>`;
 
-        document.getElementById('fLfLost').onsubmit = (e) => {
+        document.getElementById('fLfLost').onsubmit = async (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const item = {
+            id: uid('lf'),
+            type: 'lost',
+            title: fd.get('title'),
+            category: fd.get('category'),
+            description: fd.get('description'),
+            location: fd.get('location'),
+            date: todayISO(),
+            reporter: session.name,
+            reporterId: studentId,
+            contact: fd.get('contact') || session.name,
+            status: 'open',
+          };
           Store.update((d) => {
             if (!d.lostFound) d.lostFound = [];
-            d.lostFound.unshift({
-              id: uid('lf'),
-              type: 'lost',
-              title: fd.get('title'),
-              category: fd.get('category'),
-              description: fd.get('description'),
-              location: fd.get('location'),
-              date: todayISO(),
-              reporter: session.name,
-              reporterId: studentId,
-              contact: fd.get('contact') || session.name,
-              status: 'open',
-            });
+            d.lostFound.unshift({ ...item });
           });
-          toast('แจ้งของหายแล้ว', 'success');
+          const ok = await pushLostFoundToSheets(item);
+          toast(ok ? 'แจ้งของหายแล้ว — ส่งไป Google Sheet แล้ว' : 'แจ้งของหายแล้ว (ในเครื่อง)', ok ? 'success' : 'warning');
           render();
         };
-        document.getElementById('fLfFound').onsubmit = (e) => {
+        document.getElementById('fLfFound').onsubmit = async (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const item = {
+            id: uid('lf'),
+            type: 'found',
+            title: fd.get('title'),
+            category: fd.get('category'),
+            description: fd.get('description'),
+            location: fd.get('location'),
+            date: todayISO(),
+            reporter: session.name,
+            reporterId: studentId,
+            contact: 'ห้องกิจการนักเรียน',
+            status: 'open',
+          };
           Store.update((d) => {
             if (!d.lostFound) d.lostFound = [];
-            d.lostFound.unshift({
-              id: uid('lf'),
-              type: 'found',
-              title: fd.get('title'),
-              category: fd.get('category'),
-              description: fd.get('description'),
-              location: fd.get('location'),
-              date: todayISO(),
-              reporter: session.name,
-              reporterId: studentId,
-              contact: 'ห้องกิจการนักเรียน',
-              status: 'open',
-            });
+            d.lostFound.unshift({ ...item });
             d.announcements.unshift({
               id: uid('n'),
-              title: 'พบของหาย: ' + fd.get('title'),
-              body: `พบที่ ${fd.get('location')} — นักเรียนสามารถขอรับคืนได้ในเมนูของหายได้คืน`,
+              title: 'พบของหาย: ' + item.title,
+              body: `พบที่ ${item.location} — นักเรียนสามารถขอรับคืนได้ในเมนูของหายได้คืน`,
               date: todayISO(),
               audience: 'all',
             });
           });
-          toast('ส่งของพบให้สภาแล้ว', 'success');
+          const ok = await pushLostFoundToSheets(item);
+          toast(ok ? 'ส่งของพบแล้ว — ส่งไป Google Sheet แล้ว' : 'ส่งของพบแล้ว (ในเครื่อง)', ok ? 'success' : 'warning');
           render();
         };
         shell.content.querySelectorAll('[data-lf-claim]').forEach((btn) => {
           btn.onclick = () => {
             const note = prompt('ระบุหลักฐานสั้น ๆ ว่าทำไมถึงเป็นของของคุณ (เช่น สี/ชื่อบนของ)');
             if (note === null) return;
+            const id = btn.dataset.lfClaim;
             Store.update((d) => {
-              const x = lfList(d).find((i) => i.id === btn.dataset.lfClaim);
+              const x = lfList(d).find((i) => i.id === id);
               if (!x || x.status !== 'open') return;
               x.status = 'claimed';
               x.claimBy = session.name;
               x.claimId = studentId;
               x.claimNote = note || '';
               x.claimAt = todayISO();
+            });
+            updateLostFoundInSheets({
+              id,
+              status: 'claimed',
+              claimBy: session.name,
+              claimId: studentId,
+              claimNote: note || '',
             });
             toast('ส่งคำขอรับคืนแล้ว — รอสภา/ครูยืนยัน', 'success');
             render();
@@ -3700,6 +5635,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       if (section === 'help') {
         const mine = data.studentMessages.filter((m) => m.fromId === studentId || m.from === session.name);
         shell.content.innerHTML = `
+          <div class="toolbar-row">
+            <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิด Google Sheet</a>
+            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'เมื่อกดส่ง ข้อมูลจะเข้าชีตแจ้งเรื่องอัตโนมัติ' : 'ยังไม่ได้ตั้งค่า Web App URL'}</span>
+          </div>
           <div class="grid-2">
             <div class="panel"><div class="panel-header"><h3>แจ้งเรื่อง / ข้อเสนอ</h3></div>
               <p class="muted mb-2">ส่งข้อความถึงครูกิจการ — ของหาย/ของพบใช้เมนู “ของหายได้คืน”</p>
@@ -3724,31 +5663,32 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                 .join('') || '<div class="empty-state">ยังไม่มีข้อความ</div>'}
             </div>
           </div>`;
-        document.getElementById('fHelp').onsubmit = (e) => {
+        document.getElementById('fHelp').onsubmit = async (e) => {
           e.preventDefault();
           const fd = new FormData(e.target);
+          const message = {
+            id: uid('m'),
+            topic: fd.get('topic'),
+            detail: fd.get('detail'),
+            from: session.name,
+            fromId: studentId,
+            date: todayISO(),
+            status: 'open',
+          };
           Store.update((d) => {
-            d.studentMessages.unshift({
-              id: uid('m'),
-              topic: fd.get('topic'),
-              detail: fd.get('detail'),
-              from: session.name,
-              fromId: studentId,
-              date: todayISO(),
-              status: 'open',
-            });
-            // ส่งเข้าคิวของครูเท่านั้น ไม่เปิดให้นักเรียนเห็นระบบสภา
+            d.studentMessages.unshift({ ...message });
             d.incidents.unshift({
               id: uid('i'),
               type: 'สถานการณ์',
-              title: '[จากนักเรียน] ' + fd.get('topic'),
-              detail: fd.get('detail') + ` — โดย ${session.name} (${studentId})`,
+              title: '[จากนักเรียน] ' + message.topic,
+              detail: message.detail + ` — โดย ${session.name} (${studentId})`,
               date: todayISO(),
               by: session.name,
               status: 'open',
             });
           });
-          toast('ส่งข้อความแล้ว — ครูกิจการจะตอบกลับให้', 'success');
+          const ok = await pushMessageToSheets(message);
+          toast(ok ? 'ส่งข้อความแล้ว — ส่งไป Google Sheet แล้ว' : 'ส่งข้อความแล้ว (ในเครื่อง)', ok ? 'success' : 'warning');
           render();
         };
       }
@@ -3793,8 +5733,16 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     const cards = document.querySelectorAll('.role-card');
     const box = document.getElementById('loginBox');
     const label = document.getElementById('loginRoleLabel');
+    const roleIcon = document.getElementById('loginRoleIcon');
     const studentExtra = document.getElementById('studentExtra');
     const demoHint = document.getElementById('loginDemoHint');
+    const loginRoot = document.getElementById('login-root');
+    const iconByRole = {
+      admin: '🏛️',
+      teacher: '👩‍🏫',
+      council: '🎖️',
+      student: '🎒',
+    };
     const demoByRole = {
       admin: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
       teacher: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
@@ -3806,11 +5754,28 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       selectedRole = role;
       cards.forEach((c) => c.classList.toggle('selected', c.dataset.role === role));
       label.textContent = 'เข้าสู่ระบบในฐานะ' + ROLES[role].label;
+      if (roleIcon) roleIcon.textContent = iconByRole[role] || '🔐';
       studentExtra.style.display = role === 'student' ? 'block' : 'none';
       if (demoHint) demoHint.textContent = demoByRole[role] || '';
+      loginRoot.classList.add('auth-step');
       box.classList.add('show');
       document.getElementById('loginUsername').focus();
+      requestAnimationFrame(() => {
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
     }
+
+    function backToRoles() {
+      selectedRole = null;
+      cards.forEach((c) => c.classList.remove('selected'));
+      loginRoot.classList.remove('auth-step');
+      box.classList.remove('show');
+      document.getElementById('loginForm').reset();
+      studentExtra.style.display = 'none';
+      if (demoHint) demoHint.textContent = '';
+    }
+
+    document.getElementById('loginBack').addEventListener('click', backToRoles);
 
     cards.forEach((card) => {
       card.addEventListener('click', () => selectRole(card.dataset.role));
