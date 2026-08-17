@@ -1215,6 +1215,300 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
 }
 .quick-link span { display: block; font-size: 1.45rem; margin-bottom: .35rem; }
 
+/* ===== เข็มทิศอนาคต (student pathway) ===== */
+.pathway-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  padding: clamp(1.6rem, 3.5vw, 2.4rem);
+  margin-bottom: 1.5rem;
+  color: #fff;
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(240, 223, 154, 0.28), transparent 55%),
+    radial-gradient(700px 380px at 100% 100%, rgba(46, 180, 140, 0.22), transparent 50%),
+    linear-gradient(135deg, #1a0f2e 0%, #2d1848 42%, #1f3d3a 100%);
+  box-shadow: var(--shadow-lg);
+  isolation: isolate;
+}
+.pathway-hero::before {
+  content: '';
+  position: absolute;
+  inset: -20% auto auto 55%;
+  width: 55%;
+  height: 140%;
+  background:
+    conic-gradient(from 210deg, transparent 0 62%, rgba(240,223,154,.12) 70%, transparent 78%),
+    radial-gradient(circle at 40% 45%, rgba(255,255,255,.08), transparent 62%);
+  pointer-events: none;
+  animation: pathwayOrbit 18s linear infinite;
+  z-index: 0;
+}
+.pathway-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.06) 48%, transparent 62%);
+  animation: pathwaySheen 7s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes pathwayOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes pathwaySheen {
+  0%, 100% { opacity: .35; transform: translateX(-6%); }
+  50% { opacity: .85; transform: translateX(6%); }
+}
+.pathway-hero-inner { position: relative; z-index: 1; max-width: 62ch; }
+.pathway-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--font-display);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: .75rem;
+}
+.pathway-hero h2 {
+  font-size: clamp(1.65rem, 3.4vw, 2.35rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: .55rem;
+  background: linear-gradient(92deg, #fff 10%, #f0df9a 55%, #9fe8cb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pathway-hero p { opacity: .9; font-size: 1.02rem; margin-bottom: 1.25rem; }
+.pathway-hero-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.pathway-hero .btn-gold {
+  background: linear-gradient(135deg, #e8d48a, #c9a24a);
+  color: #2a1840;
+  border: none;
+  box-shadow: 0 10px 24px rgba(201, 162, 74, 0.35);
+}
+.pathway-hero .btn-gold:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.pathway-hero .btn-ghost-light {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #fff;
+}
+.pathway-hero .btn-ghost-light:hover { background: rgba(255,255,255,.18); color: #fff; }
+.pathway-meta-row {
+  display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.2rem;
+}
+.pathway-chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .35rem .7rem; border-radius: 999px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+  font-family: var(--font-display); font-size: .78rem; font-weight: 600;
+}
+.pathway-layout {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 1.15rem;
+  margin-bottom: 1.15rem;
+}
+@media (max-width: 960px) {
+  .pathway-layout { grid-template-columns: 1fr; }
+}
+.pathway-panel {
+  background: linear-gradient(180deg, #fff, #fbf8fe);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 1.25rem 1.3rem 1.4rem;
+  box-shadow: var(--shadow);
+}
+.pathway-panel h3 {
+  font-size: 1.05rem;
+  color: var(--plum-900);
+  margin-bottom: .85rem;
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+}
+.pathway-panel .sub { color: var(--muted); font-size: .88rem; margin: -.35rem 0 1rem; }
+.pathway-radar-wrap {
+  position: relative;
+  height: min(320px, 55vw);
+  max-width: 420px;
+  margin: 0 auto;
+}
+.strength-list { display: grid; gap: .7rem; }
+.strength-row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr auto;
+  gap: .65rem;
+  align-items: center;
+}
+.strength-row .label {
+  font-family: var(--font-display); font-weight: 600; font-size: .86rem; color: var(--plum-800);
+}
+.strength-bar {
+  height: 10px; border-radius: 999px; background: var(--plum-100); overflow: hidden;
+}
+.strength-bar > i {
+  display: block; height: 100%; border-radius: inherit;
+  background: linear-gradient(90deg, #2fb889, #c9a24a 70%, #e8d48a);
+  width: 0; transition: width 1.1s var(--ease);
+}
+.strength-row .pct {
+  font-family: var(--font-display); font-weight: 700; font-size: .84rem; color: var(--plum-700);
+  min-width: 2.6rem; text-align: right;
+}
+.track-pills { display: flex; flex-wrap: wrap; gap: .55rem; }
+.track-pill {
+  padding: .55rem .9rem; border-radius: 999px;
+  font-family: var(--font-display); font-weight: 600; font-size: .86rem;
+  background: var(--plum-50); color: var(--plum-800); border: 1px solid var(--line);
+}
+.track-pill.top {
+  background: linear-gradient(135deg, rgba(201,162,74,.22), rgba(47,184,137,.18));
+  border-color: rgba(201,162,74,.55);
+  color: #2a1840;
+  box-shadow: 0 6px 16px rgba(201,162,74,.18);
+}
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+}
+.match-item {
+  position: relative;
+  border-radius: 22px;
+  padding: 1.15rem 1.15rem 1.2rem;
+  background:
+    linear-gradient(165deg, #fff 0%, #fbf7ff 100%);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.match-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(36, 18, 56, 0.12);
+}
+.match-item.rank-1 {
+  background:
+    radial-gradient(280px 140px at 100% 0%, rgba(240,223,154,.35), transparent 60%),
+    linear-gradient(165deg, #fff8e8, #fff);
+  border-color: rgba(201,162,74,.45);
+}
+.match-rank {
+  position: absolute; top: .9rem; right: .95rem;
+  font-family: var(--font-display); font-weight: 800; font-size: .78rem;
+  color: var(--gold); letter-spacing: .04em;
+}
+.match-item h4 { font-size: 1.05rem; color: var(--plum-900); margin: .15rem 0 .35rem; padding-right: 3rem; }
+.match-item .fit {
+  font-family: var(--font-display); font-weight: 700; color: #1f7a5a; font-size: .9rem; margin-bottom: .55rem;
+}
+.match-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin: .55rem 0; }
+.match-tags span {
+  font-size: .75rem; padding: .22rem .5rem; border-radius: 8px;
+  background: var(--plum-50); color: var(--plum-700); font-family: var(--font-display); font-weight: 600;
+}
+.match-item ul { margin: .4rem 0 0 1.05rem; color: var(--muted); font-size: .88rem; }
+.pathway-timeline {
+  display: grid; gap: 0; margin: .4rem 0 0;
+  border-left: 2px solid rgba(201,162,74,.45);
+  padding-left: 1.1rem;
+}
+.pathway-step {
+  position: relative;
+  padding: 0 0 1.15rem;
+  animation: rise .45s var(--ease) both;
+}
+.pathway-step:nth-child(2) { animation-delay: .08s; }
+.pathway-step:nth-child(3) { animation-delay: .16s; }
+.pathway-step:nth-child(4) { animation-delay: .24s; }
+.pathway-step::before {
+  content: '';
+  position: absolute;
+  left: -1.35rem; top: .35rem;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: linear-gradient(135deg, #f0df9a, #2fb889);
+  box-shadow: 0 0 0 4px rgba(240,223,154,.25);
+}
+.pathway-step .when {
+  font-family: var(--font-display); font-size: .78rem; font-weight: 700;
+  color: #1f7a5a; letter-spacing: .02em; margin-bottom: .2rem;
+}
+.pathway-step h5 { color: var(--plum-900); margin-bottom: .25rem; }
+.pathway-step p { color: var(--muted); font-size: .9rem; }
+.chip-select {
+  display: flex; flex-wrap: wrap; gap: .45rem;
+}
+.chip-select label {
+  cursor: pointer;
+  user-select: none;
+  padding: .45rem .75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-family: var(--font-display);
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--plum-800);
+  transition: .2s var(--ease);
+}
+.chip-select input { display: none; }
+.chip-select label:has(input:checked) {
+  background: linear-gradient(135deg, rgba(47,184,137,.18), rgba(201,162,74,.22));
+  border-color: rgba(201,162,74,.55);
+  color: #1f3d3a;
+  box-shadow: 0 4px 12px rgba(201,162,74,.15);
+}
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: .75rem;
+}
+.pathway-empty {
+  text-align: center;
+  padding: 2rem 1rem 1.5rem;
+}
+.pathway-empty .orb {
+  width: 88px; height: 88px; margin: 0 auto 1rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #fff8, transparent 45%),
+    linear-gradient(145deg, #c9a24a, #2fb889 70%, #5e2d96);
+  box-shadow: 0 12px 30px rgba(47,184,137,.28);
+  animation: pathwayOrbit 12s linear infinite;
+}
+.insight-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .85rem;
+  margin-bottom: 1.15rem;
+}
+@media (max-width: 800px) {
+  .insight-strip { grid-template-columns: 1fr; }
+}
+.insight-mini {
+  border-radius: 18px;
+  padding: 1rem 1.05rem;
+  background: linear-gradient(160deg, #fff, #f7f1fc);
+  border: 1px solid var(--line);
+}
+.insight-mini .lbl {
+  font-family: var(--font-display); font-size: .75rem; font-weight: 700;
+  color: var(--muted); letter-spacing: .04em; text-transform: uppercase;
+}
+.insight-mini .val {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.15rem;
+  color: var(--plum-900); margin-top: .25rem;
+}
+.insight-mini .hint { font-size: .84rem; color: var(--muted); margin-top: .2rem; }
+.nav-list a.nav-featured.nav-pathway {
+  background:
+    linear-gradient(135deg, rgba(47, 184, 137, 0.35), rgba(201, 162, 74, 0.32) 50%, rgba(122, 63, 184, 0.28));
+  border-color: rgba(240, 223, 154, 0.7);
+}
+
 .score-ring {
   width: 128px; height: 128px; border-radius: 50%;
   background: conic-gradient(var(--plum-500) calc(var(--score) * 1%), var(--plum-100) 0);
@@ -1300,7 +1594,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       <p class="section-label">เลือกบทบาทเพื่อเข้าสู่ระบบ</p>
       <div class="role-grid" id="roleGrid">
         <article class="role-card" data-role="admin" tabindex="0"><div class="role-icon" aria-hidden="true">🏛️</div><h3>ผู้บริหาร</h3></article>
-        <article class="role-card" data-role="teacher" tabindex="0"><div class="role-icon" aria-hidden="true">👩‍🏫</div><h3>ครูฝ่ายงานกิจการนักเรียน</h3></article>
+        <article class="role-card" data-role="teacher" tabindex="0"><div class="role-icon" aria-hidden="true">👩‍🏫</div><h3>ครูกิจการนักเรียน</h3></article>
         <article class="role-card" data-role="council" tabindex="0"><div class="role-icon" aria-hidden="true">🎖️</div><h3>สภานักเรียน</h3></article>
         <article class="role-card" data-role="student" tabindex="0"><div class="role-icon" aria-hidden="true">🎒</div><h3>นักเรียน</h3></article>
       </div>
@@ -1309,7 +1603,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         <div class="login-box-head">
           <div class="login-role-badge" id="loginRoleIcon" aria-hidden="true">🎖️</div>
           <h3 id="loginRoleLabel">เข้าสู่ระบบ</h3>
-          <p class="login-hint">กรอกชื่อผู้ใช้และรหัสผ่านเพื่อเข้าสู่ระบบ</p>
+          <p class="login-hint">กรอกชื่อผู้ใช้และรหัสผ่าน</p>
         </div>
         <form id="loginForm">
           <div class="form-group">
@@ -1339,7 +1633,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   <div class="sidebar-backdrop"></div>
   <div class="app-shell">
     <aside class="sidebar">
-      <div class="brand-block"><div class="brand-mark"><img src="assets/logo-banphai.png" data-school-logo alt="โลโก้โรงเรียนบ้านไผ่" /></div><div class="brand-text">สภานักเรียนบ้านไผ่<small data-shell-sub></small></div></div>
+      <div class="brand-block"><div class="brand-mark"><img src="assets/logo-banphai.png" data-school-logo alt="โลโก้โรงเรียนบ้านไผ่" /></div><div class="brand-text">สภานักเรียนโรงเรียนบ้านไผ่<small data-shell-sub></small></div></div>
       <ul class="nav-list" data-nav></ul>
       <div class="sidebar-footer">
         <div class="user-chip"><div class="user-avatar" data-user-avatar>?</div><div class="user-meta"><strong data-user-name>-</strong><span data-user-role></span></div></div>
@@ -1370,7 +1664,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
 
   const ROLES = {
     admin: { id: 'admin', label: 'ผู้บริหาร', short: 'ผบ' },
-    teacher: { id: 'teacher', label: 'ครูฝ่ายงานกิจการนักเรียน', short: 'ครู' },
+    teacher: { id: 'teacher', label: 'ครูกิจการนักเรียน', short: 'ครู' },
     council: { id: 'council', label: 'สภานักเรียน', short: 'สภา' },
     student: { id: 'student', label: 'นักเรียน', short: 'นร' },
   };
@@ -1898,7 +2192,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       subject: 'คณิต',
       title: term + ' · ' + topic,
       teacher: 'สรุปบทเรียนคณิต',
-      duration: yid ? '—' : 'ยังไม่มีคลิป',
+      duration: yid ? '—' : 'ยังไม่มีวิดีโอ',
       views: 0,
       desc: 'คณิต · ' + term,
       gradeTerm: term,
@@ -2010,7 +2304,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       tasks: [
         { id: 't1', title: 'ตรวจหมวกกันน็อคประตูหน้า', dept: 'ฝ่ายกิจการ', assignee: 'คณะกรรมการฝ่ายกิจการ', due: t, status: 'in_progress', priority: 'high', note: 'จดรหัสและทะเบียนรถ', createdBy: 'ระบบ', createdAt: t },
         { id: 't2', title: 'จัดเวรจุดจอดรถ / อาคารสถานที่', dept: 'ฝ่ายอาคารและสถานที่', assignee: 'คณะกรรมการฝ่ายอาคารและสถานที่', due: t, status: 'todo', priority: 'medium', note: 'ส่งตารางเวร', createdBy: 'ระบบ', createdAt: t },
-        { id: 't3', title: 'ประชาสัมพันธ์ค่ายนวัตกรรม', dept: 'ฝ่ายประชาสัมพันธ์', assignee: 'คณะกรรมการฝ่ายประชาสัมพันธ์', due: t, status: 'done', priority: 'medium', note: 'เปิดรับสมัครทีม', createdBy: 'ระบบ', createdAt: t },
+        { id: 't3', title: 'ประชาสัมพันธ์ค่ายนวัตกรรม', dept: 'ฝ่ายประชาสัมพันธ์', assignee: 'คณะกรรมการฝ่ายประชาสัมพันธ์', due: t, status: 'done', priority: 'medium', note: 'เปิดประกาศให้นักเรียนสร้างทีม', createdBy: 'ระบบ', createdAt: t },
       ],
       events: [
         { id: 'e1', date: t, title: 'เวรจุดหน้าโรงเรียน', type: 'duty', spot: 'ประตูหน้า' },
@@ -2097,6 +2391,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       ],
       decisions: [],
       studentMessages: [],
+      pathwayProfiles: {},
       watchHistory: {},
       lostFound: [
         {
@@ -2194,6 +2489,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           localStorage.setItem(DATA_KEY, JSON.stringify(merged));
         }
         if (ensureMathVideoSeed(merged)) {
+          localStorage.setItem(DATA_KEY, JSON.stringify(merged));
+        }
+        if (!merged.pathwayProfiles || typeof merged.pathwayProfiles !== 'object') {
+          merged.pathwayProfiles = {};
           localStorage.setItem(DATA_KEY, JSON.stringify(merged));
         }
         ensureActivitiesShape(merged);
@@ -2420,7 +2719,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     }
     try {
       const res = await SheetsAPI.addLostFound(item);
-      if (!res.ok) throw new Error(res.error || 'บันทึกของหายได้คืนขึ้นชีตไม่สำเร็จ');
+      if (!res.ok) throw new Error(res.error || 'บันทึกของหาย-ของพบขึ้นชีตไม่สำเร็จ');
       return true;
     } catch (err) {
       console.warn(err);
@@ -2900,7 +3199,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       found: ['ของพบ', 'badge-success'],
       claimed: ['รอส่งคืน', 'badge-warning'],
       returned: ['คืนแล้ว', 'badge-success'],
-      matched: ['จับคู่แล้ว', 'badge-info'],
+      matched: ['จับคู่เพื่อนแล้ว', 'badge-info'],
     };
     const [l, c] = map[status] || [status, 'badge-purple'];
     return `<span class="badge ${c}">${l}</span>`;
@@ -3109,7 +3408,13 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     const nav = root.querySelector('[data-nav]');
     nav.innerHTML = navItems
       .map((n, i) => {
-        const cls = [i === 0 ? 'active' : '', n.featured ? 'nav-featured' : ''].filter(Boolean).join(' ');
+        const cls = [
+          i === 0 ? 'active' : '',
+          n.featured ? 'nav-featured' : '',
+          n.id === 'pathway' ? 'nav-pathway' : '',
+        ]
+          .filter(Boolean)
+          .join(' ');
         const hot = n.featured ? `<span class="nav-hot" title="เมนูแนะนำ">✨</span>` : '';
         return `<li><a href="#${n.id}" data-nav-id="${n.id}" class="${cls}"><span class="nav-icon">${n.icon}</span><span class="nav-label">${n.label}</span>${hot}</a></li>`;
       })
@@ -3169,13 +3474,13 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   /* ==================== ADMIN ==================== */
   function startAdmin(session) {
     const nav = [
-      { id: 'dashboard', label: 'แดชบอร์ด & แนวโน้ม', icon: '📊' },
+      { id: 'dashboard', label: 'ภาพรวมและแนวโน้ม', icon: '📊' },
       { id: 'reports', label: 'รายงานความประพฤติ', icon: '📁' },
-      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
+      { id: 'lostfound', label: 'ของหาย-ของพบ', icon: '🎒' },
       { id: 'council', label: 'ผลงานสภา', icon: '🎖️' },
       { id: 'system', label: 'ระบบข้อมูล', icon: '💾' },
     ];
-    const shell = mountShell(session, nav, 'พอร์ทัลผู้บริหาร');
+    const shell = mountShell(session, nav, 'หน้าผู้บริหาร');
     let section = 'dashboard';
 
     function render() {
@@ -3187,18 +3492,18 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       if (section === 'dashboard') {
         shell.content.innerHTML = `
           <div class="dash-hero">
-            <h3>พฤติกรรมไม่ถูกต้องตามกฎระเบียบ</h3>
+            <h3>พฤติกรรมไม่เหมาะสม</h3>
             <div class="chart-box tall"><canvas id="cMisconduct"></canvas></div>
             <div class="dash-chips">
               <span class="dash-chip">รวม 7 วัน <em>${a.misconductTotal}</em> รายการ</span>
-              <span class="dash-chip soft">ย่อย: ไม่สวมหมวก <em>${a.helmetTotal}</em></span>
-              <span class="dash-chip soft">ย่อย: กักแถวสาย <em>${a.lateTotal}</em></span>
-              <span class="dash-chip soft">ย่อย: พฤติกรรมไม่ถูกต้อง <em>${a.misconductTypeTotal}</em></span>
+              <span class="dash-chip soft">ไม่สวมหมวก <em>${a.helmetTotal}</em></span>
+              <span class="dash-chip soft">เข้าแถวสาย <em>${a.lateTotal}</em></span>
+              <span class="dash-chip soft">พฤติกรรมไม่เหมาะสม <em>${a.misconductTypeTotal}</em></span>
             </div>
           </div>
           <div class="grid-2 mt-3">
             <div class="panel">
-              <div class="panel-header"><h3>สัดส่วนประเภทย่อย</h3></div>
+              <div class="panel-header"><h3>สัดส่วนแต่ละประเภท</h3></div>
               <div class="chart-box"><canvas id="cSubtype"></canvas></div>
             </div>
             <div class="panel">
@@ -3218,7 +3523,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             labels: a.labels,
             datasets: [
               {
-                label: 'พฤติกรรมไม่ถูกต้องตามกฎระเบียบ',
+                label: 'พฤติกรรมไม่เหมาะสม',
                 data: a.misconductWeekly,
                 borderColor: '#5e2d96',
                 backgroundColor: makeAreaGradient(misCtx, 'rgba(94, 45, 150, 0.35)', 'rgba(94, 45, 150, 0.02)'),
@@ -3248,8 +3553,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                     const i = items[0]?.dataIndex ?? 0;
                     return [
                       `ย่อย · ไม่สวมหมวก ${a.helmetWeekly[i]}`,
-                      `ย่อย · กักแถวสาย ${a.lateWeekly[i]}`,
-                      `ย่อย · พฤติกรรมไม่ถูกต้อง ${a.misconductTypeWeekly[i]}`,
+                      `เข้าแถวสาย ${a.lateWeekly[i]}`,
+                      `พฤติกรรมไม่เหมาะสม ${a.misconductTypeWeekly[i]}`,
                     ];
                   },
                 },
@@ -3272,7 +3577,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         charts.c = new Chart(document.getElementById('cSubtype'), {
           type: 'doughnut',
           data: {
-            labels: ['ไม่สวมหมวก', 'กักแถวสาย', 'พฤติกรรมไม่ถูกต้อง'],
+            labels: ['ไม่สวมหมวก', 'เข้าแถวสาย', 'พฤติกรรมไม่เหมาะสม'],
             datasets: [
               {
                 data: [a.helmetTotal || 0, a.lateTotal || 0, a.misconductTypeTotal || 0],
@@ -3382,8 +3687,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           <div class="tab-group">
             <div class="tabs">
               <button class="tab-btn active" data-tab="rh">หมวกกันน็อค</button>
-              <button class="tab-btn" data-tab="rl">กักแถวสาย</button>
-              <button class="tab-btn" data-tab="rm">พฤติกรรมไม่ถูกต้อง</button>
+              <button class="tab-btn" data-tab="rl">เข้าแถวสาย</button>
+              <button class="tab-btn" data-tab="rm">พฤติกรรมไม่เหมาะสม</button>
             </div>
             <div class="tab-panel active" data-panel="rh"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>สถานะ</th></tr></thead><tbody>
               ${data.helmetReports.map((r) => `<tr><td>${esc(r.studentId)}</td><td>${esc(r.plate)}</td><td>${formatDate(r.date)}</td><td>${esc(r.by)}</td><td>${badge(r.status)}</td></tr>`).join('') || '<tr><td colspan="5">ยังไม่มีรายงาน</td></tr>'}
@@ -3425,7 +3730,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             <div class="stat-card"><div class="label">คืนสำเร็จ</div><div class="value">${returnedN}</div></div>
           </div>
           <div class="panel mt-3">
-            <div class="panel-header"><h3>รายการของหายได้คืนทั้งหมด</h3></div>
+            <div class="panel-header"><h3>รายการของหาย-ของพบทั้งหมด</h3></div>
             <div class="table-wrap"><table class="data-table"><thead><tr>
               <th>ประเภท</th><th>รายการ</th><th>หมวด</th><th>สถานที่</th><th>วันที่</th><th>ผู้แจ้ง</th><th>สถานะ</th><th>ผู้ขอรับ</th>
             </tr></thead><tbody>
@@ -3450,7 +3755,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             <div class="panel-header"><h3>Google Sheet — หลังบ้านรายงานความประพฤติ</h3>
               <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิดชีต</a>
             </div>
-            <p class="muted mb-2">เชื่อมชีต <strong>สภา</strong> เพื่อเก็บรายงานไม่สวมหมวก / กักแถวสาย / พฤติกรรมไม่ถูกต้อง</p>
+            <p class="muted mb-2">เชื่อมชีต <strong>สภา</strong> เพื่อเก็บรายงานไม่สวมหมวก / เข้าแถวสาย / พฤติกรรมไม่เหมาะสม</p>
             <ol class="muted mb-2" style="padding-left:1.2rem;line-height:1.8">
               <li>เปิดชีต → Extensions → Apps Script</li>
               <li>วางโค้ดจากไฟล์ <code>sheets-backend.gs</code> แล้ว Save</li>
@@ -3476,7 +3781,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               <label class="btn btn-outline" style="cursor:pointer">นำเข้าไฟล์ JSON<input type="file" id="importFile" accept="application/json,.json" hidden /></label>
               <button class="btn btn-danger" id="btnReset">รีเซ็ตข้อมูลตัวอย่าง</button>
             </div>
-            <div class="alert alert-info mt-2">ไฟล์วิดีโอที่อัปโหลดเก็บใน IndexedDB ของเบราว์เซอร์แยกจาก JSON</div>
+            <div class="alert alert-info mt-2">ไฟล์วิดีโอที่อัปโหลดจะเก็บในเครื่องนี้ผ่านเบราว์เซอร์ แยกจากข้อมูลหลัก</div>
           </div>`;
         document.getElementById('btnSaveSheets').onclick = () => {
           SheetsAPI.setUrl(document.getElementById('sheetsUrl').value);
@@ -3538,9 +3843,9 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       { id: 'review', label: 'ตรวจงานสภา', icon: '✅' },
       { id: 'reports', label: 'รายงานความประพฤติ', icon: '🛡️' },
       { id: 'messages', label: 'ข้อความจากนักเรียน', icon: '💬' },
-      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
+      { id: 'lostfound', label: 'ของหาย-ของพบ', icon: '🎒' },
     ];
-    const shell = mountShell(session, nav, 'ครูกิจการนักเรียน');
+    const shell = mountShell(session, nav, 'หน้าครูกิจการนักเรียน');
     let section = 'home';
 
     function render() {
@@ -3560,12 +3865,12 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           misconductList(data).filter((r) => r.status === 'pending').length;
         const msgs = data.studentMessages.filter((m) => m.status !== 'closed').length;
         shell.content.innerHTML = `
-          <div class="alert alert-info">คุณกำกับงานสภา — มอบหมายงาน ลงปฏิทินเวร และตรวจรายงานความประพฤติ</div>
+          <div class="alert alert-info">คุณดูแลงานสภา — มอบหมายงาน ลงปฏิทินเวร และตรวจรายงานความประพฤติ</div>
           <div class="grid-4">
             <div class="stat-card"><div class="label">งานสภาค้าง</div><div class="value">${todo}</div></div>
             <div class="stat-card"><div class="label">รายงานรอตรวจ</div><div class="value">${pending}</div></div>
             <div class="stat-card"><div class="label">จุดเวรว่าง</div><div class="value">${data.dutySpots.filter((d) => d.person === '-').length}</div></div>
-            <div class="stat-card"><div class="label">ข้อความรอดำเนิน</div><div class="value">${msgs}</div></div>
+            <div class="stat-card"><div class="label">ข้อความรอตอบ</div><div class="value">${msgs}</div></div>
           </div>
           <div class="grid-2 mt-3">
             <div class="panel"><div class="panel-header"><h3>งานรอดำเนินการ</h3></div>
@@ -3694,7 +3999,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             </div>
             <div class="panel">
               <div class="panel-header"><h3>ปฏิทินกิจกรรมนักเรียน</h3><span class="badge badge-gold">${monthLabel(y, m)}</span></div>
-              <p class="muted mb-2">กิจกรรมที่เปิดให้นักเรียนเห็นในพอร์ทัลนักเรียน</p>
+              <p class="muted mb-2">กิจกรรมที่เปิดให้นักเรียนเห็นในหน้านักเรียน</p>
               <div id="calActivity"></div>
               <div class="panel-header mt-3"><h3>เพิ่มกิจกรรมนักเรียน</h3></div>
               <form id="fActivityEvent">
@@ -3796,7 +4101,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                 (i) =>
                   `<div class="feed-item"><div class="feed-dot">📝</div><div class="feed-body"><h4>${esc(i.title)} ${badge(i.status)}</h4>
                   <p class="time">${esc(i.type)} · ${formatDate(i.date)} · ${esc(i.by)}</p><p>${esc(i.detail)}</p>
-                  ${i.status === 'open' ? `<button class="btn btn-sm btn-success" data-close-i="${i.id}">ปิดเคส</button>` : ''}
+                  ${i.status === 'open' ? `<button class="btn btn-sm btn-success" data-close-i="${i.id}">ปิดเรื่อง</button>` : ''}
                   </div></div>`
               )
               .join('') || '<div class="empty-state">ยังไม่มีบันทึก</div>'}
@@ -3817,7 +4122,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               const i = d.incidents.find((x) => x.id === btn.dataset.closeI);
               if (i) i.status = 'closed';
             });
-            toast('ปิดเคสแล้ว', 'success');
+            toast('ปิดเรื่องแล้ว', 'success');
             render();
           };
         });
@@ -3834,8 +4139,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           <div class="tab-group">
             <div class="tabs">
               <button class="tab-btn active" data-tab="th">หมวกกันน็อค</button>
-              <button class="tab-btn" data-tab="tl">กักแถวสาย</button>
-              <button class="tab-btn" data-tab="tm">พฤติกรรมไม่ถูกต้อง</button>
+              <button class="tab-btn" data-tab="tl">เข้าแถวสาย</button>
+              <button class="tab-btn" data-tab="tm">พฤติกรรมไม่เหมาะสม</button>
             </div>
             <div class="tab-panel active" data-panel="th"><div class="table-wrap"><table class="data-table"><thead><tr><th>รหัส</th><th>ทะเบียน</th><th>วันที่</th><th>โดย</th><th>หมายเหตุ</th><th></th></tr></thead><tbody>
               ${data.helmetReports
@@ -3896,7 +4201,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               r.status = 'reviewed';
               r.reviewedBy = session.name;
               r.reviewedAt = reviewedAt;
-              adjustScore(d, r.studentId, -3, 'หักคะแนนกักแถวสาย');
+              adjustScore(d, r.studentId, -3, 'หักคะแนนเข้าแถวสาย');
               ok = true;
             });
             if (ok) pushStatusToSheets(btn.dataset.okL, 'reviewed', session.name, reviewedAt);
@@ -3915,7 +4220,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               r.status = 'reviewed';
               r.reviewedBy = session.name;
               r.reviewedAt = reviewedAt;
-              adjustScore(d, r.studentId, -4, 'หักคะแนนพฤติกรรมไม่ถูกต้อง');
+              adjustScore(d, r.studentId, -4, 'หักคะแนนพฤติกรรมไม่เหมาะสม');
               ok = true;
             });
             if (ok) pushStatusToSheets(btn.dataset.okM, 'reviewed', session.name, reviewedAt);
@@ -3972,7 +4277,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       if (section === 'lostfound') {
         const items = lfList(data);
         shell.content.innerHTML = `
-          <div class="alert alert-info">กำกับระบบของหายได้คืน — ยืนยันการส่งคืนและปิดรายการได้ที่นี่</div>
+          <div class="alert alert-info">จัดการของหาย-ของพบ — ยืนยันส่งคืนและปิดรายการได้ที่นี่</div>
           <div class="grid-3 mb-2">
             <div class="stat-card"><div class="label">เปิดอยู่</div><div class="value">${items.filter((x) => x.status === 'open').length}</div></div>
             <div class="stat-card"><div class="label">รอส่งคืน</div><div class="value">${items.filter((x) => x.status === 'claimed').length}</div></div>
@@ -4040,16 +4345,16 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
   function startCouncil(session) {
     const nav = [
       { id: 'home', label: 'หน้าหลัก', icon: '🏠' },
-      { id: 'tasks', label: 'แผนงานที่ได้รับมอบ', icon: '📋' },
+      { id: 'tasks', label: 'งานที่ได้รับมอบ', icon: '📋' },
       { id: 'log', label: 'บันทึกงาน / เหตุการณ์', icon: '📝' },
-      { id: 'behavior', label: 'รายงานนักเรียนมีพฤติกรรมไม่ถูกต้องตามกฎระเบียบ', icon: '⚠️' },
+      { id: 'behavior', label: 'รายงานพฤติกรรม', icon: '⚠️' },
       { id: 'videos', label: 'วิดีโอสรุปบทเรียน', icon: '🎬' },
-      { id: 'activities', label: 'ประกาศ & จับคู่ทีม', icon: '🏆' },
-      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
-      { id: 'org', label: 'แผนงาน & ผังฝ่าย', icon: '🗂️' },
+      { id: 'activities', label: 'ประกาศกิจกรรมและหาทีม', icon: '🏆' },
+      { id: 'lostfound', label: 'ของหาย-ของพบ', icon: '🎒' },
+      { id: 'org', label: 'แผนงานและผังฝ่าย', icon: '🗂️' },
       { id: 'calendar', label: 'ปฏิทินสภา / กิจกรรม', icon: '📅' },
     ];
-    const shell = mountShell(session, nav, 'พอร์ทัลคณะกรรมการ');
+    const shell = mountShell(session, nav, 'หน้าคณะกรรมการ');
     let section = 'home';
     let videoFilter = SUBJECTS[0];
 
@@ -4076,10 +4381,10 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
         shell.content.innerHTML = `
           <div class="portal-banner">
             <h2>สวัสดี, ${esc(session.name)}</h2>
-            <p>บันทึกงาน รายงานความประพฤติ อัปโหลดวิดีโอสรุปบทเรียน และเปิดรับสมัครทีม — ข้อมูลบันทึกจริงในระบบ</p>
+            <p>บันทึกงาน รายงานความประพฤติ อัปโหลดวิดีโอสรุปบทเรียน และเปิดประกาศให้นักเรียนสร้างทีมเอง</p>
             <div class="quick-links">
               <a class="quick-link" href="#" data-go="behavior"><span>⚠️</span>รายงานพฤติกรรม</a>
-              <a class="quick-link" href="#" data-go="lostfound"><span>🎒</span>ของหายได้คืน</a>
+              <a class="quick-link" href="#" data-go="lostfound"><span>🎒</span>ของหาย-ของพบ</a>
               <a class="quick-link" href="#" data-go="videos"><span>🎬</span>วิดีโอ</a>
               <a class="quick-link" href="#" data-go="tasks"><span>📋</span>งานที่ได้รับมอบ</a>
             </div>
@@ -4151,7 +4456,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           <div class="grid-2">
             <div class="panel"><div class="panel-header"><h3>ลงบันทึก</h3></div>
               <form id="fInc">
-                <div class="form-group"><label>ประเภท</label><select class="form-control" name="type"><option>บันทึกงาน</option><option>สถานการณ์</option><option>เหตุการณ์</option></select></div>
+                <div class="form-group"><label>ประเภท</label><select class="form-control" name="type"><option>บันทึกงาน</option><option>เหตุการณ์</option><option>บันทึกทั่วไป</option></select></div>
                 <div class="form-group"><label>หัวข้อ</label><input class="form-control" name="title" required /></div>
                 <div class="form-group"><label>รายละเอียด</label><textarea class="form-control" name="detail" required></textarea></div>
                 <button class="btn btn-primary">บันทึก</button>
@@ -4206,13 +4511,13 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           <div class="toolbar-row">
             <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิด Google Sheet</a>
             <button class="btn btn-primary btn-sm" id="btnPullSheetsBehavior">ซิงก์จากชีต</button>
-            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'รายงานจะถูกส่งขึ้น Google Sheet อัตโนมัติ' : 'ยังไม่ได้ตั้งค่า Web App URL (แอดมิน → ระบบข้อมูล)'}</span>
+            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'รายงานจะถูกส่งขึ้น Google Sheet อัตโนมัติ' : 'ยังไม่ได้ตั้งค่า Web App URL (ผู้บริหาร → ระบบข้อมูล)'}</span>
           </div>
           <div class="tab-group">
             <div class="tabs">
               <button class="tab-btn active" data-tab="bh">ไม่สวมหมวกกันน็อค</button>
-              <button class="tab-btn" data-tab="bl">กักแถวสาย</button>
-              <button class="tab-btn" data-tab="bm">พฤติกรรมไม่ถูกต้อง</button>
+              <button class="tab-btn" data-tab="bl">เข้าแถวสาย</button>
+              <button class="tab-btn" data-tab="bm">พฤติกรรมไม่เหมาะสม</button>
             </div>
             <div class="tab-panel active" data-panel="bh">
               <div class="grid-2">
@@ -4240,7 +4545,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             </div>
             <div class="tab-panel" data-panel="bl">
               <div class="grid-2">
-                <div class="panel"><div class="panel-header"><h3>รายงานกักแถวสาย</h3></div>
+                <div class="panel"><div class="panel-header"><h3>รายงานเข้าแถวสาย</h3></div>
                   <form id="fLate">
                     <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required /></div>
                     <div class="form-group"><label>ชื่อผู้บันทึกงาน</label><input class="form-control" name="recorder" value="${esc(session.name)}" required /></div>
@@ -4262,7 +4567,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             </div>
             <div class="tab-panel" data-panel="bm">
               <div class="grid-2">
-                <div class="panel"><div class="panel-header"><h3>รายงานพฤติกรรมไม่ถูกต้อง</h3></div>
+                <div class="panel"><div class="panel-header"><h3>รายงานพฤติกรรมไม่เหมาะสม</h3></div>
                   <form id="fMc">
                     <div class="form-row">
                       <div class="form-group"><label>รหัสประจำตัวนักเรียน</label><input class="form-control" name="studentId" required /></div>
@@ -4390,7 +4695,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       if (section === 'videos') {
         const list = data.videos.filter((v) => v.subject === videoFilter);
         shell.content.innerHTML = `
-          <div class="section-intro"><p>อัปโหลดไฟล์วิดีโอหรือวางลิงก์ YouTube — นักเรียนรับชมได้จริงในระบบ</p></div>
+          <div class="section-intro"><p>อัปโหลดไฟล์วิดีโอหรือวางลิงก์ YouTube — นักเรียนสามารถดูในระบบได้</p></div>
           <div class="grid-2">
             <div class="panel"><div class="panel-header"><h3>เพิ่มวิดีโอสรุป</h3></div>
               <form id="fVid">
@@ -4402,7 +4707,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                 <div class="form-group"><label>ครู / ผู้สอน</label><input class="form-control" name="teacher" required /></div>
                 <div class="form-group"><label>คำอธิบาย</label><textarea class="form-control" name="desc"></textarea></div>
                 <div class="form-group"><label>ลิงก์ YouTube หรือไฟล์ .mp4</label><input class="form-control" name="url" placeholder="https://www.youtube.com/watch?v=..." /></div>
-                <div class="form-group"><label>หรืออัปโหลดไฟล์วิดีโอ (สูงสุด ~80MB)</label><input class="form-control" type="file" name="file" accept="video/*" /><p class="chip-file">ไฟล์เก็บใน IndexedDB ของเบราว์เซอร์</p></div>
+                <div class="form-group"><label>หรืออัปโหลดไฟล์วิดีโอ (สูงสุด ~80MB)</label><input class="form-control" type="file" name="file" accept="video/*" /><p class="chip-file">ไฟล์เก็บในเครื่องนี้ผ่านเบราว์เซอร์</p></div>
                 <button class="btn btn-primary">เผยแพร่วิดีโอ</button>
               </form>
             </div>
@@ -4417,7 +4722,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                   <div class="video-body"><span class="badge badge-purple">${esc(v.subject)}</span>
                   ${v.gradeTerm || v.desc ? `<div class="meta" style="margin-top:.25rem">${esc(v.gradeTerm || v.desc)}</div>` : ''}
                   <h4 class="mt-1">${esc(v.title)}</h4>
-                  <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ชม.</div>
+                  <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ครั้ง</div>
                   <button type="button" class="danger-link mt-1" data-del-v="${v.id}">ลบ</button>
                   </div></article>`
                 )
@@ -4499,7 +4804,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       if (section === 'activities') {
         const acts = data.activities.map(normalizeActivity);
         shell.content.innerHTML = `
-          <div class="section-intro"><p>สภาทำหน้าที่ประกาศการแข่งขัน/อบรมเท่านั้น — <strong>นักเรียนเป็นคนสร้างทีม</strong> หรือ <strong>หาเพื่อนไปอบรม</strong> เอง</p></div>
+          <div class="section-intro"><p>สภาทำหน้าที่ประกาศการแข่งขัน/อบรมเท่านั้น — <strong>นักเรียนเป็นคนสร้างทีม</strong> หรือ <strong>หาเพื่อนไปด้วย</strong> เอง</p></div>
           <div class="grid-2 mb-2">
             <div class="panel"><div class="panel-header"><h3>ประกาศกิจกรรม</h3></div>
               <form id="fAct">
@@ -4622,7 +4927,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           if (hint) {
             hint.textContent =
               mode === 'buddy'
-                ? 'โหมด: หาเพื่อนไปอบรม/ค่าย — นักเรียนลงชื่อหาเพื่อนไปด้วย ไม่สร้างทีมแข่งขัน'
+                ? 'โหมด: หาเพื่อนไปด้วย — นักเรียนลงชื่อหาเพื่อน ไม่สร้างทีมแข่งขัน'
                 : 'โหมด: แข่งขัน — นักเรียนสร้างทีมเอง สภาแค่ประกาศ';
           }
           if (sizeWrap) sizeWrap.style.display = mode === 'buddy' ? 'none' : '';
@@ -4851,7 +5156,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             if (item.type === 'found') {
               d.announcements.unshift({
                 id: uid('n'),
-                title: 'พบของหาย: ' + item.title,
+                title: 'พบของ: ' + item.title,
                 body: `พบที่ ${item.location} — ติดต่อรับได้ที่ ${item.contact || 'ห้องกิจการ'}`,
                 date: todayISO(),
                 audience: 'all',
@@ -4943,28 +5248,478 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
     render();
   }
 
+  /* ==================== เข็มทิศอนาคต (pathway) ==================== */
+  const PATHWAY_GRADE_KEYS = [
+    { key: 'thai', label: 'ภาษาไทย' },
+    { key: 'math', label: 'คณิตศาสตร์' },
+    { key: 'science', label: 'วิทยาศาสตร์' },
+    { key: 'eng', label: 'ภาษาอังกฤษ' },
+    { key: 'social', label: 'สังคมศึกษา' },
+    { key: 'tech', label: 'เทคโนโลยี/คอมฯ' },
+    { key: 'art', label: 'ศิลปะ/ดนตรี' },
+  ];
+
+  const PATHWAY_INTERESTS = [
+    'วิทยาศาสตร์/การทดลอง', 'คณิต/ตรรกะ', 'เขียนโปรแกรม/ไอที', 'ภาษาต่างประเทศ',
+    'การเขียน/สื่อสาร', 'ศิลปะ/ออกแบบ', 'ดนตรี/การแสดง', 'กีฬา/สุขภาพ',
+    'ธุรกิจ/การเงิน', 'สังคม/จิตอาสา', 'การแพทย์/สาธารณสุข', 'สิ่งแวดล้อม',
+    'กฎหมาย/การเมือง', 'อาหาร/บริการ', 'นวัตกรรม/โครงงาน', 'สื่อ/คอนเทนต์'
+  ];
+
+  const PATHWAY_APTITUDES = [
+    'คิดวิเคราะห์', 'คำนวณเก่ง', 'จำดี', 'สื่อสารเก่ง', 'ทำงานเป็นทีม',
+    'เป็นผู้นำ', 'สร้างสรรค์', 'ใช้มือ/ปฏิบัติ', 'ละเอียดอดทน', 'แก้ปัญหาเร็ว',
+    'ใช้เทคโนโลยี', 'เอาใจใส่ผู้อื่น', 'พูดโน้มน้าว', 'วางแผนเก่ง'
+  ];
+
+  const PATHWAY_DOMAINS = [
+    { id: 'math', label: 'คณิต/ตรรกะ', color: '#c9a24a' },
+    { id: 'science', label: 'วิทยาศาสตร์', color: '#2fb889' },
+    { id: 'tech', label: 'เทคโนโลยี', color: '#3d8bfd' },
+    { id: 'language', label: 'ภาษา/สื่อสาร', color: '#7a3fb8' },
+    { id: 'social', label: 'สังคม/มนุษย์', color: '#d97706' },
+    { id: 'creative', label: 'สร้างสรรค์', color: '#db5a8c' },
+    { id: 'health', label: 'สุขภาพ/บริการ', color: '#0f8a62' },
+    { id: 'business', label: 'ธุรกิจ/บริหาร', color: '#5b6abf' },
+    { id: 'lead', label: 'ผู้นำ/กิจกรรม', color: '#8b5a2b' },
+  ];
+
+  const PATHWAY_CATALOG = [
+    {
+      id: 'eng',
+      title: 'วิศวกรรมศาสตร์',
+      track: 'วิทย์–คณิต',
+      weights: { math: 1, science: 0.9, tech: 0.85, creative: 0.35, lead: 0.35 },
+      faculties: ['วิศวกรรมศาสตร์'],
+      majors: ['วิศวกรรมคอมพิวเตอร์', 'วิศวกรรมไฟฟ้า', 'วิศวกรรมโยธา', 'วิศวกรรมอุตสาหการ'],
+      unis: ['จุฬาฯ', 'มจธ.', 'ลาดกระบัง', 'ม.ขอนแก่น', 'ม.เชียงใหม่'],
+      careers: ['วิศวกร', 'นักพัฒนาซอฟต์แวร์', 'ที่ปรึกษาโครงการ', 'ผู้จัดการโรงงาน'],
+      why: 'เหมาะกับคนเก่งคณิต–วิทย์ ชอบแก้ปัญหาและสร้างระบบ',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'เสริมคณิต–ฟิสิกส์–คอม', body: 'ทบทวนวิดีโอคณิต/ฟิสิกส์ ทำโครงงาน STEM และแข่งคิดวิเคราะห์' },
+        { when: 'สอบเข้า', title: 'เน้น A-level / TPAT วิทย์', body: 'วางเป้าคะแนนคณิต ฟิสิกส์ เคมี และแฟ้มผลงานโครงงาน' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกสาขาวิศวฯ ตามความชอบ', body: 'คอม/ไฟฟ้าถ้าชอบโค้ด–อิเล็กฯ โยธา/อุตสาหการถ้าชอบงานภาคสนาม' },
+        { when: 'อาชีพ', title: 'ฝึกงานและใบประกอบวิชาชีพ', body: 'หาฝึกงานวิศวฯ หรือสตาร์ทอัปเทคตั้งแต่ปี 2–3' },
+      ],
+    },
+    {
+      id: 'med',
+      title: 'แพทยศาสตร์ / สุขภาพ',
+      track: 'วิทย์–สุขภาพ',
+      weights: { science: 1, health: 0.95, math: 0.55, social: 0.45, lead: 0.35 },
+      faculties: ['แพทยศาสตร์', 'พยาบาลศาสตร์', 'สาธารณสุขศาสตร์', 'เภสัชศาสตร์'],
+      majors: ['แพทยศาสตร์', 'พยาบาลศาสตร์', 'เทคนิคการแพทย์', 'กายภาพบำบัด'],
+      unis: ['มหิดล', 'จุฬาฯ', 'ม.ขอนแก่น', 'ม.เชียงใหม่', 'มศว'],
+      careers: ['แพทย์', 'พยาบาล', 'นักเทคนิคการแพทย์', 'นักสาธารณสุข'],
+      why: 'เหมาะกับคนใส่ใจผู้อื่น อดทน และเก่งวิทยาศาสตร์ชีวภาพ',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'ชีวะ–เคมี–อังกฤษเข้ม', body: 'ดูคลิปชีวะ/เคมีเป็นประจำ และทำกิจกรรมจิตอาสาด้านสุขภาพ' },
+        { when: 'สอบเข้า', title: 'TPAT แพทย์ / กสพท', body: 'วางแผนคะแนนวิทย์และแฟ้มผลงานอาสาอย่างสม่ำเสมอ' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกสายคลินิกหรือสาธารณสุข', body: 'ถ้าชอบดูแลผู้ป่วยตรง ๆ ไปสายคลินิก ถ้าชอบระบบชุมชนไปสาธารณสุข' },
+        { when: 'อาชีพ', title: 'ฝึกทักษะการสื่อสารกับผู้ป่วย', body: 'สะสมชั่วโมงอาสาและทักษะการสื่อสารคู่กับความรู้วิทย์' },
+      ],
+    },
+    {
+      id: 'sci',
+      title: 'วิทยาศาสตร์ / วิจัย',
+      track: 'วิทย์–คณิต',
+      weights: { science: 1, math: 0.75, tech: 0.45, creative: 0.35 },
+      faculties: ['วิทยาศาสตร์', 'วิทยาศาสตร์การอาหาร', 'สิ่งแวดล้อม'],
+      majors: ['เคมี', 'ชีววิทยา', 'ฟิสิกส์', 'วิทยาศาสตร์สิ่งแวดล้อม'],
+      unis: ['มหิดล', 'จุฬาฯ', 'ม.เกษตร', 'ม.ขอนแก่น'],
+      careers: ['นักวิจัย', 'นักวิทยาศาสตร์', 'นักวิเคราะห์ห้องปฏิบัติการ', 'ที่ปรึกษาสิ่งแวดล้อม'],
+      why: 'เหมาะกับคนชอบตั้งคำถาม สังเกต และทดลองอย่างเป็นระบบ',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'แข่งวิทย์/โครงงานห้องแล็บ', body: 'เลือกวิชาวิทย์ที่ชอบให้ลึก และทำโครงงานจริง' },
+        { when: 'สอบเข้า', title: 'A-level วิทย์ + แฟ้มผลงานโครงงาน', body: 'เก็บหลักฐานการทดลองและรางวัลวิชาการ' },
+        { when: 'มหาวิทยาลัย', title: 'หาแล็บและอาจารย์ที่ปรึกษา', body: 'เข้าร่วมวิจัยตั้งแต่ปีต้น ๆ' },
+        { when: 'อาชีพ', title: 'ต่อป.โทหรือเข้าอุตสาหกรรม', body: 'เลือกสายวิจัย หรือ R&D ในบริษัท' },
+      ],
+    },
+    {
+      id: 'it',
+      title: 'เทคโนโลยี / ดิจิทัล',
+      track: 'ศิลป์–คำนวณ / วิทย์–คอม',
+      weights: { tech: 1, math: 0.7, creative: 0.55, language: 0.35, business: 0.3 },
+      faculties: ['วิทยาการคอมพิวเตอร์', 'เทคโนโลยีสารสนเทศ', 'วิศวกรรมซอฟต์แวร์'],
+      majors: ['วิทยาการคอมพิวเตอร์', 'วิทยาการข้อมูล', 'ความมั่นคงไซเบอร์', 'มัลติมีเดีย'],
+      unis: ['มจธ.', 'ลาดกระบัง', 'ม.เกษตร', 'ม.ขอนแก่น', 'ม.เชียงใหม่'],
+      careers: ['โปรแกรมเมอร์', 'Data Analyst', 'UX/UI Designer', 'ผู้ประกอบการเทค'],
+      why: 'เหมาะกับคนชอบสร้างของด้วยโค้ด ข้อมูล และนวัตกรรมดิจิทัล',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'สร้างโปรเจกต์จริง', body: 'เรียนคณิต + ดูคลิปคอม และทำแอป/เว็บเล็ก ๆ ของตัวเอง' },
+        { when: 'สอบเข้า', title: 'คณิต + แฟ้มผลงานโปรเจกต์', body: 'เก็บผลงานโค้ดและแข่งเขียนโปรแกรมถ้าได้' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกสาย Dev / Data / Design', body: 'ลองฝึกงานสายที่ใช่ตั้งแต่ปี 2' },
+        { when: 'อาชีพ', title: 'สะสมแฟ้มผลงานและเครือข่าย', body: 'ร่วมทำโปรเจกต์สาธารณะหรือรับงานเล็ก ๆ ควบคู่เรียน' },
+      ],
+    },
+    {
+      id: 'biz',
+      title: 'บริหาร / ธุรกิจ',
+      track: 'ศิลป์–คำนวณ',
+      weights: { business: 1, math: 0.55, language: 0.55, lead: 0.65, social: 0.45 },
+      faculties: ['พาณิชยศาสตร์และการบัญชี', 'บริหารธุรกิจ', 'เศรษฐศาสตร์'],
+      majors: ['การตลาด', 'การเงิน', 'บัญชี', 'การจัดการ', 'เศรษฐศาสตร์'],
+      unis: ['ธรรมศาสตร์', 'จุฬาฯ', 'ม.เกษตร', 'ม.ขอนแก่น', 'มศว'],
+      careers: ['นักการตลาด', 'นักวิเคราะห์การเงิน', 'ผู้ประกอบการ', 'ที่ปรึกษาธุรกิจ'],
+      why: 'เหมาะกับคนชอบวางแผน คุยกับคน และคิดเรื่องโอกาสทางธุรกิจ',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'กิจกรรมผู้นำ + คณิตพื้นฐาน', body: 'ลองขายของเล็ก ๆ หรือทำคอนเทนต์ธุรกิจโรงเรียน' },
+        { when: 'สอบเข้า', title: 'TGAT + คณิต/อังกฤษ', body: 'เน้นทักษะคิดวิเคราะห์และภาษา' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกสายการตลาด/การเงิน/บัญชี', body: 'ฝึกงานบริษัทหรือสตาร์ทอัป' },
+        { when: 'อาชีพ', title: 'สร้างเครือข่ายและผลงาน', body: 'สะสมผลงาน/ประสบการณ์จริงและใบรับรองที่เกี่ยวข้อง' },
+      ],
+    },
+    {
+      id: 'lang',
+      title: 'ภาษา / สื่อสารมวลชน',
+      track: 'ศิลป์–ภาษา',
+      weights: { language: 1, creative: 0.65, social: 0.55, lead: 0.35 },
+      faculties: ['อักษรศาสตร์', 'ศิลปศาสตร์', 'นิเทศศาสตร์'],
+      majors: ['ภาษาอังกฤษ', 'ภาษาไทย', 'นิเทศศาสตร์', 'การสื่อสารระหว่างประเทศ'],
+      unis: ['จุฬาฯ', 'ธรรมศาสตร์', 'มศว', 'ม.ศิลปากร', 'ม.เชียงใหม่'],
+      careers: ['นักแปล', 'นักข่าว', 'Content Creator', 'ครูภาษา', 'นักประชาสัมพันธ์'],
+      why: 'เหมาะกับคนรักภาษา การเล่าเรื่อง และการเชื่อมคนเข้าด้วยกัน',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'อ่าน–เขียน–พูดทุกวัน', body: 'ดูคลิปไทย/อังกฤษ และทำคอนเทนต์หรือชมรมสื่อ' },
+        { when: 'สอบเข้า', title: 'TGAT ภาษา + แฟ้มผลงาน', body: 'เก็บงานเขียน พอดแคสต์ หรือวิดีโอสั้น' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกภาษาหรือนิเทศ', body: 'ฝึกงานสื่อ สำนักพิมพ์ หรือหน่วยงานต่างประเทศ' },
+        { when: 'อาชีพ', title: 'สร้างแบรนด์ส่วนตัว', body: 'แฟ้มผลงานออนไลน์สำคัญกว่าเกรดอย่างเดียว' },
+      ],
+    },
+    {
+      id: 'law',
+      title: 'นิติศาสตร์ / รัฐศาสตร์',
+      track: 'ศิลป์–ภาษา / สังคม',
+      weights: { social: 1, language: 0.75, lead: 0.55, business: 0.35 },
+      faculties: ['นิติศาสตร์', 'รัฐศาสตร์', 'สังคมสงเคราะห์'],
+      majors: ['นิติศาสตร์', 'รัฐศาสตร์', 'ความสัมพันธ์ระหว่างประเทศ'],
+      unis: ['ธรรมศาสตร์', 'จุฬาฯ', 'ม.ขอนแก่น', 'ม.เชียงใหม่'],
+      careers: ['นักกฎหมาย', 'ข้าราชการ', 'นักวิเคราะห์นโยบาย', 'นักสิทธิมนุษยชน'],
+      why: 'เหมาะกับคนสนใจความยุติธรรม สังคม และชอบถกเถียงอย่างมีเหตุผล',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'สังคม–ไทย–อังกฤษแน่น', body: 'ร่วมกิจกรรมสภา/จิตอาสา และอ่านข่าวเชิงวิเคราะห์' },
+        { when: 'สอบเข้า', title: 'TGAT + แฟ้มผลงานความเป็นผู้นำ', body: 'เก็บหลักฐานกิจกรรมและการอภิปราย' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกนิติหรือรัฐศาสตร์', body: 'ฝึกงานศาล หน่วยงานรัฐ หรือ NGO' },
+        { when: 'อาชีพ', title: 'สอบใบประกอบ/ข้าราชการ', body: 'วางแผนสอบตามสายงานที่เลือก' },
+      ],
+    },
+    {
+      id: 'edu',
+      title: 'ครุศาสตร์ / ศึกษาศาสตร์',
+      track: 'ตามวิชาที่ถนัด',
+      weights: { social: 0.7, language: 0.65, lead: 0.7, health: 0.35, math: 0.35, science: 0.35 },
+      faculties: ['ครุศาสตร์', 'ศึกษาศาสตร์'],
+      majors: ['การศึกษาปฐมวัย', 'คณิตศึกษา', 'วิทยาศาสตร์ศึกษา', 'ภาษาอังกฤษศึกษา'],
+      unis: ['มศว', 'ม.ขอนแก่น', 'ม.เชียงใหม่', 'ม.ศิลปากร'],
+      careers: ['ครู', 'นักออกแบบการเรียนรู้', 'ติวเตอร์', 'นักพัฒนาหลักสูตร'],
+      why: 'เหมาะกับคนชอบถ่ายทอด อดทน และอยากพัฒนาผู้อื่น',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'ฝึกสอนเพื่อน/น้อง', body: 'สรุปคลิปวิชาที่เก่งแล้วสอนต่อในกลุ่มเรียน' },
+        { when: 'สอบเข้า', title: 'วิชาเอก + ความถนัดครู', body: 'เลือกเอกตามจุดแข็ง และเก็บแฟ้มผลงานการสอน' },
+        { when: 'มหาวิทยาลัย', title: 'ฝึกประสบการณ์ในโรงเรียน', body: 'ใช้ชั่วโมงฝึกสอนให้เต็มที่' },
+        { when: 'อาชีพ', title: 'พัฒนาสื่อการสอน', body: 'สร้างคลิป/ใบงานของตัวเองต่อยอดจากจุดแข็ง' },
+      ],
+    },
+    {
+      id: 'art',
+      title: 'ศิลปะ / ออกแบบ',
+      track: 'ศิลป์–ภาษา / ศิลป์–ออกแบบ',
+      weights: { creative: 1, language: 0.35, tech: 0.4, social: 0.3 },
+      faculties: ['ศิลปกรรมศาสตร์', 'สถาปัตยกรรมศาสตร์', 'มัณฑนศิลป์'],
+      majors: ['ออกแบบผลิตภัณฑ์', 'กราฟิกดีไซน์', 'สถาปัตยกรรม', 'วิจิตรศิลป์'],
+      unis: ['ม.ศิลปากร', 'ลาดกระบัง', 'มศว', 'ม.เชียงใหม่'],
+      careers: ['นักออกแบบ', 'สถาปนิก', 'อาร์ตไดเรกเตอร์', 'ครีเอทีฟ'],
+      why: 'เหมาะกับคนคิดภาพเป็น ชอบสร้างสรรค์ และเล่าเรื่องด้วยภาพ',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'สร้างแฟ้มผลงาน', body: 'วาด ออกแบบ หรือทำสื่อดิจิทัลอย่างสม่ำเสมอ' },
+        { when: 'สอบเข้า', title: 'แฟ้มผลงาน + ข้อสอบเฉพาะทาง', body: 'เตรียมแฟ้มผลงานและทักษะพื้นฐานศิลปะ' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกสายออกแบบหรือสถาปัตย์', body: 'ฝึกงานสตูดิโอ/เอเจนซี' },
+        { when: 'อาชีพ', title: 'โชว์ผลงานออนไลน์', body: 'โพสต์ผลงานบนโซเชียลหรือเว็บแฟ้มผลงานให้เห็นชัด' },
+      ],
+    },
+    {
+      id: 'agri',
+      title: 'เกษตร / อาหาร / สิ่งแวดล้อม',
+      track: 'วิทย์–ประยุกต์',
+      weights: { science: 0.85, health: 0.45, business: 0.4, tech: 0.35, creative: 0.25 },
+      faculties: ['เกษตรศาสตร์', 'อุตสาหกรรมอาหาร', 'ทรัพยากรธรรมชาติ'],
+      majors: ['เกษตรศาสตร์', 'วิทยาศาสตร์การอาหาร', 'สัตวศาสตร์', 'นวัตกรรมเกษตร'],
+      unis: ['ม.เกษตร', 'ม.ขอนแก่น', 'ม.เชียงใหม่', 'มหาวิทยาลัยแม่โจ้'],
+      careers: ['นักเกษตรสมัยใหม่', 'นักพัฒนาผลิตภัณฑ์อาหาร', 'ผู้ประกอบการเกษตร', 'นักสิ่งแวดล้อม'],
+      why: 'เหมาะกับคนสนใจธรรมชาติ อาหาร และนวัตกรรมที่ยั่งยืน',
+      roadmap: [
+        { when: 'ม.ปลาย', title: 'โครงงานวิทย์ประยุกต์', body: 'ทำโครงงานอาหาร/เกษตร/สิ่งแวดล้อมในโรงเรียน' },
+        { when: 'สอบเข้า', title: 'วิทย์ + แฟ้มผลงานโครงงาน', body: 'โชว์ผลงานที่แก้ปัญหาชุมชนได้' },
+        { when: 'มหาวิทยาลัย', title: 'เลือกสายผลิตหรือวิจัย', body: 'หาฝึกงานฟาร์มอัจฉริยะหรือโรงงานอาหาร' },
+        { when: 'อาชีพ', title: 'ต่อยอดธุรกิจชุมชน', body: 'เชื่อมความรู้วิทย์กับธุรกิจท้องถิ่น' },
+      ],
+    },
+  ];
+
+  const INTEREST_DOMAIN_MAP = {
+    'วิทยาศาสตร์/การทดลอง': { science: 1 },
+    'คณิต/ตรรกะ': { math: 1 },
+    'เขียนโปรแกรม/ไอที': { tech: 1, math: 0.4 },
+    'ภาษาต่างประเทศ': { language: 1 },
+    'การเขียน/สื่อสาร': { language: 0.9, creative: 0.4 },
+    'ศิลปะ/ออกแบบ': { creative: 1 },
+    'ดนตรี/การแสดง': { creative: 0.9 },
+    'กีฬา/สุขภาพ': { health: 0.9, lead: 0.3 },
+    'ธุรกิจ/การเงิน': { business: 1, math: 0.3 },
+    'สังคม/จิตอาสา': { social: 1, health: 0.3 },
+    'การแพทย์/สาธารณสุข': { health: 1, science: 0.5 },
+    'สิ่งแวดล้อม': { science: 0.7, social: 0.4 },
+    'กฎหมาย/การเมือง': { social: 1, language: 0.4 },
+    'อาหาร/บริการ': { health: 0.5, business: 0.4, creative: 0.3 },
+    'นวัตกรรม/โครงงาน': { tech: 0.6, creative: 0.5, science: 0.4 },
+    'สื่อ/คอนเทนต์': { creative: 0.8, language: 0.6 },
+  };
+
+  const APTITUDE_DOMAIN_MAP = {
+    'คิดวิเคราะห์': { math: 0.6, science: 0.5 },
+    'คำนวณเก่ง': { math: 1 },
+    'จำดี': { language: 0.4, science: 0.3 },
+    'สื่อสารเก่ง': { language: 0.9, social: 0.4 },
+    'ทำงานเป็นทีม': { lead: 0.5, social: 0.5 },
+    'เป็นผู้นำ': { lead: 1, business: 0.3 },
+    'สร้างสรรค์': { creative: 1 },
+    'ใช้มือ/ปฏิบัติ': { health: 0.4, creative: 0.3, science: 0.3 },
+    'ละเอียดอดทน': { science: 0.4, health: 0.4, math: 0.3 },
+    'แก้ปัญหาเร็ว': { math: 0.5, tech: 0.5 },
+    'ใช้เทคโนโลยี': { tech: 1 },
+    'เอาใจใส่ผู้อื่น': { health: 0.8, social: 0.6 },
+    'พูดโน้มน้าว': { language: 0.7, business: 0.5, lead: 0.4 },
+    'วางแผนเก่ง': { business: 0.6, lead: 0.5 },
+  };
+
+  const GRADE_DOMAIN_MAP = {
+    thai: { language: 1 },
+    math: { math: 1 },
+    science: { science: 1 },
+    eng: { language: 0.95 },
+    social: { social: 1 },
+    tech: { tech: 1 },
+    art: { creative: 1 },
+  };
+
+  const ACT_DOMAIN_MAP = {
+    'แข่งขันวิชาการ': { math: 0.4, science: 0.4, language: 0.3 },
+    'แข่งโครงงาน': { science: 0.5, tech: 0.5, creative: 0.4 },
+    'แข่งนวัตกรรม': { tech: 0.7, creative: 0.5, science: 0.3 },
+    'อบรม/ค่าย': { lead: 0.4, social: 0.4 },
+    'อื่น ๆ': { lead: 0.2 },
+  };
+
+  const VIDEO_SUBJECT_DOMAIN = {
+    'ไทย': { language: 0.8 },
+    'คณิต': { math: 1 },
+    'เคมี': { science: 0.9 },
+    'ชีวะ': { science: 0.9, health: 0.35 },
+    'ฟิสิกส์': { science: 0.85, math: 0.4 },
+    'อังกฤษ': { language: 1 },
+    'Netsat': { math: 0.3, language: 0.3, science: 0.3 },
+    'T-gat': { language: 0.4, social: 0.3 },
+    'T-pat': { science: 0.4, health: 0.3 },
+    'A-level': { math: 0.4, science: 0.4 },
+  };
+
+  function emptyPathwayProfile(studentId, name) {
+    return {
+      studentId,
+      name: name || '',
+      className: '',
+      grades: { thai: '', math: '', science: '', eng: '', social: '', tech: '', art: '' },
+      interests: [],
+      aptitudes: [],
+      goals: '',
+      dreamCareer: '',
+      updatedAt: null,
+    };
+  }
+
+  function getPathwayProfile(data, studentId, name) {
+    const all = data.pathwayProfiles && typeof data.pathwayProfiles === 'object' ? data.pathwayProfiles : {};
+    return all[studentId] ? { ...emptyPathwayProfile(studentId, name), ...all[studentId] } : emptyPathwayProfile(studentId, name);
+  }
+
+  function savePathwayProfile(studentId, profile) {
+    Store.update((d) => {
+      if (!d.pathwayProfiles || typeof d.pathwayProfiles !== 'object') d.pathwayProfiles = {};
+      d.pathwayProfiles[studentId] = {
+        ...profile,
+        studentId,
+        updatedAt: new Date().toISOString(),
+      };
+    });
+  }
+
+  function parseGrade(v) {
+    const n = Number(v);
+    if (!Number.isFinite(n)) return null;
+    if (n <= 4) return Math.max(0, Math.min(4, n)) * 25; // GPA-ish → 0-100
+    return Math.max(0, Math.min(100, n));
+  }
+
+  function blankDomainScores() {
+    const o = {};
+    PATHWAY_DOMAINS.forEach((d) => { o[d.id] = 0; });
+    return o;
+  }
+
+  function addWeights(target, map, factor) {
+    if (!map) return;
+    Object.entries(map).forEach(([k, w]) => {
+      if (target[k] == null) target[k] = 0;
+      target[k] += w * factor;
+    });
+  }
+
+  function collectStudentActivitySignals(data, sessionName, studentId) {
+    const scores = blankDomainScores();
+    let count = 0;
+    (data.activities || []).forEach((raw) => {
+      const a = typeof normalizeActivity === 'function' ? normalizeActivity(raw) : raw;
+      const inTeam = findMyTeam(a, sessionName, studentId);
+      const inBuddy = findBuddy(a, sessionName, studentId);
+      if (!inTeam && !inBuddy) return;
+      count += 1;
+      addWeights(scores, ACT_DOMAIN_MAP[a.category] || ACT_DOMAIN_MAP['อื่น ๆ'], 18);
+      addWeights(scores, { lead: 0.35 }, 12);
+    });
+    return { scores, count };
+  }
+
+  function collectVideoSignals(data) {
+    const scores = blankDomainScores();
+    let count = 0;
+    (data.videos || []).forEach((v) => {
+      const views = Number(v.views || 0);
+      if (views <= 0) return;
+      count += 1;
+      addWeights(scores, VIDEO_SUBJECT_DOMAIN[v.subject], Math.min(20, 6 + views * 2));
+    });
+    return { scores, count };
+  }
+
+  function analyzePathway(profile, data, sessionName, studentId) {
+    const scores = blankDomainScores();
+    const sources = [];
+
+    // grades
+    let gradeN = 0;
+    Object.entries(profile.grades || {}).forEach(([k, v]) => {
+      const g = parseGrade(v);
+      if (g == null) return;
+      gradeN += 1;
+      addWeights(scores, GRADE_DOMAIN_MAP[k], g * 0.45);
+    });
+    if (gradeN) sources.push('เกรด ' + gradeN + ' วิชา');
+
+    // interests
+    (profile.interests || []).forEach((i) => addWeights(scores, INTEREST_DOMAIN_MAP[i], 22));
+    if ((profile.interests || []).length) sources.push('ความสนใจ ' + profile.interests.length + ' ด้าน');
+
+    // aptitudes
+    (profile.aptitudes || []).forEach((i) => addWeights(scores, APTITUDE_DOMAIN_MAP[i], 20));
+    if ((profile.aptitudes || []).length) sources.push('ความถนัด ' + profile.aptitudes.length + ' ด้าน');
+
+    // goals / dream keyword boost
+    const goalText = `${profile.goals || ''} ${profile.dreamCareer || ''}`.toLowerCase();
+    const keywordBoosts = [
+      [/หมอ|พยาบาล|สาธารณสุข|แพทย์|สุขภาพ/, { health: 28, science: 12 }],
+      [/วิศวะ|วิศว|โปรแกรม|โค้ด|คอม|ไอที|ซอฟต์/, { tech: 28, math: 12 }],
+      [/ธุรกิจ|การตลาด|บัญชี|การเงิน|ผู้ประกอบ/, { business: 28, lead: 8 }],
+      [/ครู|สอน|การศึกษา/, { social: 18, language: 12, lead: 12 }],
+      [/กฎหมาย|นิติ|รัฐศาสตร์|การเมือง/, { social: 28, language: 10 }],
+      [/ออกแบบ|ศิลปะ|สถาปัตย์|กราฟิก|ดนตรี/, { creative: 28 }],
+      [/ภาษา|แปล|สื่อ|นิเทศ|คอนเทนต์/, { language: 24, creative: 10 }],
+      [/เกษตร|อาหาร|สิ่งแวดล้อม/, { science: 16, health: 8, business: 8 }],
+    ];
+    keywordBoosts.forEach(([re, map]) => {
+      if (re.test(goalText)) addWeights(scores, map, 1);
+    });
+    if ((profile.goals || '').trim() || (profile.dreamCareer || '').trim()) sources.push('เป้าหมาย');
+
+    const act = collectStudentActivitySignals(data, sessionName, studentId);
+    Object.keys(scores).forEach((k) => { scores[k] += act.scores[k] || 0; });
+    if (act.count) sources.push('กิจกรรม ' + act.count + ' รายการ');
+
+    // light global video popularity signal — optional weak prior from school catalog engagement
+    const vid = collectVideoSignals(data);
+    Object.keys(scores).forEach((k) => { scores[k] += (vid.scores[k] || 0) * 0.15; });
+
+    // normalize 0-100
+    const maxRaw = Math.max(1, ...Object.values(scores));
+    const normalized = {};
+    PATHWAY_DOMAINS.forEach((d) => {
+      normalized[d.id] = Math.round(Math.min(100, (scores[d.id] / maxRaw) * 100));
+    });
+
+    const rankedDomains = PATHWAY_DOMAINS
+      .map((d) => ({ ...d, score: normalized[d.id] }))
+      .sort((a, b) => b.score - a.score);
+
+    const matches = PATHWAY_CATALOG.map((p) => {
+      let num = 0;
+      let den = 0;
+      Object.entries(p.weights).forEach(([k, w]) => {
+        num += (normalized[k] || 0) * w;
+        den += w * 100;
+      });
+      const fit = Math.round((num / Math.max(den, 1)) * 100);
+      return { ...p, fit };
+    }).sort((a, b) => b.fit - a.fit);
+
+    const top = matches[0];
+    const tracks = [...new Set(matches.slice(0, 4).map((m) => m.track))];
+
+    const completeness = Math.min(
+      100,
+      (gradeN >= 3 ? 25 : gradeN * 8) +
+        Math.min(30, (profile.interests || []).length * 6) +
+        Math.min(25, (profile.aptitudes || []).length * 5) +
+        ((profile.goals || '').trim() ? 10 : 0) +
+        ((profile.dreamCareer || '').trim() ? 10 : 0)
+    );
+
+    return {
+      scores: normalized,
+      rankedDomains,
+      matches,
+      top,
+      tracks,
+      sources,
+      completeness,
+      activityCount: act.count,
+    };
+  }
+
   /* ==================== STUDENT ==================== */
   function startStudent(session) {
     const studentId = session.studentId || '17001';
     const nav = [
-      { id: 'home', label: 'หน้าหลักของฉัน', icon: '🏠' },
-      { id: 'videos', label: 'เรียนจากวิดีโอสรุป', icon: '🎬', featured: true },
-      { id: 'activities', label: 'กิจกรรม & หาทีม', icon: '🏆', featured: true },
+      { id: 'home', label: 'หน้าหลัก', icon: '🏠' },
+      { id: 'pathway', label: 'เข็มทิศอนาคต', icon: '🧭', featured: true },
+      { id: 'videos', label: 'วิดีโอสรุปบทเรียน', icon: '🎬', featured: true },
+      { id: 'activities', label: 'กิจกรรมและหาทีม', icon: '🏆', featured: true },
       { id: 'news', label: 'ประกาศข่าวสาร', icon: '📢' },
       { id: 'calendar', label: 'ปฏิทินกิจกรรม', icon: '📅' },
-      { id: 'records', label: 'ประวัติความประพฤติของฉัน', icon: '🛡️' },
-      { id: 'lostfound', label: 'ของหายได้คืน', icon: '🎒' },
+      { id: 'records', label: 'ประวัติความประพฤติ', icon: '🛡️' },
+      { id: 'lostfound', label: 'ของหาย-ของพบ', icon: '🎒' },
       { id: 'help', label: 'แจ้งเรื่อง / ข้อเสนอ', icon: '💬' },
     ];
-    const shell = mountShell(session, nav, 'พอร์ทัลนักเรียน');
+    const shell = mountShell(session, nav, 'หน้าสำหรับนักเรียน');
     let section = 'home';
     let videoFilter = SUBJECTS[0];
+    let pathwayMode = 'view'; // view | edit
+    let pathwayChart = null;
 
     // กระพริบสั้น ๆ ที่เมนูเด่นตอนเข้าสู่ระบบ เพื่อดึงสายตา
     setTimeout(() => {
       document.querySelectorAll('.nav-featured').forEach((el, i) => {
+        if (el.dataset.navId === 'pathway') el.classList.add('nav-pathway');
         el.style.animation = 'none';
-        // force reflow
         void el.offsetWidth;
         el.style.animation = `navFeaturePulse 2.4s ease-in-out infinite, navFeaturePop .7s ${i * 0.12}s both`;
       });
@@ -5002,20 +5757,47 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       const data = Store.load();
       shell.setNav(section);
       shell.topActions.innerHTML = `<span class="badge badge-purple">รหัส ${esc(studentId)}</span>`;
+      if (pathwayChart && section !== 'pathway') {
+        pathwayChart.destroy();
+        pathwayChart = null;
+      }
 
       if (section === 'home') {
         const news = studentAnnouncements(data);
+        const profile = getPathwayProfile(data, studentId, session.name);
+        const hasPath = !!(profile.updatedAt);
         shell.content.innerHTML = `
           <div class="portal-banner">
             <h2>สวัสดี, ${esc(session.name)}</h2>
-            <p>พอร์ทัลสำหรับนักเรียน — เรียนจากคลิปสรุป สมัครกิจกรรม/หาทีม และติดตามประกาศที่เปิดให้นักเรียน</p>
+            <p>เมนูสำหรับนักเรียน — ดูเส้นทางอนาคต เรียนจากวิดีโอ สมัครกิจกรรม และอ่านประกาศ</p>
             <div class="quick-links">
+              <a class="quick-link" href="#" data-go="pathway"><span>🧭</span>${hasPath ? 'เข็มทิศอนาคต' : 'เริ่มทำเข็มทิศอนาคต'}</a>
               <a class="quick-link" href="#" data-go="videos"><span>🎬</span>วิดีโอ</a>
               <a class="quick-link" href="#" data-go="activities"><span>🤝</span>กิจกรรม</a>
-              <a class="quick-link" href="#" data-go="lostfound"><span>🎒</span>ของหายได้คืน</a>
               <a class="quick-link" href="#" data-go="records"><span>🛡️</span>ประวัติความประพฤติ</a>
             </div>
           </div>
+          ${
+            hasPath
+              ? (() => {
+                  const a = analyzePathway(profile, data, session.name, studentId);
+                  return `<div class="pathway-panel" style="margin-bottom:1.25rem">
+                    <h3>สรุปเข็มทิศของคุณ <button type="button" class="btn btn-outline btn-sm" data-go="pathway">ดูแบบเต็ม</button></h3>
+                    <p class="sub">จุดแข็ง · สายการเรียน · คณะที่แนะนำ</p>
+                    <div class="insight-strip">
+                      <div class="insight-mini"><div class="lbl">จุดแข็ง</div><div class="val">${esc(a.rankedDomains[0]?.label || '-')}</div><div class="hint">คะแนน ${a.rankedDomains[0]?.score || 0}</div></div>
+                      <div class="insight-mini"><div class="lbl">สายการเรียน</div><div class="val">${esc(a.tracks[0] || '-')}</div><div class="hint">${esc(a.top?.title || '')}</div></div>
+                      <div class="insight-mini"><div class="lbl">ข้อมูลครบแค่ไหน</div><div class="val">${a.completeness}%</div><div class="hint">${esc((a.sources || []).slice(0, 2).join(' · ') || 'อัปเดตข้อมูลเพื่อผลที่แม่นขึ้น')}</div></div>
+                    </div>
+                  </div>`;
+                })()
+              : `<div class="pathway-panel pathway-empty" style="margin-bottom:1.25rem">
+                  <div class="orb" aria-hidden="true"></div>
+                  <h3 style="justify-content:center">ยังไม่มีเข็มทิศอนาคต</h3>
+                  <p class="sub" style="text-align:center;max-width:42ch;margin:.35rem auto 1rem">ใส่เกรด ความสนใจ ความถนัด และเป้าหมาย — ระบบจะแนะนำจุดแข็ง คณะ สาขา สถาบัน และอาชีพที่เหมาะกับคุณ</p>
+                  <button type="button" class="btn btn-primary" data-go="pathway">เริ่มทำเข็มทิศอนาคต</button>
+                </div>`
+          }
           <div class="grid-2">
             <div class="panel"><div class="panel-header"><h3>กิจกรรมแนะนำ</h3></div>
               ${data.activities
@@ -5025,7 +5807,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                   (a) =>
                     `<div class="feed-item"><div class="feed-dot">🏆</div><div class="feed-body"><h4>${esc(a.title)}</h4><p class="time">${esc(a.category)} · ${formatDate(a.date)}</p></div></div>`
                 )
-                .join('') || '<div class="empty-state">ยังไม่มี</div>'}
+                .join('') || '<div class="empty-state">ยังไม่มีกิจกรรมแนะนำ</div>'}
             </div>
             <div class="panel"><div class="panel-header"><h3>วิดีโอยอดนิยม</h3></div>
               ${[...data.videos]
@@ -5053,9 +5835,253 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           el.onclick = (e) => {
             e.preventDefault();
             section = el.dataset.go;
+            if (section === 'pathway' && !hasPath) pathwayMode = 'edit';
             render();
           };
         });
+      }
+
+      if (section === 'pathway') {
+        const profile = getPathwayProfile(data, studentId, session.name);
+        const hasPath = !!(profile.updatedAt);
+        if (!hasPath) pathwayMode = 'edit';
+
+        const renderPathwayForm = () => {
+          shell.content.innerHTML = `
+            <div class="pathway-hero">
+              <div class="pathway-hero-inner">
+                <div class="pathway-kicker">✦ เข็มทิศอนาคต · บ้านไผ่</div>
+                <h2>สร้างเข็มทิศอนาคตของคุณ</h2>
+                <p>ใส่เกรด ความสนใจ ความถนัด และเป้าหมาย ระบบจะแนะนำจุดแข็ง สายเรียน คณะ และอาชีพที่เหมาะกับคุณ</p>
+              </div>
+            </div>
+            <form id="pathwayForm" class="pathway-panel">
+              <h3>1) ข้อมูลพื้นฐาน</h3>
+              <div class="grid-2">
+                <div class="form-group"><label>ชื่อ–นามสกุล</label><input class="form-control" name="name" value="${esc(profile.name || session.name)}" required /></div>
+                <div class="form-group"><label>ชั้น/ห้อง</label><input class="form-control" name="className" placeholder="เช่น ม.5/2" value="${esc(profile.className || '')}" /></div>
+              </div>
+              <h3 class="mt-3">2) เกรด / ผลการเรียน (ใส่เกรด 0–4 หรือคะแนน 0–100)</h3>
+              <p class="sub">ยังไม่ครบทุกวิชาก็ได้ — ใส่เยอะขึ้น ผลจะแม่นขึ้น</p>
+              <div class="grade-grid">
+                ${PATHWAY_GRADE_KEYS.map((g) => `
+                  <div class="form-group"><label>${esc(g.label)}</label>
+                  <input class="form-control" name="grade_${g.key}" type="number" min="0" max="100" step="0.01" placeholder="เช่น 3.5 หรือ 85" value="${esc(profile.grades?.[g.key] ?? '')}" /></div>`).join('')}
+              </div>
+              <h3 class="mt-3">3) ความสนใจ</h3>
+              <div class="chip-select" id="interestChips">
+                ${PATHWAY_INTERESTS.map((i) => `<label><input type="checkbox" name="interest" value="${esc(i)}" ${(profile.interests || []).includes(i) ? 'checked' : ''}/> ${esc(i)}</label>`).join('')}
+              </div>
+              <h3 class="mt-3">4) ความถนัด</h3>
+              <div class="chip-select">
+                ${PATHWAY_APTITUDES.map((i) => `<label><input type="checkbox" name="aptitude" value="${esc(i)}" ${(profile.aptitudes || []).includes(i) ? 'checked' : ''}/> ${esc(i)}</label>`).join('')}
+              </div>
+              <h3 class="mt-3">5) เป้าหมาย</h3>
+              <div class="form-group"><label>อาชีพในฝัน / สิ่งที่อยากเป็น</label><input class="form-control" name="dreamCareer" placeholder="เช่น วิศวกรซอฟต์แวร์, แพทย์, ครู..." value="${esc(profile.dreamCareer || '')}" /></div>
+              <div class="form-group"><label>เป้าหมายเพิ่มเติม</label><textarea class="form-control" name="goals" rows="3" placeholder="อยากเรียนคณะอะไร อยากช่วยชุมชนแบบไหน หรือทักษะที่อยากพัฒนา">${esc(profile.goals || '')}</textarea></div>
+              <p class="muted" style="font-size:.88rem;margin:.5rem 0 1rem">ระบบจะนำกิจกรรมที่คุณเข้าร่วมในโรงเรียนมาช่วยวิเคราะห์ด้วย</p>
+              <div class="toolbar-row">
+                <button type="submit" class="btn btn-primary">สร้างเข็มทิศของฉัน</button>
+                ${hasPath ? '<button type="button" class="btn btn-outline" id="pathwayCancelEdit">ยกเลิก</button>' : ''}
+              </div>
+            </form>`;
+
+          document.getElementById('pathwayForm').onsubmit = (e) => {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const grades = {};
+            PATHWAY_GRADE_KEYS.forEach((g) => {
+              grades[g.key] = String(fd.get('grade_' + g.key) || '').trim();
+            });
+            const next = {
+              studentId,
+              name: String(fd.get('name') || session.name).trim(),
+              className: String(fd.get('className') || '').trim(),
+              grades,
+              interests: [...e.target.querySelectorAll('input[name="interest"]:checked')].map((x) => x.value),
+              aptitudes: [...e.target.querySelectorAll('input[name="aptitude"]:checked')].map((x) => x.value),
+              goals: String(fd.get('goals') || '').trim(),
+              dreamCareer: String(fd.get('dreamCareer') || '').trim(),
+            };
+            if (!next.interests.length && !next.aptitudes.length && !Object.values(grades).some(Boolean) && !next.goals && !next.dreamCareer) {
+              toast('กรอกอย่างน้อยเกรด ความสนใจ ความถนัด หรือเป้าหมายสักอย่าง', 'warning');
+              return;
+            }
+            savePathwayProfile(studentId, next);
+            pathwayMode = 'view';
+            toast('วิเคราะห์เข็มทิศอนาคตแล้ว', 'success');
+            render();
+          };
+          const cancel = document.getElementById('pathwayCancelEdit');
+          if (cancel) {
+            cancel.onclick = () => {
+              pathwayMode = 'view';
+              render();
+            };
+          }
+        };
+
+        const renderPathwayResult = () => {
+          const analysis = analyzePathway(profile, data, session.name, studentId);
+          const top3 = analysis.matches.slice(0, 3);
+          const top = analysis.top;
+          shell.content.innerHTML = `
+            <div class="pathway-hero">
+              <div class="pathway-hero-inner">
+                <div class="pathway-kicker">✦ เข็มทิศอนาคต · ${esc(profile.className || 'นักเรียนบ้านไผ่')}</div>
+                <h2>${esc(profile.name || session.name)}</h2>
+                <p>จากเกรด ความสนใจ ความถนัด เป้าหมาย${analysis.activityCount ? ' และกิจกรรมที่เข้าร่วม' : ''} — เส้นทางที่สอดคล้องที่สุดตอนนี้คือ <strong style="color:#f0df9a">${esc(top.title)}</strong> (${esc(top.track)})</p>
+                <div class="pathway-hero-actions">
+                  <button type="button" class="btn btn-gold" id="pathwayEditBtn">แก้ไขข้อมูลของฉัน</button>
+                  <button type="button" class="btn btn-ghost-light" data-go="videos">ไปดูวิดีโอเสริม</button>
+                  <button type="button" class="btn btn-ghost-light" data-go="activities">ดูกิจกรรมที่เปิดอยู่</button>
+                </div>
+                <div class="pathway-meta-row">
+                  <span class="pathway-chip">ข้อมูลครบ ${analysis.completeness}%</span>
+                  <span class="pathway-chip">เหมาะกับคุณ ${top.fit}%</span>
+                  ${(analysis.sources || []).slice(0, 3).map((s) => `<span class="pathway-chip">${esc(s)}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+
+            <div class="insight-strip">
+              <div class="insight-mini"><div class="lbl">จุดแข็งอันดับ 1</div><div class="val">${esc(analysis.rankedDomains[0]?.label || '-')}</div><div class="hint">คะแนน ${analysis.rankedDomains[0]?.score || 0}/100</div></div>
+              <div class="insight-mini"><div class="lbl">สายการเรียนแนะนำ</div><div class="val">${esc(analysis.tracks[0] || '-')}</div><div class="hint">${esc(analysis.tracks.slice(1, 3).join(' · ') || 'เน้นสายหลักก่อน')}</div></div>
+              <div class="insight-mini"><div class="lbl">อาชีพตัวอย่าง</div><div class="val">${esc((top.careers || [])[0] || '-')}</div><div class="hint">${esc((top.careers || []).slice(1, 3).join(' · '))}</div></div>
+            </div>
+
+            <div class="pathway-layout">
+              <div class="pathway-panel">
+                <h3>แผนภาพจุดแข็ง</h3>
+                <p class="sub">คะแนนรวมจากข้อมูลที่คุณกรอกและกิจกรรมในระบบ</p>
+                <div class="pathway-radar-wrap"><canvas id="pathwayRadar"></canvas></div>
+              </div>
+              <div class="pathway-panel">
+                <h3>อันดับจุดแข็ง</h3>
+                <p class="sub">ใช้เป็นเข็มทิศเลือกวิชาเสริมและกิจกรรม</p>
+                <div class="strength-list">
+                  ${analysis.rankedDomains.slice(0, 6).map((d) => `
+                    <div class="strength-row">
+                      <div class="label">${esc(d.label)}</div>
+                      <div class="strength-bar"><i data-w="${d.score}"></i></div>
+                      <div class="pct">${d.score}</div>
+                    </div>`).join('')}
+                </div>
+                <h3 class="mt-3">สายการเรียนที่สอดคล้อง</h3>
+                <div class="track-pills">
+                  ${analysis.tracks.map((t, i) => `<span class="track-pill ${i === 0 ? 'top' : ''}">${i === 0 ? '★ ' : ''}${esc(t)}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+
+            <h3 style="margin:.2rem 0 .85rem;color:var(--plum-900)">คณะ · สาขา · สถาบัน ที่แนะนำ</h3>
+            <div class="match-grid">
+              ${top3.map((m, idx) => `
+                <article class="match-item rank-${idx + 1}">
+                  <div class="match-rank">#${idx + 1}</div>
+                  <div class="fit">เหมาะกับคุณ ${m.fit}%</div>
+                  <h4>${esc(m.title)}</h4>
+                  <p class="muted" style="font-size:.9rem">${esc(m.why)}</p>
+                  <div class="match-tags">
+                    <span>${esc(m.track)}</span>
+                    ${(m.faculties || []).map((f) => `<span>${esc(f)}</span>`).join('')}
+                  </div>
+                  <strong style="font-size:.86rem;color:var(--plum-800)">สาขาแนะนำ</strong>
+                  <ul>${(m.majors || []).slice(0, 4).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+                  <strong style="font-size:.86rem;color:var(--plum-800)">สถาบันตัวอย่าง</strong>
+                  <ul>${(m.unis || []).slice(0, 4).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+                  <strong style="font-size:.86rem;color:var(--plum-800)">อาชีพที่ไปต่อได้</strong>
+                  <ul>${(m.careers || []).slice(0, 4).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+                </article>`).join('')}
+            </div>
+
+            <div class="pathway-layout">
+              <div class="pathway-panel">
+                <h3>เส้นทางการเรียนในอนาคต</h3>
+                <p class="sub">แผนทีละขั้นตามสาย ${esc(top.title)}</p>
+                <div class="pathway-timeline">
+                  ${(top.roadmap || []).map((s) => `
+                    <div class="pathway-step">
+                      <div class="when">${esc(s.when)}</div>
+                      <h5>${esc(s.title)}</h5>
+                      <p>${esc(s.body)}</p>
+                    </div>`).join('')}
+                </div>
+              </div>
+              <div class="pathway-panel">
+                <h3>สิ่งที่ควรทำต่อทันที</h3>
+                <p class="sub">เลือกทำ 2–3 ข้อนี้ในเดือนนี้</p>
+                <div class="pathway-timeline">
+                  <div class="pathway-step"><div class="when">วิชาเสริม</div><h5>เรียนวิดีโอตามจุดแข็ง/จุดอ่อน</h5><p>เน้นวิชาที่คะแนนสูงเพื่อต่อยอด และวิชาที่คะแนนต่ำเพื่อเก็บพื้นฐานก่อนสอบเข้า</p></div>
+                  <div class="pathway-step"><div class="when">กิจกรรม</div><h5>เลือกกิจกรรมที่เสริมสาย ${esc(top.track)}</h5><p>${analysis.activityCount ? 'คุณมีกิจกรรมในระบบแล้ว — ลองกิจกรรมประเภทอื่นเพิ่มด้วย' : 'ยังไม่มีกิจกรรมในระบบ — สมัครแข่งหรืออบรมเพื่อให้วิเคราะห์แม่นขึ้น'}</p></div>
+                  <div class="pathway-step"><div class="when">เป้าหมาย</div><h5>${esc(profile.dreamCareer || 'ตั้งอาชีพในฝันให้ชัดขึ้น')}</h5><p>${esc(profile.goals || 'อัปเดตเป้าหมายให้ชัดขึ้น เช่น คณะ สถาบัน หรือทักษะที่อยากมีใน 1 ปี')}</p></div>
+                  <div class="pathway-step"><div class="when">แฟ้มผลงาน</div><h5>เก็บหลักฐานความสามารถ</h5><p>รางวัล โครงงาน ชมรม หรือผลงานออนไลน์ จะช่วยตัดสินใจและยื่นเข้าเรียนได้ดีขึ้น</p></div>
+                </div>
+              </div>
+            </div>
+            <p class="muted" style="font-size:.84rem;margin-top:.5rem">หมายเหตุ: ผลนี้เป็นแนวทางช่วยตัดสินใจจากข้อมูลที่คุณให้ ไม่ใช่คำตอบตายตัว — ควรคุยกับครูแนะแนวด้วย</p>`;
+
+          document.getElementById('pathwayEditBtn').onclick = () => {
+            pathwayMode = 'edit';
+            render();
+          };
+          shell.content.querySelectorAll('[data-go]').forEach((el) => {
+            el.onclick = (e) => {
+              e.preventDefault();
+              section = el.dataset.go;
+              render();
+            };
+          });
+
+          requestAnimationFrame(() => {
+            shell.content.querySelectorAll('.strength-bar > i').forEach((el) => {
+              el.style.width = `${el.dataset.w || 0}%`;
+            });
+            const canvas = document.getElementById('pathwayRadar');
+            if (canvas && window.Chart) {
+              if (pathwayChart) {
+                pathwayChart.destroy();
+                pathwayChart = null;
+              }
+              pathwayChart = new Chart(canvas, {
+                type: 'radar',
+                data: {
+                  labels: PATHWAY_DOMAINS.map((d) => d.label),
+                  datasets: [{
+                    label: 'ข้อมูลของคุณ',
+                    data: PATHWAY_DOMAINS.map((d) => analysis.scores[d.id] || 0),
+                    borderColor: '#c9a24a',
+                    backgroundColor: 'rgba(47, 184, 137, 0.22)',
+                    pointBackgroundColor: '#2fb889',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2,
+                  }],
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: { legend: { display: false } },
+                  scales: {
+                    r: {
+                      min: 0,
+                      max: 100,
+                      ticks: { display: false, stepSize: 20 },
+                      grid: { color: 'rgba(94,45,150,.12)' },
+                      angleLines: { color: 'rgba(94,45,150,.12)' },
+                      pointLabels: {
+                        font: { family: 'Prompt', size: 11, weight: '600' },
+                        color: '#3a1d5c',
+                      },
+                    },
+                  },
+                },
+              });
+            }
+          });
+        };
+
+        if (pathwayMode === 'edit') renderPathwayForm();
+        else renderPathwayResult();
       }
 
       if (section === 'videos') {
@@ -5072,7 +6098,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               <div class="video-body"><span class="badge badge-purple">${esc(v.subject)}</span>
               ${v.gradeTerm || v.desc ? `<div class="meta" style="margin-top:.25rem">${esc(v.gradeTerm || v.desc)}</div>` : ''}
               <h4 class="mt-1">${esc(v.title)}</h4>
-              <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ชม.</div></div></article>`
+              <div class="meta">${esc(v.teacher)} · ${esc(v.duration)} · ${v.views || 0} ครั้ง</div></div></article>`
             )
             .join('') || '<div class="empty-state">ยังไม่มีวิดีโอในหมวดนี้</div>'}</div>`;
         shell.content.querySelectorAll('[data-sub]').forEach((btn) => {
@@ -5324,7 +6350,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
               const act = normalizeActivity(Store.load().activities.find((x) => x.id === actId));
               if (!act || !act.open) return;
               const info = await openSignupForm({
-                title: 'ลงชื่อหาเพื่อนไปอบรม — ' + act.title,
+                title: 'ลงชื่อหาเพื่อนไปด้วย — ' + act.title,
                 defaults: { name: session.name, className: '', contact: '' },
               });
               if (!info) return;
@@ -5465,7 +6491,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
                 </tbody></table></div>`
                 : '<div class="empty-state">ไม่มีรายงานสาย</div>'}
             </div>
-            <div class="panel"><div class="panel-header"><h3>พฤติกรรมไม่ถูกต้อง</h3></div>
+            <div class="panel"><div class="panel-header"><h3>พฤติกรรมไม่เหมาะสม</h3></div>
               ${m.length
                 ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>วันที่</th><th>ประเภท</th><th>สถานะ</th><th>รายละเอียด</th></tr></thead><tbody>
                 ${m.map((r) => `<tr><td>${formatDate(r.date)}</td><td>${esc(r.category)}</td><td>${badge(r.status)}</td><td>${esc(r.detail)}</td></tr>`).join('')}
@@ -5484,7 +6510,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           <div class="section-intro"><p>แจ้งของหาย ดูของพบ และขอรับคืน — สภา/ครูกิจการจะช่วยส่งคืนให้</p></div>
           <div class="toolbar-row">
             <a class="btn btn-outline btn-sm" href="${GOOGLE_SHEET_LINK}" target="_blank" rel="noopener">เปิด Google Sheet</a>
-            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'เมื่อกดส่ง ข้อมูลจะเข้าชีตของหายได้คืนอัตโนมัติ' : 'ยังไม่ได้ตั้งค่า Web App URL'}</span>
+            <span class="muted" style="font-size:.85rem">${SheetsAPI.enabled() ? 'เมื่อกดส่ง ข้อมูลจะเข้าชีต “ของหายได้คืน” อัตโนมัติ' : 'ยังไม่ได้ตั้งค่า Web App URL'}</span>
           </div>
           <div class="grid-2">
             <div class="panel">
@@ -5595,8 +6621,8 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             d.lostFound.unshift({ ...item });
             d.announcements.unshift({
               id: uid('n'),
-              title: 'พบของหาย: ' + item.title,
-              body: `พบที่ ${item.location} — นักเรียนสามารถขอรับคืนได้ในเมนูของหายได้คืน`,
+              title: 'พบของ: ' + item.title,
+              body: `พบที่ ${item.location} — นักเรียนขอรับคืนได้ที่เมนูของหาย-ของพบ`,
               date: todayISO(),
               audience: 'all',
             });
@@ -5641,7 +6667,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
           </div>
           <div class="grid-2">
             <div class="panel"><div class="panel-header"><h3>แจ้งเรื่อง / ข้อเสนอ</h3></div>
-              <p class="muted mb-2">ส่งข้อความถึงครูกิจการ — ของหาย/ของพบใช้เมนู “ของหายได้คืน”</p>
+              <p class="muted mb-2">ส่งข้อความถึงครูกิจการ — ของหาย/ของพบใช้เมนู “ของหาย-ของพบ”</p>
               <form id="fHelp">
                 <div class="form-group"><label>หัวข้อ</label><select class="form-control" name="topic">
                   <option>ขอแก้ข้อมูลรายงานความประพฤติ</option>
@@ -5679,7 +6705,7 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
             d.studentMessages.unshift({ ...message });
             d.incidents.unshift({
               id: uid('i'),
-              type: 'สถานการณ์',
+              type: 'เหตุการณ์',
               title: '[จากนักเรียน] ' + message.topic,
               detail: message.detail + ` — โดย ${session.name} (${studentId})`,
               date: todayISO(),
@@ -5744,16 +6770,16 @@ table.data-table tr:hover td { background: rgba(248, 242, 252, 0.75); }
       student: '🎒',
     };
     const demoByRole = {
-      admin: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
-      teacher: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
-      council: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
-      student: 'แอดมินทุกบทบาท: 0937107114 / 0937107114',
+      admin: 'บัญชีทดสอบ: 0937107114 / 0937107114',
+      teacher: 'บัญชีทดสอบ: 0937107114 / 0937107114',
+      council: 'บัญชีทดสอบ: 0937107114 / 0937107114',
+      student: 'บัญชีทดสอบ: 0937107114 / 0937107114',
     };
 
     function selectRole(role) {
       selectedRole = role;
       cards.forEach((c) => c.classList.toggle('selected', c.dataset.role === role));
-      label.textContent = 'เข้าสู่ระบบในฐานะ' + ROLES[role].label;
+      label.textContent = 'เข้าสู่ระบบในฐานะ ' + ROLES[role].label;
       if (roleIcon) roleIcon.textContent = iconByRole[role] || '🔐';
       studentExtra.style.display = role === 'student' ? 'block' : 'none';
       if (demoHint) demoHint.textContent = demoByRole[role] || '';

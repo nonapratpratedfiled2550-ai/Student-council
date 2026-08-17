@@ -202,8 +202,8 @@ function jsonOut_(obj) {
 
 function typeLabel_(type) {
   if (type === 'helmet') return 'ไม่สวมหมวกกันน็อค';
-  if (type === 'late') return 'กักแถวสาย';
-  if (type === 'misconduct') return 'พฤติกรรมไม่ถูกต้อง';
+  if (type === 'late') return 'เข้าแถวสาย';
+  if (type === 'misconduct') return 'พฤติกรรมไม่เหมาะสม';
   return type || '';
 }
 
@@ -233,8 +233,8 @@ function rowToObj_(row) {
 
 function labelToType_(label) {
   if (label === 'ไม่สวมหมวกกันน็อค') return 'helmet';
-  if (label === 'กักแถวสาย') return 'late';
-  if (label === 'พฤติกรรมไม่ถูกต้อง') return 'misconduct';
+  if (label === 'เข้าแถวสาย' || label === 'กักแถวสาย') return 'late';
+  if (label === 'พฤติกรรมไม่เหมาะสม' || label === 'พฤติกรรมไม่ถูกต้อง') return 'misconduct';
   if (label === 'helmet' || label === 'late' || label === 'misconduct') return label;
   return 'misconduct';
 }
